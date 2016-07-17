@@ -1,0 +1,147 @@
+###############################################################################
+#	extern lib suse32 for Qzon
+#
+###############################################################################
+
+###  FastCGI library define
+###  modified, 把fcgi库改成静态库，避免发布的麻烦
+PATH_FASTCGI     = $(PATH_QZONE_EXTERN_LIB)/fcg
+INC_FASTCGI      = -I$(PATH_FASTCGI)/include
+LIB_FASTCGI      = $(PATH_FASTCGI)/lib/libfcgi.a
+
+
+###  TNM Agent API
+PATH_TNMAPI      = $(PATH_QZONE_EXTERN_LIB)/tnm_api
+INC_TNMAPI       = -I$(PATH_TNMAPI)/include
+LIB_TNMAPI       = $(PATH_TNMAPI)/lib/attr_api.a
+
+###  GD library define
+###  modified,把gd库改成静态库，避免发布后动态库版本问题
+PATH_GD          = $(PATH_QZONE_EXTERN_LIB)/gd
+INC_GD           = -I$(PATH_GD)/include
+LIB_GD           = -L$(PATH_GD)/lib/ -lgd -ljpeg -lpng
+
+
+##im
+##oigatewayclient
+INC_OIGATEWAYCLIENT =-I$(PATH_QZONE_EXTERN_LIB)/oigatewayclient/include
+LIB_OIGATEWAYCLIENT = $(PATH_QZONE_EXTERN_LIB)/oigatewayclient/lib/liboigatewayclient.a
+
+###  C4A macro define
+PATH_C4A         = $(PATH_QZONE_EXTERN_LIB)/c4a
+INC_C4A          = -I$(PATH_C4A)/include
+LIB_C4A          = -L$(PATH_C4A)/lib -lc4aapi
+
+### mgw
+INC_MGW= -I$(PATH_QZONE_EXTERN_LIB)/mgw_api/include
+LIB_MGW= -L$(PATH_QZONE_EXTERN_LIB)/mgw_api/lib -lmgwapi
+
+### cookie
+PATH_COOKIE     = $(PATH_QZONE_EXTERN_LIB)/cookie
+INC_COOKIE      = -I$(PATH_COOKIE)/include
+LIB_COOKIE      = $(PATH_COOKIE)/lib/libAdmrComm.a
+
+###sns area encode
+PATH_SNSAREAENCODE     = $(PATH_QZONE_EXTERN_LIB)/sns_area_encode
+INC_SNSAREAENCODE      = -I$(PATH_SNSAREAENCODE)/include
+LIB_SNSAREAENCODE      = $(PATH_SNSAREAENCODE)/lib/libextern_snsareaencode.a
+
+### dbb
+PATH_BDB     = $(PATH_QZONE_EXTERN_LIB)/bdb
+INC_BDB      = -I$(PATH_BDB)/include
+LIB_BDB      = $(PATH_BDB)/lib/libdb.a
+
+### zlib
+PATH_ZLIB     = $(PATH_QZONE_EXTERN_LIB)/zlib
+INC_ZLIB      = -I$(PATH_ZLIB)/include
+LIB_ZLIB      = $(PATH_ZLIB)/lib/libz.a
+
+###friend is fans
+PATH_SHAREAPI           = $(PATH_QZONE_EXTERN_LIB)/share
+INC_SHAREAPI            = -I$(PATH_SHAREAPI)/include
+LIB_SHAREAPI            = -L$(PATH_SHAREAPI)/lib/ -lfrdjoinapi -lfrdjoinclient -lfrdjoinl5 
+
+### memcache
+PATH_MEMCACHE  = $(PATH_QZONE_EXTERN_LIB)/memcache
+INC_MEMCACHE    = -I$(PATH_MEMCACHE)/include/
+LIB_MEMCACHE    = $(PATH_MEMCACHE)/lib/libmemcache.a
+
+
+### qqmail
+INC_QQMAIL= -I$(PATH_QZONE_EXTERN_LIB)/qqmail/include
+LIB_QQMAIL= -L$(PATH_QZONE_EXTERN_LIB)/qqmail/lib -lepmsapi -lprotoc
+
+### dirty_check
+INC_DIRTYCHECK= -I$(PATH_QZONE_EXTERN_LIB)/dirtycheck/include/
+LIB_DIRTYCHECK= -L$(PATH_QZONE_EXTERN_LIB)/dirtycheck/lib -lisd_dirtycheck
+
+### NOTIFY_API
+INC_NOTIFY_INVOICE_API = -I$(PATH_QZONE_EXTERN_LIB)/notify_invoice/include
+LIB_NOTIFY_INVOICE_API = $(PATH_QZONE_EXTERN_LIB)/notify_invoice/lib/libbill_operator.a
+
+### sac_agent
+INC_SAC= -I$(PATH_QZONE_EXTERN_LIB)/sac_agent/include
+LIB_SAC= -L$(PATH_QZONE_EXTERN_LIB)/sac_agent/lib -lsac_agent_api4.1
+
+### tinyxml
+INC_TINYXML= -I$(PATH_QZONE_EXTERN_LIB)/tinyxml/include/
+LIB_TINYXML= -L$(PATH_QZONE_EXTERN_LIB)/tinyxml/lib -ltinyxml
+
+### friendclient
+INC_FRIENDCLIENT= -I$(PATH_QZONE_EXTERN_LIB)/friendclient/include/
+LIB_FRIENDCLIENT= -L$(PATH_QZONE_EXTERN_LIB)/friendclient/lib -lfriendclient
+
+### qq_acct
+INC_QQ_ACCT=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/
+INC_QQ_ACCT+=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/api/
+INC_QQ_ACCT+=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/base/
+INC_QQ_ACCT+=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/batchapi/
+INC_QQ_ACCT+=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/billno/
+INC_QQ_ACCT+=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/cache_api/
+INC_QQ_ACCT+=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/exchange_api/
+INC_QQ_ACCT+=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/game_api/
+INC_QQ_ACCT+=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/libxml/
+INC_QQ_ACCT+=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/msscache/
+INC_QQ_ACCT+=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/paycenter/
+INC_QQ_ACCT+=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/qqcard/
+INC_QQ_ACCT+=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/qqcoin/
+LIB_QQ_ACCT=-L$(PATH_QZONE_EXTERN_LIB)/qq_acct/lib -lqqacctapi -lqqacctmsg -lwtpkghead
+
+### snsad_encode
+INC_SNSAD_ENCODE = -I$(PATH_QZONE_EXTERN_LIB)/snsad_encode/include/
+LIB_SNSAD_ENCODE = -L$(PATH_QZONE_EXTERN_LIB)/snsad_encode/lib -lsnsad_encode
+
+### tmem
+INC_TMEM = -I$(PATH_QZONE_EXTERN_LIB)/tmem/include/
+LIB_TMEM = -L$(PATH_QZONE_EXTERN_LIB)/tmem/lib -ltrmem -lasn1c++
+
+### tssd
+INC_TSSD = -I$(PATH_QZONE_EXTERN_LIB)/tssd/include/
+LIB_TSSD = $(PATH_QZONE_EXTERN_LIB)/tssd/lib/kv_packager.a $(PATH_QZONE_EXTERN_LIB)/tssd/lib/tdb_handle.a
+
+### qzoidb
+INC_QZOIDB = -I$(PATH_QZONE_EXTERN_LIB)/qzoidb/include/
+LIB_QZOIDB = $(PATH_QZONE_EXTERN_LIB)/qzoidb/lib/libclose_friend_api.a $(PATH_QZONE_EXTERN_LIB)/qzoidb/lib/libarrsvr_api.a
+
+### gtest
+INC_GTEST_HEADER = -I$(PATH_QZONE_BASE_CLASS_PRJ)/thirdparty/gmock/gtest/include
+INC_GMOCK_HEADER = -I$(PATH_QZONE_BASE_CLASS_PRJ)/thirdparty/gmock/include
+INC_GMOCK_HEADER += -I$(PATH_QZONE_BASE_CLASS_PRJ)/thirdparty/gmock/include/gmock
+LIB_GTEST_HEADER = $(PATH_QZONE_BASE_CLASS_PRJ)/thirdparty/gmock/lib/gmock.a
+
+### recommend_api
+INC_RECOMMEND_API = -I$(PATH_QZONE_EXTERN_LIB)/recommend_api/include
+LIB_RECOMMEND_API = $(PATH_QZONE_EXTERN_LIB)/recommend_api/lib/librecommend_client.a
+
+### friends_involved
+INC_FRIENDS_INVOLVED = -I$(PATH_QZONE_EXTERN_LIB)/friends_involved/include
+LIB_FRIENDS_INVOLVED = $(PATH_QZONE_EXTERN_LIB)/friends_involved/lib/libfrdinvolved_api.a
+
+### protobuf
+INC_PROTOBUF = -I$(PATH_QZONE_EXTERN_LIB)/protobuf/include
+LIB_PROTOBUF = $(PATH_QZONE_EXTERN_LIB)/protobuf/lib/libprotobuf.a
+
+### dc_api
+INC_DC_API = -I$(PATH_QZONE_EXTERN_LIB)/dc_api/include
+LIB_DC_API = $(PATH_QZONE_EXTERN_LIB)/dc_api/lib/libdcapi_cpp.a
+

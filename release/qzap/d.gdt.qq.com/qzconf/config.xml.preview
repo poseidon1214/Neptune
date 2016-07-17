@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="GB2312" ?>
+
+<SYSTEM LogDir="../log"            LogName="container"     
+        LogLevel="0"               MaxFdCount="40960" 
+        CoreDump="enable"          MsgID="2015004001" 
+        Interface="eth1"           GlobalProcNum="2048"
+        ReportInterval="60"        AlarmTimes = "1"
+        WebTimeout="3"             HelperTimeout="1"
+        MaxListenCount="1024"      BindAddr="0.0.0.0"
+        BindPort="80"              AcceptLoopCount="256" 
+        AccessLog="0"              CleanCycle="600"
+        Dynamic_GZip="enable"      Dynamic_GZip_Inf="0" 
+        AccessLimit="disable"      LimitConfig="../conf/limit.xml"
+        UseChunk="0"               SmsPath="/home/user_00/script/sendsms.sh"
+	GZipLevel="best_speed"	   Dye_Plugin="../lib/cookie_dye_log.so"
+        KeepAlive="disable"        KeepAliveMax="-1"   
+        KeepAliveCycle="-1"        UUID="0"	
+	FIFOPath="/tmp/qzhttp_status_log" StatusLog="0">
+	
+<ModuleCommon DllFile="../lib/libcgihost.so" ConfigFile=""
+              DocRoot="htdocs"   IndexFile="index.html" 
+              CgiHome="cgihome"         InitProcNum="1" 
+              MaxProcNum="10"           RunType="fastcgi" 
+              ReportCycle="30"          ProcTimeout="4"
+              UsedMinPercent="0.01"     UsedMaxPercent="0.9"
+              ExceptionPercent="0.8"    MaxExceptionTimes = "10"
+              AdjustProcNum="1"         UseGzip="1" 
+              MaxMem="4"                MaxHandle="512" 
+              HandleCheckTimes="1000"   CacheAge="7200" 
+              RunTimes="-1"              UserName="user_00">
+</ModuleCommon>
+
+<ModuleList>
+
+<Section DocRoot="htdocs" >
+<Module ModName="proxy_module" DllFile="../lib/proxy.so" Monitor="disable"  />
+</Section>
+
+<Section DocRoot="/data/release/snsad/qzap/d.gdt.qq.com/htdocs/" IndexFile="" CgiHome="/data/release/snsad/qzap/d.gdt.qq.com/" Publish="" Location="" VirtuelHost="d.gdt.qq.com" ServerPath="" RspFile="">
+    <Module ModName="cgi-bin/jpage.cgi" InitProcNum="1" MaxProcNum="1" RunType="fastcgi" />
+    <Module ModName="fcg-bin/gdt_appdetail.fcg" InitProcNum="1" MaxProcNum="1" RunType="fastcgi" />
+<Module ModName="static_module_d" RunType="static"/>
+</Section>
+
+
+</ModuleList>
+
+<Switch Index="-1" cginame="" prefix_mach="">
+
+</Switch>
+
+</SYSTEM>
+            

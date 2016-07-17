@@ -1,0 +1,67 @@
+<settings>
+  <mirrors>
+    <mirror>
+      <id>internal</id>
+      <url>http://10.123.17.53:8080/nexus/content/groups/public/</url>
+      <mirrorOf>central</mirrorOf>
+    </mirror>
+  </mirrors>
+  <proxies>
+    <proxy>
+      <nonProxyHosts>*.tencent.com|*.qq.com|*.oa.com|10.*</nonProxyHosts>
+    </proxy>
+  </proxies>
+  <profiles>
+    <profile>
+      <id>development</id>
+      <activation><activeByDefault>true</activeByDefault></activation>
+      <repositories>
+        <repository>
+          <id>central</id>
+          <url>http://central</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots>
+            <enabled>true</enabled>
+            <!-- 每次更新snapshot版本 都从远程代理仓库下载 -->
+            <updatePolicy>always</updatePolicy>
+          </snapshots>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>central</id>
+          <url>http://central</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>always</updatePolicy>
+          </snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
+  <servers>
+    <server>
+      <id>internal</id>
+      <configuration>
+        <httpConfiguration>
+          <get>
+            <connectionTimeout>6000</connectionTimeout> <!-- milliseconds -->
+          </get>
+        </httpConfiguration>
+      </configuration>
+    </server>
+    <!-- 部署到releases 仓库权限配置 -->
+    <server>
+      <id>releases</id>
+      <username>admin</username>
+      <password>admin123</password>
+    </server>
+    <!-- 部署到snapshots 仓库权限配置 -->
+    <server>      
+      <id>snapshots</id>        
+      <username>admin</username>        
+      <password>admin123</password>    
+    </server>
+  </servers>
+</settings>

@@ -1,0 +1,10 @@
+syntax = "proto2";
+message AdminRequest {
+  //
+  optional int64 error_code = 4;
+}
+
+message AdminResponse {
+  //
+  optional int64 error_code = 4;
+}

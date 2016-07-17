@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<controller>
+    <procmon>
+        <group id="0" basepath="." exe="spp_proto_send_and_recv_proxy" etc="../conf/spp_proxy.xml" exitsignal="9" maxprocnum="1"
+            minprocnum="1" heartbeat="60" watermark="0" minsrate="0" maxdelay="0" maxmemused="0"/>
+        <group id="1" basepath="." exe="spp_proto_send_and_recv_worker" etc="../conf/spp_worker.xml" exitsignal="9" maxprocnum="8"
+            minprocnum="4" heartbeat="60" watermark="0" minsrate="0" maxdelay="0" maxmemused="0"/>
+    </procmon>
+
+	<log level="3" type="0" path="./log" prefix="ctrl" maxfilesize="10240000" maxfilenum="10"/>
+	<moni intervial="30"/>
+</controller>

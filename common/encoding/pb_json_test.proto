@@ -1,0 +1,33 @@
+
+package pb_json_test;
+
+message TestMessage {
+    required int32 id = 1;
+    optional string query = 2 [default = "test"];
+    optional bool flag = 3;
+    enum TestEnum {
+        V1 = 1;
+        V2 = 2;
+    }
+    optional TestEnum test_enum = 4 [default = V1];
+    message NestedMsg {
+        required int32 id = 1;
+        optional string title = 2;
+        optional string url = 3;
+    }
+    required NestedMsg nested_msg = 5;
+    repeated NestedMsg nested_msgs = 6;
+    repeated int32 rep_int = 7;
+    optional bytes b = 8;
+    repeated bytes bs = 9;
+    optional int32 qua = 10;
+    optional int32 test_num = 11;
+    repeated TestEnum test_enums = 12;
+
+    extensions 100 to 199;
+}
+
+extend TestMessage {
+    optional string query_ext = 100 [default = "test ext"];
+    optional uint64 long_ext = 101;
+}

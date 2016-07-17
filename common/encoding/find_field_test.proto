@@ -1,0 +1,20 @@
+// Copyright 2011, Tencent Inc.
+// Author: Yi Wang <yiwang@tencent.com>
+//
+// This .proto file is for testing find_field.{h,cc}.
+//
+package gdt.test;
+
+message Person {
+  enum Gender {
+    MALE = 0;
+    FEMAIL = 1;
+  }
+  required string name = 1;
+  optional int32  age = 2;  // Age is optional due to privacy.
+  repeated Gender gender = 3;  // Well, new tech can change people's genders.
+  repeated string address = 4;
+  optional Person couple = 5;  // No more than one couple!
+  repeated Person child = 6;
+}
+

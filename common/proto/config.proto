@@ -1,0 +1,115 @@
+syntax = "proto2";
+
+import "data_storer/sql/proto/mysql_config.proto";
+
+// 解析配置
+message LineConfig {
+  // 解析方式
+  optional int32 index = 1;
+}
+
+// 解析配置
+message XmlConfig {
+  // 解析方式
+  repeated string node_name = 1;
+}
+
+// 解析配置
+message ProtoConfig {
+  // 解析方式
+  repeated string field_name = 1;
+}
+
+// proto映射配置
+message MappingConfig {
+  message FieldConfig {
+    // 字段名称
+    optional string field_name = 1;
+    // 下一级配置
+    optional MappingConfig mapping_config = 2;
+    // 对应的line配置
+    optional LineConfig line_config = 3;
+    // 对应的xml配置
+    optional XmlConfig xml_config = 4;
+    // 对应的proto配置
+    optional ProtoConfig proto_config = 5;
+    // 回调函数
+    optional string callback = 6;
+  }
+  // 字段列数
+  repeated FieldConfig field_config = 1;
+}
+
+// 读取方式
+enum StoreMethod {
+  // 从leveldb里读取
+  LevelDb = 1;
+  // 从SSTable里读取
+  SSTable = 2;
+  // 从文件里读取
+  File = 3;
+  // 从Mysql里读取
+  Mysql = 4;
+}
+
+// 解析方式
+enum ParseMethod {
+  // XML
+  Xml = 1;
+  // 从SSTable里读取
+  Line = 2;
+}
+
+// 解析配置
+message ParseConfig {
+  // 解析方式
+  optional ParseMethod parse_method = 1;
+  // 映射配置
+  optional MappingConfig mapping_config = 2;
+  // Xml初始节点
+  repeated string xml_node_name = 3;
+  // 编码方式
+  optional string charset = 4 [default = "utf8"];
+}
+
+// IO配置
+message IOConfig {
+  // 读取方式
+  optional StoreMethod store_method = 1;
+  // 解析配置
+  optional ParseConfig parse_config = 2;
+  // 文件名称支持%Y%m的方式
+  optional string file_pattern = 3;
+  // 时间迁移
+  optional uint64 seconds_ago = 4;
+  // 解析配置
+  optional MysqlConfig mysql_config = 5;
+}
+
+message Click {
+  // 处理时间
+  optional uint64 process_time = 1;
+  // 广告主ID
+  optional uint64 advertiser_id = 2;
+  // 广告ID
+  optional uint64 adgroup_id = 3;
+  // 转化类型
+  optional uint64 op_type = 4;
+  // 作弊类型
+  optional uint64 fraud_type = 5;
+  // 跟踪数
+  optional uint64 trace_num = 6;
+  // 点击数
+  optional uint64 click_num = 7;
+  // 广告位ID
+  optional uint64 pos_id = 8;
+  // 动作类型
+  optional uint64 action_type = 9;
+  //
+  optional User user = 10;
+}
+
+message User {
+  // 用户QQ号
+  optional uint64 qq = 1;
+}

@@ -1,0 +1,6 @@
+syntax = "proto2";
+//商品
+message CrawlerConfig {
+  //
+  optional string url_pattern = 1;
+}

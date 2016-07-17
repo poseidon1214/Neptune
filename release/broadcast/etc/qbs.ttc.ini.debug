@@ -1,0 +1,13 @@
+[qbs]
+order_ttc_ip=10.6.207.203
+order_ttc_port=2101
+
+bitmap_timeout=900
+
+bitmap_num=2
+
+bitmap_ip_0=10.6.207.203
+bitmap_port_0=7000/udp
+
+bitmap_ip_1=10.6.207.203
+bitmap_port_1=7000/udp

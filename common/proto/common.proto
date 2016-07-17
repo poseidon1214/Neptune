@@ -1,0 +1,89 @@
+message LineConfig {
+  message FieldConfig {
+    // 字段名称
+    repeated string field_name = 1;
+    // 对应的列数
+    optional uint64 index = 2;
+  }
+  // 字段列数
+  repeated FieldConfig field_config = 1;
+}
+
+// proto配置
+message ProtoReaderConfig {
+  // 读取方式
+  enum ReadMethod {
+    // 从分割好的line里读取
+    ReadFromLine = 1;
+    // 从leveldb里读取
+    ReadFromLevelDb = 2;
+    // 从text format里读取
+    ReadFromTextFormat = 3;
+    // 从分割好的line里读取
+    ReadFromOrderedLine = 4;
+    // 从SSTable里读取
+    ReadFromSSTable = 5;
+    // 从Xml里读取
+    ReadFromXml = 6; 
+  }
+
+  // 读取方式
+  optional ReadMethod read_method = 1;
+  // 文件名称支持%Y%m的方式
+  optional string file_pattern = 2;
+  // 是否来源于cfs
+  optional bool from_cfs = 3 [default = false];
+  // 是否来源于hdfs
+  optional bool from_hdfs = 4 [default = false];
+  // 读取方式
+  optional LineConfig line_config = 5;
+  // 临时目录
+  optional string tmp_dir = 6 [default = "../tmp/"];
+  // 时间迁移
+  optional uint64 seconds_ago = 7;
+}
+
+// proto配置
+message ProtoWriterConfig {
+  // 写方式
+  enum WriteMethod {
+    // 写成分割好的line
+    WriteToLine = 1;
+    // 写到level db里
+    WriteToLevelDb = 2;
+    // 写成TextFromat
+    WriteToTextFormat = 3;
+    // 写成分割好的line
+    WriteToOrderedLine = 4;
+    // 写到SSTable
+    WriteToSSTable = 5; 
+  }
+
+  // 读取方式
+  optional WriteMethod write_method = 1;
+  // 文件名称支持%Y%m的方式
+  optional string file_pattern = 2;
+  // 是否来源于cfs
+  optional bool from_cfs = 3 [default = false];
+  // 是否来源于hdfs
+  optional bool from_hdfs = 4 [default = false];
+  // 读取方式
+  optional LineConfig line_config = 5;
+  // 临时目录
+  optional string tmp_dir = 6 [default = "../tmp/"];
+  // 时间迁移
+  optional uint64 seconds_ago = 7;
+}
+
+// 监视器配置
+message MonitorConfig {
+  // 广告主data feed
+  optional ProtoReaderConfig data_feed = 1;
+  // dmp冷备数据
+  optional ProtoReaderConfig dmp_cold_backup = 2;
+  // 订阅数据
+  optional ProtoReaderConfig subscribe = 3;
+  // 差集
+  optional ProtoWriterConfig difference = 4;
+}
+

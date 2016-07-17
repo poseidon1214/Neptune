@@ -1,0 +1,41 @@
+all:
+	env && cis_scripts/cis_build.sh
+
+unittest:
+	env
+	touch CisLastRunType
+	runType=`cat CisLastRunType` cis_scripts/cis_test.py
+
+mixer_testing_package:
+	env && rm -fr dest_dir && rm -fr build64_release && app/qzap/service/mixer/tools/mixer_release.py -d dest_dir --only-blade=. -p mixer_package.tgz
+
+cgi_testing_package:
+	env && ./app/qzap/service/addisplay/script/cgi_onebox.sh
+
+display_testing_package:
+	env && ./display/script/pack.sh .
+
+fws_testing_package:
+	env && ./feeds/script/fws_onebox.sh
+
+adx_testing_package:
+	env && ./adx/script/adx_onebox.sh
+
+marvel_testing_package:
+	env && ./pack //marvel --blade=./blade
+
+dmp_testing_package:
+	env && sh dmp/script/dmp_onebox.sh
+
+http_benchmark_package:
+	env && sh common/net/http/benchmark/http_benchmark_onebox.sh
+
+antispam_autotest_package:
+	env && sh app/qzap/service/anti_spam/tools/pack.sh 
+
+clean:
+	./blade clean ...
+
+env:
+	echo "$(runType)" > CisLastRunType
+	env

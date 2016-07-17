@@ -1,0 +1,216 @@
+// The path of pump.py is //thirdparty/gtest-1.6.0/scripts/pump.py
+
+// Copyright (C), 1998-2012, Tencent
+// Authors: jefftang@tencent.com
+//          CHEN Feng <chen3feng@gmail.com>
+// Date: 2012-11-22
+
+#ifndef COMMON_BASE_CALLBACK_IMPL_H_
+#define COMMON_BASE_CALLBACK_IMPL_H_
+
+#include <stddef.h>
+#include <tr1/type_traits>
+#include "google/protobuf/service.h"
+
+namespace gdt {
+
+template <typename Type, bool Delete>
+class CallbackAutoDeleter {
+ public:
+  explicit CallbackAutoDeleter(Type* callback) : callback_(callback) {}
+  ~CallbackAutoDeleter() { if (Delete) delete callback_; }
+ private:
+  Type* callback_;
+};
+
+// Primary template
+template <typename Signature>
+class Callback;
+
+template <>
+class Callback<void()> : public ::google::protobuf::Closure {
+ public:
+  virtual ~Callback() {}
+  virtual bool IsRepeatable() const = 0;
+  virtual void Run() = 0;
+  Callback *volatile next_closure;
+ protected:
+  Callback() : next_closure(NULL) {}
+};
+
+typedef Callback<void()> Closure;
+
+$var total_args = 8
+$range i 0..total_args
+
+$for i [[
+
+$range j 1..i
+
+// Specified for $i arguments
+template <
+  typename R $for j [[, typename A$j]]
+>
+class Callback<R($for j, [[A$j]])> {
+public:
+  virtual ~Callback() {}
+  virtual bool IsRepeatable() const = 0;
+  virtual R Run($for j, [[A$j a$j]]) = 0;
+};
+
+]]
+
+$var total_bind_args = total_args
+
+$range nleft_args 0..total_args
+$range nbind_args 0..total_args
+
+$for nleft_args [[
+$for nbind_args [[
+
+$var nargs = nleft_args + nbind_args
+$range j 1..nbind_args
+$range k 1..nargs
+$range i nbind_args+1..nargs
+
+/////////////////////////////////////////////////////////////////////////////
+// Class member callbacks
+
+template <
+  bool SelfDelete,
+  typename R,
+  typename Class,
+  typename CallerClass$for k [[, typename Arg$k]] $for j [[, typename PreArg$j]]
+>
+class MemberCallback_$(nleft_args)_$nbind_args : public Callback<R($for i, [[Arg$i]])> {
+  typedef R (CallerClass::*MemberSignature)($for k, [[Arg$k]]);
+ public:
+  MemberCallback_$(nleft_args)_$nbind_args(Class *object, MemberSignature member$for j [[, PreArg$j pa$j]]):
+      object_(object), member_(member)$for j [[, pa_$j(pa$j)]] {}
+  ~MemberCallback_$(nleft_args)_$nbind_args() {
+    object_ = NULL;
+    member_ = NULL;
+  }
+  virtual R Run($for i, [[Arg$i arg$i]]) {
+    CallbackAutoDeleter<MemberCallback_$(nleft_args)_$nbind_args, SelfDelete> self_deleter(this);
+    return (object_->*member_)($for j, [[pa_$j]]$if nleft_args > 0[[$if nbind_args > 0[[, ]]]]$for i, [[arg$i]]);
+  }
+  virtual bool IsRepeatable() const { return !SelfDelete; }
+ private:
+  Class* object_;
+  MemberSignature member_;
+
+$for j [[
+  typename std::tr1::remove_reference<PreArg$j>::type pa_$j;
+
+]]
+};
+
+template <typename R, typename Class, typename CallerClass$for k [[, typename Arg$k]]$for j [[, typename PreArg$j]]>
+Callback<R($for i, [[Arg$i]])>*
+NewCallback(Class *object, R (CallerClass::*member)($for k, [[Arg$k]])$for j [[, PreArg$j pa$j]]) {
+  return new MemberCallback_$(nleft_args)_$nbind_args<true, R, Class, CallerClass$for k [[, Arg$k]]$for j[[, PreArg$j]]>(
+      object, member$for j [[, pa$j]]);
+}
+
+template <typename R, typename Class, typename CallerClass$for k [[, typename Arg$k]]$for j [[, typename PreArg$j]]>
+Callback<R($for i, [[Arg$i]])>*
+NewPermanentCallback(Class *object, R (CallerClass::*member)($for k, [[Arg$k]])$for j [[, PreArg$j pa$j]]) {
+  return new MemberCallback_$(nleft_args)_$nbind_args<false, R, Class, CallerClass$for k [[, Arg$k]]$for j[[, PreArg$j]]>(
+      object, member$for j [[, pa$j]]);
+}
+
+/////////////////////////////////////////////////////////////////////////////
+// Class const member callbacks
+
+template <
+  bool SelfDelete,
+  typename R,
+  typename Class,
+  typename CallerClass$for k [[, typename Arg$k]] $for j [[, typename PreArg$j]]
+>
+class ConstMemberCallback_$(nleft_args)_$nbind_args : public Callback<R($for i, [[Arg$i]])> {
+  typedef R (CallerClass::*MemberSignature)($for k, [[Arg$k]]) const;
+ public:
+  ConstMemberCallback_$(nleft_args)_$nbind_args(const Class *object, MemberSignature member$for j [[, PreArg$j pa$j]]):
+      object_(object), member_(member)$for j [[, pa_$j(pa$j)]] {}
+  ~ConstMemberCallback_$(nleft_args)_$nbind_args() {
+    object_ = NULL;
+    member_ = NULL;
+  }
+  virtual R Run($for i, [[Arg$i arg$i]]) {
+    CallbackAutoDeleter<ConstMemberCallback_$(nleft_args)_$nbind_args, SelfDelete> self_deleter(this);
+    return (object_->*member_)($for j, [[pa_$j]]$if nleft_args > 0[[$if nbind_args > 0[[, ]]]]$for i, [[arg$i]]);
+  }
+  virtual bool IsRepeatable() const { return !SelfDelete; }
+ private:
+  const Class* object_;
+  MemberSignature member_;
+
+$for j [[
+  typename std::tr1::remove_reference<PreArg$j>::type pa_$j;
+
+]]
+};
+
+template <typename R, typename Class, typename CallerClass$for k [[, typename Arg$k]]$for j [[, typename PreArg$j]]>
+Callback<R($for i, [[Arg$i]])>*
+NewCallback(const Class *object, R (CallerClass::*member)($for k, [[Arg$k]]) const$for j [[, PreArg$j pa$j]]) {
+  return new ConstMemberCallback_$(nleft_args)_$nbind_args<true, R, Class, CallerClass$for k [[, Arg$k]]$for j[[, PreArg$j]]>(
+      object, member$for j [[, pa$j]]);
+}
+
+template <typename R, typename Class, typename CallerClass$for k [[, typename Arg$k]]$for j [[, typename PreArg$j]]>
+Callback<R($for i, [[Arg$i]])>*
+NewPermanentCallback(const Class *object, R (CallerClass::*member)($for k, [[Arg$k]]) const$for j [[, PreArg$j pa$j]]) {
+  return new ConstMemberCallback_$(nleft_args)_$nbind_args<false, R, Class, CallerClass$for k [[, Arg$k]]$for j[[, PreArg$j]]>(
+      object, member$for j [[, pa$j]]);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// Normal function callbacks
+
+template <
+  bool SelfDelete,
+  typename R$for k [[, typename Arg$k]]$for j [[, typename PreArg$j]]
+>
+class FunctionCallback_$(nleft_args)_$nbind_args : public Callback<R($for i, [[Arg$i]])> {
+  typedef R (*FunctionType)($for k, [[Arg$k]]);
+ public:
+  FunctionCallback_$(nleft_args)_$nbind_args(FunctionType function$for j [[, PreArg$j pa$j]]) :
+      function_(function)$for j [[, pa_$j(pa$j)]] {}
+  FunctionCallback_$(nleft_args)_$nbind_args() {
+    function_ = NULL;
+  }
+  virtual R Run($for i, [[Arg$i arg$i]]) {
+    CallbackAutoDeleter<FunctionCallback_$(nleft_args)_$nbind_args, SelfDelete> self_deleter(this);
+    return function_($for j, [[pa_$j]]$if nleft_args > 0[[$if nbind_args > 0[[, ]]]]$for i, [[arg$i]]);
+  }
+  virtual bool IsRepeatable() const { return !SelfDelete; }
+ private:
+  FunctionType function_;
+
+$for j [[
+  typename std::tr1::remove_reference<PreArg$j>::type pa_$j;
+
+]]
+};
+
+template <typename R$for k [[, typename Arg$k]]$for j [[, typename PreArg$j]]>
+Callback<R($for i, [[Arg$i]])>*
+NewCallback(R (*function)($for k, [[Arg$k]])$for j [[, PreArg$j pa$j]]) {
+  return new FunctionCallback_$(nleft_args)_$nbind_args<true, R$for k [[, Arg$k]]$for j [[, PreArg$j]]>(function$for j [[, pa$j]]);
+}
+
+template <typename R$for k [[, typename Arg$k]]$for j [[, typename PreArg$j]]>
+Callback<R($for i, [[Arg$i]])>*
+NewPermanentCallback(R (*function)($for k, [[Arg$k]])$for j [[, PreArg$j pa$j]]) {
+  return new FunctionCallback_$(nleft_args)_$nbind_args<false, R$for k [[, Arg$k]]$for j [[, PreArg$j]]>(function$for j [[, pa$j]]);
+}
+
+]]
+]]
+
+}  // namespace gdt
+
+#endif  // COMMON_BASE_CALLBACK_IMPL_H_

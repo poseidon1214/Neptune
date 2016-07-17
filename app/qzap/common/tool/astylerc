@@ -1,0 +1,5 @@
+--style=google
+--indent=spaces=2
+--unpad-paren
+--pad-oper
+--pad-header

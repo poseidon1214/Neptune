@@ -1,0 +1,28 @@
+#!/bin/sh
+	
+	value=`cat $PATH_QZONE_PRJ/makeinclude/.ischeck | awk '{print $1}'`
+	if [ $value -eq 1 ];then
+		exit 0
+	fi
+	
+	if [ $# -eq 0 ];then
+		pwdpath=`pwd | awk '{print $1}'`
+		$PATH_QZONE_PRJ/makeinclude/check.sh $pwdpath $PATH_QZONE_PRJ/makeinclude/funcs.txt 
+		if [ $? -ne 0 ];then
+			exit 1
+		fi
+		exit 0
+	else
+		loop=0
+		while [ $# -gt 0 ]
+		do
+			pwdpath=$1
+			$PATH_QZONE_PRJ/makeinclude/check.sh $pwdpath $PATH_QZONE_PRJ/makeinclude/funcs.txt
+			if [ $? -ne 0 ];then
+				exit 1
+			fi
+			shift
+		done
+		exit 0
+	fi
+

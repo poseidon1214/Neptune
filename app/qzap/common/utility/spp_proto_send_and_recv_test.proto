@@ -1,0 +1,11 @@
+message SppProtoSendAndRecvTestRequest {
+  required int32 a = 1;
+  required int32 b = 2;
+  required bytes blob = 3;
+}
+
+message SppProtoSendAndRecvTestResponse {
+  required int32 c = 1;
+  required int32 d = 2;
+  required bytes blob = 3;
+}

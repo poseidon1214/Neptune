@@ -1,0 +1,69 @@
+
+package qzap.text_analysis.base;
+
+// for Training
+//
+
+message DocumentPB {
+  message WordTopics {
+    optional int32 word = 1;  // the index of a word.
+    repeated int32 topics = 2;  // topic assignments to the word.
+  }
+  repeated WordTopics wordtopics = 1;
+}
+
+message SparseTopicHistogramPB {
+  message NonZero {
+    optional int32 topic = 1;
+    optional int32 count = 2;
+  }
+  repeated NonZero nonzero = 1;
+}
+
+message DenseTopicHistogramPB {
+  repeated int32 count = 1;
+}
+
+message HyperparamsPB {
+  // the asymmetric Dirichlet prior for topic distributions
+  repeated double topic_prior = 1;
+  // the symmetric Dirichlet prior for word distributions.
+  required double word_prior = 2;
+  // the vocabulary size.
+  optional int32 vocab_size = 3;
+}
+
+message TopicPriorOptimCountPB {
+  // document length histogram, vector len = max-doc-len + 1
+  repeated int32 doc_len_count = 1;
+
+  // (k,n) : count of documents in which topic k occurs n times
+  message DocumentCount {
+    repeated int32 count = 1;
+  }
+  repeated DocumentCount topic = 2;
+}
+
+// for Inference
+//
+
+message SparseDoubleVectorPB {
+  message NonZero {
+    required int32 index = 1;
+    required double value = 2;
+  }
+  repeated NonZero nonzero = 1;
+}
+
+// If a dense topic distribution has a shared probability value for most of the
+// topics, we can convert it to a sparse format to save memory, where the
+// shared probability value is stored as |shift|, and we only store the rest
+// probability values as |prob - shift| in case of nonzero value.
+message SparseTopicDistributionPB {
+  required int32 num_topics = 1;
+
+  // We use (sparse vector, shift constant) pair as the format to store both
+  // histogram and distribution.
+  optional SparseDoubleVectorPB vector = 2;
+  optional double shift = 3;
+}

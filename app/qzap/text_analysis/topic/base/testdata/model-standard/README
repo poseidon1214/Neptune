@@ -1,0 +1,7 @@
+The model is trained via standard Gibbs sampling using following parameters:
+
+TopicPrior = 0.1;
+WordPrior = 0.01;
+10 iteration
+
+No hyperparamter optimization is performed.

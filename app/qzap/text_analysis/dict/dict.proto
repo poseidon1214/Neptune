@@ -1,0 +1,22 @@
+package qzap.text_analysis;
+
+//------------------------------------------------------
+// Definition for dicts
+//------------------------------------------------------
+
+// 一个 word/keyword 的 idf 信息
+message IdfInfo {
+    optional float idf_commercial = 1;  // 从商业性数据中统计得到的 idf
+    optional float idf_general = 2;     // 从其他数据(如querylog, 网页数据)
+    // 中统计得到的 idf
+}
+
+// 一个 word/keyword 的 embedding 信息
+message EmbeddingInfo {
+    repeated float embedding = 1;
+}
+
+message KeywordInfo {
+    optional float weight = 1;
+}
+

@@ -1,0 +1,207 @@
+###############################################################################
+#	extern lib suse64 for Qzone
+#
+###############################################################################
+
+EXTERN_LIB_SUSE64=lib64
+###  TDEV macro define
+PATH_TDEV        = $(PATH_QZONE_EXTERN_LIB)/tdev
+INC_TLIB         = -I$(PATH_TDEV)/include
+
+###这里的顺序不能改 tlib要优先要不会出现md5出错的问题
+#LIB_TLIB         = -L$(PATH_TDEV)/$(EXTERN_LIB_SUSE64) $(PATH_TDEV)/$(EXTERN_LIB_SUSE64)/libtlib.a $(PATH_TDEV)/$(EXTERN_LIB_SUSE64)/libtoiw.a  $(PATH_TDEV)/$(EXTERN_LIB_SUSE64)/cgihtml.a
+LIB_TLIB         = -L$(PATH_TDEV)/$(EXTERN_LIB_SUSE64) $(PATH_TDEV)/$(EXTERN_LIB_SUSE64)/libtlib.a  $(PATH_TDEV)/$(EXTERN_LIB_SUSE64)/cgihtml.a
+
+
+###  TBASE macro define
+PATH_TBASE       = $(PATH_QZONE_EXTERN_LIB)/tbase
+INC_TBASE        = -I$(PATH_TBASE)/include
+LIB_TBASE        = -L$(PATH_TBASE)/$(EXTERN_LIB_SUSE64) -ltbase
+
+
+###  FastCGI library define   暂无
+###  modified, 把fcgi库改成静态库，避免发布的麻烦
+PATH_FASTCGI     = $(PATH_QZONE_EXTERN_LIB)/fcg
+INC_FASTCGI      = -I$(PATH_FASTCGI)/include
+#LIB_FASTCGI      = $(PATH_FASTCGI)/$(EXTERN_LIB_SUSE64)/libfcgi.a
+
+
+###  Mysql macro define
+###  modified,把mysql库改成静态库，避免发布后动态库版本问题
+PATH_MYSQL       = $(PATH_QZONE_PRJ)/thirdparty/mysql
+INC_MYSQL        = -I$(PATH_MYSQL)
+LIB_MYSQL        = $(PATH_MYSQL)/lib64/libmysqlclient.a
+LIB_MYSQL_R      = -L$(PATH_MYSQL)/lib64 -lmysqlclient_r
+
+
+###  TNM Agent API 暂无
+PATH_TNMAPI      = $(PATH_QZONE_EXTERN_LIB)/tnm_api
+INC_TNMAPI       = -I$(PATH_TNMAPI)/include
+LIB_TNMAPI       = $(PATH_TNMAPI)/$(EXTERN_LIB_SUSE64)/attr_api.a
+
+###  GD library define 暂无
+###  modified,把gd库改成静态库，避免发布后动态库版本问题
+PATH_GD          = $(PATH_QZONE_EXTERN_LIB)/gd
+INC_GD           = -I$(PATH_GD)/include
+#LIB_GD           = $(PATH_GD)/$(EXTERN_LIB_SUSE64)/libgd.a
+
+
+### TTC API macro define 这里64位改为动态库，平台不再维护.a
+INC_TTCAPI = -I$(PATH_QZONE_EXTERN_LIB)/ttc_api/include
+LIB_TTCAPI = -L $(PATH_QZONE_EXTERN_LIB)/ttc_api/$(EXTERN_LIB_SUSE64)/ -lttc
+
+###friend is fans  -------no 64bit
+#PATH_SHAREAPI		= $(PATH_QZONE_EXTERN_LIB)/share
+#INC_SHAREAPI		= -I$(PATH_SHAREAPI)/include
+#LIB_SHAREAPI		= -L$(PATH_SHAREAPI)/lib/ -lfrdjoinapi -lfrdjoinclient -lfrdjoinl5 -lnetwork
+
+###logserver api  macro define
+PATH_LOGAPI      = $(PATH_QZONE_EXTERN_LIB)/logapi
+INC_LOGAPI       = -I$(PATH_LOGAPI)/include
+LIB_LOGAPI       = $(PATH_LOGAPI)/$(EXTERN_LIB_SUSE64)/libmsglog.a
+#LIB_LOGAPI       = -L $(PATH_LOGAPI)/$(EXTERN_LIB_SUSE64)/  -lmsglog
+
+
+### Paycenter 暂无
+### PAYCENTER macro define, Paycenter支付的接口库
+PATH_PAYCENTER		= $(PATH_QZONE_EXTERN_LIB)/paycenter
+INC_PAYCENTER		= -I$(PATH_PAYCENTER)/include
+#LIB_PAYCENTER		= -L$(PATH_PAYCENTER)/lib -lpayapi -lqqshowpaymsg
+
+
+##im
+##oigatewayclient
+INC_OIGATEWAYCLIENT =-I$(PATH_QZONE_EXTERN_LIB)/oigatewayclient/include
+LIB_OIGATEWAYCLIENT = $(PATH_QZONE_EXTERN_LIB)/oigatewayclient/$(EXTERN_LIB_SUSE64)/liboigatewayclient.a
+
+###  C4A macro define
+PATH_C4A         = $(PATH_QZONE_EXTERN_LIB)/c4a
+INC_C4A          = -I$(PATH_C4A)/include
+#LIB_C4A          = -L$(PATH_C4A)/lib -lc4aapi
+
+### clearsilver define
+#PATH_CSW        = $(PATH_QZONE_EXTERN_LIB)/cs_wrap
+#INC_CSW         = -I$(PATH_CSW)/include -I$(PATH_CSW)/include/ClearSilver
+#LIB_CSW         = -L$(PATH_CSW)/lib -lcsw -lneo_cgi -lneo_cs -lneo_utl
+
+### cookie
+PATH_COOKIE     = $(PATH_QZONE_EXTERN_LIB)/cookie
+INC_COOKIE      = -I$(PATH_COOKIE)/include
+LIB_COOKIE      = $(PATH_COOKIE)/$(EXTERN_LIB_SUSE64)/libAdmrComm.a
+
+###sns area encode
+PATH_SNSAREAENCODE     = $(PATH_QZONE_EXTERN_LIB)/sns_area_encode
+INC_SNSAREAENCODE      = -I$(PATH_SNSAREAENCODE)/include
+LIB_SNSAREAENCODE      = $(PATH_SNSAREAENCODE)/$(EXTERN_LIB_SUSE64)/libextern_snsareaencode.a
+
+### json
+PATH_JSON     = $(PATH_QZONE_EXTERN_LIB)/json
+INC_JSON      = -I$(PATH_JSON)/include
+LIB_JSON      = $(PATH_JSON)/$(EXTERN_LIB_SUSE64)/libextern_json.a
+
+
+### mgw
+INC_MGW= -I$(PATH_QZONE_EXTERN_LIB)/mgw_api/include
+#LIB_MGW= -L$(PATH_QZONE_EXTERN_LIB)/mgw_api/lib -lmgwapi
+
+### dbb
+PATH_BDB     = $(PATH_QZONE_EXTERN_LIB)/bdb
+INC_BDB      = -I$(PATH_BDB)/include
+LIB_BDB      = $(PATH_BDB)/$(EXTERN_LIB_SUSE64)/libdb.a
+
+### zlib
+PATH_ZLIB     = $(PATH_QZONE_EXTERN_LIB)/zlib
+INC_ZLIB      = -I$(PATH_ZLIB)/include
+LIB_ZLIB      = $(PATH_ZLIB)/$(EXTERN_LIB_SUSE64)/libz.a
+
+###L5
+PATH_QOSCLIENT  = $(PATH_QZONE_EXTERN_LIB)/qos_client
+INC_QOSCLIENT   = -I$(PATH_QOSCLIENT)/include
+LIB_QOSCLIENT   = $(PATH_QOSCLIENT)/$(EXTERN_LIB_SUSE64)/libqos_client.a
+
+### memcache (no lib)
+PATH_MEMCACHE  = $(PATH_QZONE_EXTERN_LIB)/memcache
+INC_MEMCACHE    = -I$(PATH_MEMCACHE)/include/
+
+### bitmap (no lib)
+INC_BITMAPNEW= -I$(PATH_QZONE_EXTERN_LIB)/bitmapnew/include
+
+### dirty_check (no lib)
+INC_DIRTYCHECK= -I$(PATH_QZONE_EXTERN_LIB)/dirtycheck/include/
+
+### NOTIFY_API marco define (no lib)
+INC_NOTIFY_INVOICE_API = -I$(PATH_QZONE_EXTERN_LIB)/notify_invoice/include
+
+### f_relation (no lib)
+INC_RELATION= -I$(PATH_QZONE_EXTERN_LIB)/relation/include/
+
+### sac_agent (no lib)
+INC_SAC= -I$(PATH_QZONE_EXTERN_LIB)/sac_agent/include
+
+### tinyxml
+INC_TINYXML= -I$(PATH_QZONE_EXTERN_LIB)/tinyxml/include/
+LIB_TINYXML= -L$(PATH_QZONE_EXTERN_LIB)/tinyxml/$(EXTERN_LIB_SUSE64)/ -ltinyxml
+
+### qqmail
+INC_QQMAIL= -I$(PATH_QZONE_EXTERN_LIB)/qqmail/include
+#LIB_QQMAIL= -L$(PATH_QZONE_EXTERN_LIB)/qqmail/$(EXTERN_LIB_SUSE64) -lepmsapi -lprotoc
+
+### url xml en/decode strings
+INC_STRINGS= -I$(PATH_QZONE_EXTERN_LIB)/strings/include/
+LIB_STRINGS= -L$(PATH_QZONE_EXTERN_LIB)/strings/$(EXTERN_LIB_SUSE64)/ -lstrings
+
+### friendclient
+INC_FRIENDCLIENT= -I$(PATH_QZONE_EXTERN_LIB)/friendclient/include/
+LIB_FRIENDCLIENT= -L$(PATH_QZONE_EXTERN_LIB)/friendclient/$(EXTERN_LIB_SUSE64)/ -lfriendclient
+
+### qq_acct
+INC_QQ_ACCT=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/
+INC_QQ_ACCT+=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/api/
+INC_QQ_ACCT+=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/base/
+INC_QQ_ACCT+=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/batchapi/
+INC_QQ_ACCT+=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/billno/
+INC_QQ_ACCT+=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/cache_api/
+INC_QQ_ACCT+=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/exchange_api/
+INC_QQ_ACCT+=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/game_api/
+INC_QQ_ACCT+=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/libxml/
+INC_QQ_ACCT+=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/msscache/
+INC_QQ_ACCT+=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/paycenter/
+INC_QQ_ACCT+=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/qqcard/
+INC_QQ_ACCT+=-I$(PATH_QZONE_EXTERN_LIB)/qq_acct/include/qqcoin/
+LIB_QQ_ACCT=-L$(PATH_QZONE_EXTERN_LIB)/qq_acct/$(EXTERN_LIB_SUSE64) -lqqacctapi -lqqacctmsg -lwtpkghead
+
+### as_oiserver
+INC_AS_OISERVER= -I$(PATH_QZONE_EXTERN_LIB)/as_oiserver/include/
+#LIB_AS_OISERVER= -L$(PATH_QZONE_EXTERN_LIB)/as_oiserver/$(EXTERN_LIB_SUSE64) -las_oiserver -las_oiserver_client
+
+### snsad_encode
+INC_SNSAD_ENCODE = -I$(PATH_QZONE_EXTERN_LIB)/snsad_encode/include/
+LIB_SNSAD_ENCODE = -L$(PATH_QZONE_EXTERN_LIB)/snsad_encode/$(EXTERN_LIB_SUSE64) -lsnsad_encode
+
+### tmem
+INC_TMEM = -I$(PATH_QZONE_EXTERN_LIB)/tmem/include/
+LIB_TMEM = -L$(PATH_QZONE_EXTERN_LIB)/tmem/$(EXTERN_LIB_SUSE64) -ltrmem -lasn1c++
+
+### tssd
+INC_TSSD = -I$(PATH_QZONE_EXTERN_LIB)/tssd/include/
+LIB_TSSD = $(PATH_QZONE_EXTERN_LIB)/tssd/$(EXTERN_LIB_SUSE64)/kv_packager.a $(PATH_QZONE_EXTERN_LIB)/tssd/$(EXTERN_LIB_SUSE64)/tdb_handle.a
+
+### qzoidb
+INC_QZOIDB = -I$(PATH_QZONE_EXTERN_LIB)/qzoidb/include/
+LIB_QZOIDB = $(PATH_QZONE_EXTERN_LIB)/qzoidb/$(EXTERN_LIB_SUSE64)/libclose_friend_api.a $(PATH_QZONE_EXTERN_LIB)/qzoidb/$(EXTERN_LIB_SUSE64)/libarrsvr_api.a
+
+### pdu_header
+INC_PDU = -I$(PATH_QZONE_PRJ)/thirdparty/pdu_header/include/
+INC_PDU += -I$(PATH_QZONE_PRJ)/thirdparty/pdu_header/include/jce/
+LIB_PDU = -L$(PATH_QZONE_PRJ)/thirdparty/pdu_header/$(EXTERN_LIB_SUSE64) -lpdu_header
+
+### gtest
+INC_GTEST_HEADER = -I$(PATH_QZONE_EXTERN_LIB)/gtest/include
+INC_GTEST_HEADER += -I$(PATH_QZONE_EXTERN_LIB)/gtest/include/gtest
+LIB_GTEST_HEADER = $(PATH_QZONE_EXTERN_LIB)/gtest/$(EXTERN_LIB_SUSE64)/libgtest.a
+
+
+### protobuf
+INC_PROTOBUF = -I$(PATH_QZONE_EXTERN_LIB)/protobuf/include
+LIB_PROTOBUF = $(PATH_QZONE_EXTERN_LIB)/protobuf/$(EXTERN_LIB_SUSE64)/libprotobuf.a
+

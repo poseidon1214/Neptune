@@ -1,0 +1,188 @@
+// Copyright (c) 2013 Tencent Inc.
+// Author: Lifeng Wang (fandywang@tencent.com)
+//
+// TextMiner 相关 protobuf message 定义
+
+package qzap.text_analysis;
+
+option java_package = "qzap.text_analysis";
+option java_outer_classname = "TextMinerProto";
+
+// 文本语义分析结果表示基础数据结构
+
+// 词
+message Token {
+    optional uint64 signature = 1;
+    optional bytes text = 2;
+    optional float weight = 3;  // L2-Norm后
+    optional float ori_weight = 4;  // 归一化前
+    optional int32 tf = 5;  // for LDA/Peacock
+    optional float idf = 6;
+}
+
+// 文档向量
+message Embedding {
+    optional float weight = 1;  // 加工后的 weight
+    optional float ori_weight = 2;  // sum (tfidf * word_embedding)
+}
+
+// 关键词，一般由一个或多个词组成
+message Keyword {
+    optional uint64 signature = 1;
+    optional bytes text = 2;
+    repeated bytes token = 3;  // text 切词后的词序列
+    optional float weight = 4;  // L2-Norm 后的 weight
+
+    optional float ori_weight = 5;  // 归一化之前的 weight
+}
+
+// 行业分类
+message Category {
+    optional uint32 id = 1;
+    optional bytes name = 2;
+    optional float weight = 3;  // L2-Norm 后的 weight
+
+    optional float ori_weight = 4;  // 归一化之前的 weight
+}
+
+// 语义主题
+message Topic {
+    optional uint32 id = 1;
+    optional float weight = 2;  // L2-Norm 后的 weight
+
+    optional float ori_weight = 3;  // 归一化之前的 weight
+}
+
+// 主题词
+message TopicWord {
+    optional uint64 signature = 1;
+    optional bytes text = 2;
+    optional float weight = 3;  // L2-Norm 之后的 weight
+
+    optional float ori_weight = 4;  // 归一化之前的 weight
+}
+
+// Field 类型
+enum FieldType {
+    UNKNOWN_FIELD = 1;  // 未知，默认类型
+    TITLE = 2;  // 页面标题
+    SUMMARY = 3;  // js 对 body 文本的 summarization 结果
+    ANCHOR = 4;  // 页面中重要的链接文本
+    META = 5;  // 来自 html 页面中的 meta 数据
+    TAG_WORD = 6;  // 文章的 tag words
+    CATEGORY = 7;  // 文章所属的分类
+    HEADING = 8;  // headings，即&lth1&gt/&lth2&gt/.../&lth5&gt标签包围的内容
+    QUERY = 9;  // 查询关键词/搜索关键词
+    PAGE_BODY = 14;  // 页面全文
+
+    // 电商字段
+    PRODUCT_CATEGORY = 10;  // 商品分类
+    BRAND_CATEGORY = 11;  // 品牌分类
+    PRODUCT_TITLE = 12;  // 商品标题
+    PRODUCT_PROPERTY = 13;  // 商品详情
+}
+
+// 记录每个 Keyword 的出现信息
+message KeywordOccurence {
+    optional bytes text = 1;
+    optional bytes ne_type = 2;  // 如果是命名实体，记录其类型
+    optional uint32 token_num = 3;  // 当前 keyword 的 token 数目
+}
+
+// 分词器输出结果, 记录单个 Token 的出现信息
+message TokenOccurence {
+    optional bytes text = 1;
+    optional bool is_stopword = 2 [default = false];
+    optional bytes word_type = 3;  // 词性
+    optional uint32 offset = 4;  // 起始位置, 在原始文本中的字节偏移
+    repeated KeywordOccurence keyword = 5;  // 记录以当前 token 开始的 keywords
+}
+
+// 文档中每个待处理字段: 域
+message Field {
+    optional FieldType type = 1 [default = UNKNOWN_FIELD];
+    optional bytes text = 2;
+    optional float weight = 3 [default = 1.0];
+
+    repeated TokenOccurence token = 4;  // 切词结果，由分词器填充
+}
+
+// 文本分析结果表示
+message Document {
+    optional bytes resource_name = 1;  // 所使用的 TextMinerResource 版本标识
+
+    repeated Field field = 2;  // 待处理文本，一般包含多个带不同权重的字段
+
+    repeated Token bow_token = 3;  // Token 抽取结果
+    repeated Keyword bow_keyword = 4;  // Keyword 抽取结果，
+    repeated Topic topic = 5;  // LDA 抽取的主题
+    repeated TopicWord topic_word = 6;  // LDA 抽取的主题词
+    repeated Category category = 7;  // 文本分类结果
+    repeated Embedding embedding = 14;  // embedding 结果
+
+    optional bool has_segmented = 8;   // 标识是否已完成分词
+    optional bool has_extracted_token = 9;  // 标识是否已完成 Token 抽取
+    optional bool has_extracted_keyword = 10;  // 标识是否已完成 Keyword 抽取
+    optional bool has_infered_topic = 11;  // 标识是否已完成 Topic Inference
+    optional bool has_explained_topic_word = 12;  // 标识是否已完成 TopicWord Explain
+    optional bool has_classified = 13;  // 标识是否已完成文本分类
+    optional bool has_infered_embedding = 15;  // 标识是否已完成 Embedding Inference
+}
+
+// TextMiner 文本分析算法模块依赖的词典和模型文件
+message ResourceConfig {
+    optional bytes resource_name = 1 [default = "default_text_miner_resource"];
+
+    optional bytes dict_dir = 2;
+    optional bytes peacock_model_dir = 3;
+    optional bytes classifier_model_dir = 4;
+}
+
+// 提供配置文件，方便多模型实验
+message ResourceConfigItems {
+    repeated ResourceConfig resource_configs = 1;
+}
+
+// TextMiner Server Proto 定义
+
+message TextMinerRequest {
+    optional bytes resource_name = 1 [default = "default_text_miner_resource"];
+
+    optional Document doc = 2;
+
+    enum RequestOption {
+        kExtractTokens = 1;
+        kExtractKeywords = 2;
+        kInferTopics = 4;
+        kExplainTopicWords = 8;
+        kClassify = 16;
+    }
+
+    optional uint32 request_option = 3 [default = 31];
+
+    optional bool debug_on = 4 [default = false];  // 是否保留详细的中间结果，
+    // 供调试或 Demo 使用
+}
+
+message Status {
+    enum StatusCode {
+        kUnknown = 0;
+        kSuccess = 1;
+        kInvalidResourceName = 2;
+        kSegmentFailed = 3;
+        kExtractTokensFailed = 4;
+        kExtractKeywordsFailed = 5;
+        kInferTopicsFailed = 6;
+        kExplainTopicWordsFailed = 7;
+        kClassifyFailed = 8;
+    }
+
+    optional StatusCode status_code = 1 [default = kSuccess];
+    optional bytes error_desc = 2;
+}
+
+message TextMinerResponse {
+    optional Status status = 1;
+    optional Document doc = 2;
+}
+

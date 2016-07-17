@@ -1,0 +1,263 @@
+// Copyright (C), 1998-2012, Tencent
+// Author: jefftang@tencent.com
+// Date: 2012-11-22
+//	查找的关键字	匹配到的类型
+//--------------------------------------
+//浏览器:
+//	qqbrowser	QQBrowser
+//	tencenttraveler	TencentTraveler
+//	360se	360SE
+//	se 2.x metasr 1.0	SouGou
+//	myie	MyIE
+//	maxthon	Maxthon
+//	netscape	Netscape
+//	netcaptor	NetCaptor
+//	theworld	TheWorld
+//	chrome	Chrome
+//	firefox	Firefox
+//	safari	Safari
+//	opera	Opera
+//	gecko	Gecko
+//	galeon	Galeon
+//	nutscrape	Nutscrape
+//	greenbrowser	GreenBrowser
+//	msie 8	MSIE8
+//	msie 7	MSIE7
+//	msie 6	MSIE6
+//	msie 5	MSIE5
+//	msie 9	MSIE9
+//---------------------------------------
+//屏幕颜色:
+//        32-bit	32-bit
+//	64-bit	64-bit
+//	24-bit	24-bit
+//	16-bit	16-bit
+//	8-bit	8-bit
+//	4-bit	4-bit
+//	1-bit	1-bit
+//---------------------------------------
+//平台类型:
+//        win32	win32
+//	win64	win64
+//	windows	windows
+//	x11	x11
+//	ipad	ipad
+//	iphone	iphone
+//	ipod	ipod
+//	macintel	macintel
+//	mac	mac
+//	nokia	symbian
+//	s40	symbian
+//	s60	symbian
+//	series	symbian
+//	symbian	symbian
+//	blackberry	blackberry
+//	freebsd	freebsd
+//	pike	pike
+//	android	Android
+//	wince	WinCE
+//	mocor	Mocor
+//	sunos	SunOS
+//	ios	ios
+//	linux	Linux
+//---------------------------------------
+//移动操作系统:
+//	ios	iOS
+//	ipad	iOS
+//	iphone	iOS
+//	ipod	iOS
+//	mac	iOS
+//	adr	Android
+//	android	Android
+//	nokia	Symbian
+//	s40	Symbian
+//	s60	Symbian
+//	series	Symbian
+//	symbian	Symbian
+//	blackberry	BlackBerry OS
+//	wince	WinCE
+//	windows ce	WinCE
+//	windows mobile	WinCE
+//	windows phone	WinCE
+//	linux	Linux
+//	x11	Linux
+//---------------------------------------
+//手机型号:
+//	nokia	nokia
+//	s40	nokia
+//	s60	nokia
+//	series	nokia
+//	symbian	nokia
+//	desire	htc
+//	htc	htc
+//	ios	apple
+//	ipad	apple
+//	iphone	apple
+//	ipod	apple
+//	mac	apple
+//	blackberry	blackberry
+//	gt-	samsung
+//	nexus	samsung
+//	samsung	samsung
+//	sgh	samsung
+//	zte	zte
+//	c8	huawei
+//	huawei	huawei
+//	hw	huawei
+//	u8	huawei
+//	sonyericsson	sonyericsson
+//	3gw100	lenovo
+//	lenovo	lenovo
+//	oppo	oppo
+//	mb	moto
+//	me	moto
+//	milestone	moto
+//	mot-	moto
+//	xt	moto
+//	mi-one	miui
+//	bbk	bbk
+//	vivo	bbk
+//	m9	meizu
+//	meizu	meizu
+//	iuc	sharp
+//	nec	nec
+//	lg-	lg
+//	hs	hisense
+//---------------------------------------
+//手机浏览器:
+//	mqqbrowser	QQBrowser
+//	chrome	Chrome
+//	uc browser	UCWEB
+//	ucweb	UCWEB
+//	gobrowser	GoBrowser
+//	iemobile	IEMobile
+//	maui	MAUI WAP Browser
+//	opera	Opera
+//	360browser	360browser
+//	mobile safari	Android
+//	safari	Safari
+//	gecko	Gecko
+//	mozilla	Mozilla
+//---------------------------------------
+package QZAP;
+
+import "app/qzap/proto/common/qzap_common.proto";
+
+enum UserAgent_Browser {
+  USERAGENT_BROWSER_UNKNOWN = 1;
+  USERAGENT_BROWSER_QQBROWSER = 2;
+  USERAGENT_BROWSER_TENCENTTRAVELER = 3;
+  USERAGENT_BROWSER_360SE = 4;
+  USERAGENT_BROWSER_SOUGOU = 5;
+  USERAGENT_BROWSER_MYIE = 6;
+  USERAGENT_BROWSER_MAXTHON = 7;
+  USERAGENT_BROWSER_NETSCAPE = 8;
+  USERAGENT_BROWSER_NETCAPTOR = 9;
+  USERAGENT_BROWSER_THEWORLD = 10;
+  USERAGENT_BROWSER_CHROME = 11;
+  USERAGENT_BROWSER_FIREFOX = 12;
+  USERAGENT_BROWSER_SAFARI = 13;
+  USERAGENT_BROWSER_OPERA = 14;
+  USERAGENT_BROWSER_GECKO = 15;
+  USERAGENT_BROWSER_GALEON = 16;
+  USERAGENT_BROWSER_NUTSCRAPE = 17;
+  USERAGENT_BROWSER_GREENBROWSER = 18;
+  USERAGENT_BROWSER_MSIE8 = 19;
+  USERAGENT_BROWSER_MSIE7 = 20;
+  USERAGENT_BROWSER_MSIE6 = 21;
+  USERAGENT_BROWSER_MSIE5 = 22;
+  USERAGENT_BROWSER_MSIE9 = 23;
+};
+
+enum UserAgent_ScreenDepth {
+  USERAGENT_SCREENDEPTH_UNKNOWN = 1;
+  USERAGENT_SCREENDEPTH_BIT_64 = 2;
+  USERAGENT_SCREENDEPTH_BIT_32 = 3;
+  USERAGENT_SCREENDEPTH_BIT_24 = 4;
+  USERAGENT_SCREENDEPTH_BIT_16 = 5;
+  USERAGENT_SCREENDEPTH_BIT_8 = 6;
+  USERAGENT_SCREENDEPTH_BIT_4 = 7;
+  USERAGENT_SCREENDEPTH_BIT_1 = 8;
+};
+
+enum UserAgent_PlatformType {
+  USERAGENT_PLATFORMTYPE_UNKNOWN = 1;
+  USERAGENT_PLATFORMTYPE_WIN32 = 2;
+  USERAGENT_PLATFORMTYPE_WIN64 = 3;
+  USERAGENT_PLATFORMTYPE_WINDOWS = 4;
+  USERAGENT_PLATFORMTYPE_X11 = 5;
+  USERAGENT_PLATFORMTYPE_IPAD = 6;
+  USERAGENT_PLATFORMTYPE_IPHONE = 7;
+  USERAGENT_PLATFORMTYPE_IPOD = 8;
+  USERAGENT_PLATFORMTYPE_MACINTEL = 9;
+  USERAGENT_PLATFORMTYPE_MAC = 10;
+  USERAGENT_PLATFORMTYPE_SYMBIAN = 11;
+  USERAGENT_PLATFORMTYPE_BLACKBERRY = 12;
+  USERAGENT_PLATFORMTYPE_FREEBSD = 13;
+  USERAGENT_PLATFORMTYPE_PIKE = 14;
+  USERAGENT_PLATFORMTYPE_ANDROID = 15;
+  USERAGENT_PLATFORMTYPE_WINCE = 16;
+  USERAGENT_PLATFORMTYPE_MOCOR = 17;
+  USERAGENT_PLATFORMTYPE_SUNOS = 18;
+  USERAGENT_PLATFORMTYPE_IOS = 19;
+  USERAGENT_PLATFORMTYPE_LINUX = 20;
+};
+
+enum UserAgent_MobileOS {
+  USERAGENT_MOBILEOS_UNKNOWN = 1;
+  USERAGENT_MOBILEOS_IOS = 2;
+  USERAGENT_MOBILEOS_ANDROID = 3;
+  USERAGENT_MOBILEOS_SYMBIAN = 4;
+  USERAGENT_MOBILEOS_BLACKBERRY = 5;
+  USERAGENT_MOBILEOS_WINCE = 6;
+  USERAGENT_MOBILEOS_LINUX = 7;
+  USERAGENT_MOBILEOS_JAVA = 8;
+};
+
+enum UserAgent_MobileType {
+  USERAGENT_MOBILETYPE_UNKNOWN = 1;
+  USERAGENT_MOBILETYPE_NOKIA = 2;
+  USERAGENT_MOBILETYPE_HTC = 3;
+  USERAGENT_MOBILETYPE_APPLE = 4;
+  USERAGENT_MOBILETYPE_BLACKBERRY = 5;
+  USERAGENT_MOBILETYPE_SAMSUNG = 6;
+  USERAGENT_MOBILETYPE_ZTE = 7;
+  USERAGENT_MOBILETYPE_HUAWEI = 8;
+  USERAGENT_MOBILETYPE_SONYERICSSON = 9;
+  USERAGENT_MOBILETYPE_LENOVO = 10;
+  USERAGENT_MOBILETYPE_OPPO = 11;
+  USERAGENT_MOBILETYPE_MOTO = 12;
+  USERAGENT_MOBILETYPE_MIUI = 13;
+  USERAGENT_MOBILETYPE_BBK = 14;
+  USERAGENT_MOBILETYPE_MEIZU = 15;
+  USERAGENT_MOBILETYPE_SHARP = 16;
+  USERAGENT_MOBILETYPE_NEC = 17;
+  USERAGENT_MOBILETYPE_LG = 18;
+  USERAGENT_MOBILETYPE_HISENSE = 19;
+};
+
+enum UserAgent_MobileBrowser {
+  USERAGENT_MOBILEBROWSER_UNKNOWN = 1;
+  USERAGENT_MOBILEBROWSER_QQBROWSER = 2;
+  USERAGENT_MOBILEBROWSER_CHROME = 3;
+  USERAGENT_MOBILEBROWSER_UCWEB = 4;
+  USERAGENT_MOBILEBROWSER_GOBROWSER = 5;
+  USERAGENT_MOBILEBROWSER_IEMOBILE = 6;
+  USERAGENT_MOBILEBROWSER_MAUIWAPBROWSER = 7;
+  USERAGENT_MOBILEBROWSER_OPERA = 8;
+  USERAGENT_MOBILEBROWSER_360BROWSER = 9;
+  USERAGENT_MOBILEBROWSER_ANDROID = 10;
+  USERAGENT_MOBILEBROWSER_SAFARI = 11;
+  USERAGENT_MOBILEBROWSER_GECKO = 12;
+  USERAGENT_MOBILEBROWSER_MOZILLA = 13;
+};
+
+message UserAgent {
+  optional UserAgent_Browser browser = 1 [ default = USERAGENT_BROWSER_UNKNOWN ];
+  optional UserAgent_ScreenDepth screen_depth = 2 [ default = USERAGENT_SCREENDEPTH_UNKNOWN ];
+  optional UserAgent_PlatformType platform_type = 3 [ default = USERAGENT_PLATFORMTYPE_UNKNOWN ];
+  optional UserAgent_MobileOS mobile_os = 4 [ default = USERAGENT_MOBILEOS_UNKNOWN ];
+  optional UserAgent_MobileType mobile_type = 5 [ default = USERAGENT_MOBILETYPE_UNKNOWN ];
+  optional UserAgent_MobileBrowser mobile_browser = 6 [ default = USERAGENT_MOBILEBROWSER_UNKNOWN ];
+  optional ConnectionType connection_type = 7 [ default = CONNECTIONTYPE_UNKNOWN ];
+};

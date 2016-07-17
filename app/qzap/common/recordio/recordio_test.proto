@@ -1,0 +1,338 @@
+
+// It must include some "required" fields, to avoid accidentally we consider a
+// random string as a valid protocol buffer.
+message Record {
+  required uint32 int_value = 1;
+  required double double_value = 2;
+  optional string string_value = 3;
+}
+
+//
+// proto from ad, for regression test.
+//
+
+message TextFeature {
+  repeated Token tokens = 1;
+  repeated Keyword keywords = 2;
+  repeated Keyword expand_keywords = 3;
+  repeated Topic topics = 4;
+  repeated Category categories = 5;
+}
+
+enum NamedEntityType {
+  kUnknownNE = 1;
+  kPerson = 2;
+  kOrganization = 3;
+  kLocation = 4;
+  kSoftware = 5;
+  kGame = 6;
+  kBrand = 7;
+  kProduct = 8;
+  kProductNumber = 9;
+  kBook = 10;
+  kNovel = 11;
+  kMusic = 12;
+  kVideo = 13;
+  kFood = 14;
+  kIllness = 15;
+  kStock = 16;
+  kFlight = 17;
+  kTour = 18;
+  kHouse = 19;
+  kWebsite = 20;
+  kIdiom = 21;
+}
+
+message Hit {
+  optional uint32 field_index = 1;
+  optional uint32 position = 2;
+  optional uint32 offset = 3;
+  optional bytes type = 4;
+}
+
+message Token {
+  optional uint64 signature = 1;
+  optional bytes text = 2;
+  optional float weight = 3;
+
+  optional bool is_stopword = 4 [default = false];
+  optional uint32 tf = 5 [default = 1];
+  optional double idf = 6;
+  repeated Hit hits = 7;
+}
+
+message Keyword {
+  optional uint64 signature = 1;
+  repeated bytes tokens = 2;
+  optional float weight = 3;
+
+  optional string text = 4;
+  optional NamedEntityType ne_type = 5;
+  optional uint32 frequency = 6 [default = 1];
+  optional double idf = 7;
+  optional double sas_similarity = 8;
+  repeated Hit hits = 9;
+
+  optional bool is_expanded = 10;
+  repeated uint32 parent_keyword_ids = 11;
+}
+
+message Category {
+  optional uint32 id = 1;
+  optional float weight  = 2;
+  optional bytes name = 3;
+}
+
+message Topic {
+  optional uint32 id = 1;
+  optional float weight = 2;
+}
+
+message AreaTarget {
+  repeated uint32 area_code = 1;
+  repeated uint32 city_code = 2;
+}
+
+message IPTarget {
+  repeated uint32 ip = 1;
+  repeated uint32 subnet = 2;
+}
+
+message TimeTarget {
+  optional uint32 monday = 1;
+  optional uint32 tuesday = 2;
+  optional uint32 wednesday = 3;
+  optional uint32 thursday = 4;
+  optional uint32 friday = 5;
+  optional uint32 saturday = 6;
+  optional uint32 sunday = 7;
+  optional uint64 t_start = 8;
+  optional uint64 t_end = 9;
+}
+
+enum AdPubType {
+  kAFS = 1;
+  kAFC = 2;
+  kWireless = 4;
+  kAFCWireless = 64;
+  kAFCSmart = 128;
+}
+
+enum OpType {
+  kNew = 1;
+  kModify = 2;
+  kDelete = 3;
+}
+
+enum RecordType {
+  kHeader = 1;
+  kAdvertiser = 2;
+  kCampaign = 3;
+  kAdGroup = 4;
+  kInvalidInfo = 5;
+}
+
+enum TargetType {
+  kUserDefine = 1;
+  kSysGenerated = 2;
+}
+
+message WordTarget {
+  message WordSegment {
+    optional bytes token = 1;
+    repeated int32 offsets = 2;
+  }
+  optional uint64 word_id = 1;
+  optional bytes bid_word = 2;
+  repeated WordSegment word_segments = 3;
+  optional TargetType target_type = 4 [default = kUserDefine];
+}
+
+message ClassTarget {
+  optional uint32 class_id = 1;
+  optional double class_ratio = 2;
+  optional double class_weight = 3;
+}
+
+message UserTarget {
+  enum Gender {
+    kAll = 0;
+    kMale = 1;
+    kFemale = 2;
+  }
+  optional Gender gender = 1;
+  enum Ages {
+    k00_18 = 1;
+    k18_24 = 2;
+    k24_30 = 3;
+    k30_40 = 4;
+    k40_00 = 5;
+  }
+  repeated Ages ages = 2;
+  enum Educations {
+    kCollege = 1;
+    kHighSchool = 2;
+    kMiddleSchool = 3;
+  }
+  repeated Educations educations = 3;
+  repeated int32 interests = 4;
+}
+
+message Advertiser {
+  optional uint64 id = 1;
+  optional AreaTarget area_target = 2;
+  optional IPTarget ip_target = 3;
+  optional int32 day_budget = 4;
+  optional int32 charge = 5;
+  optional int32 balance = 6;
+  optional uint64 qq = 7;
+  optional bool online = 8;
+  repeated uint32 business_id = 9;
+}
+
+message Campaign {
+  enum ShowOption {
+    kRandom = 1;
+    kPriority = 2;
+  }
+  enum BidType {
+    kCpc = 1;
+    kCpm = 2;
+  }
+  enum ShowType {
+    kConstant = 1;
+    kSpeedup = 2;
+  }
+  enum TargetRelation {
+    kOR = 1;
+    kAND = 2;
+  }
+  optional uint64 id = 1;
+  optional uint64 advertiser_id = 2;
+  optional TimeTarget time_target = 3;
+  optional AreaTarget area_target = 4;
+  optional IPTarget ip_target = 5;
+  repeated WordTarget negative_bid_words = 6;
+  optional ShowOption show_option = 7;
+  optional int32 day_budget = 8;
+  optional bool online = 9;
+  optional BidType bid_type = 10;
+  optional ShowType show_type = 11;
+  optional TargetRelation target_relation = 12;
+  optional float budget_factor = 13;
+  optional uint32 adtype = 14;
+}
+
+message AdGroup {
+  optional uint64 id = 1;
+  optional uint64 campaign_id = 2;
+  optional uint64 advertiser_id = 3;
+  repeated Creative creatives = 4;
+  optional int32 default_cpc = 5;
+  optional bool online = 6;
+  optional int32 default_cpm = 7;
+  message ShowPosition {
+      optional int32 placement_id = 1;
+      optional int32 afc_cpc = 2;
+      optional int32 afc_cpm = 3;
+  }
+  repeated ShowPosition show_position = 8;
+  repeated int32 negative_placement_id = 9;
+  optional UserTarget user_target = 10;
+  optional uint32 adtype = 11;
+
+  optional bool use_interests_as_category_index = 12 [default = false];
+
+  repeated WordTarget keywords = 51;
+  repeated WordTarget negative_keywords = 52;
+  repeated ClassTarget categories = 53;
+  repeated Topic topics = 54;
+  repeated WordTarget user_search_words = 55;
+  repeated WordTarget user_purchase_words = 56;
+
+  optional float ctr = 57;
+
+  repeated Token bow_tokens = 58;
+  repeated Topic bow_topics = 59;
+  repeated Category bow_categories = 60;
+}
+
+message CreativeImpression {
+  optional uint64 id = 1;
+  optional bytes title = 2;
+  optional bytes description_1 = 3;
+  optional bytes description_2 = 4;
+  optional bytes show_url = 5;
+  optional bytes target_url = 6;
+  optional bool show_qq = 8;
+  optional bytes advertiser_wireless_click_phone = 9;
+  enum WirelessUrlType {
+    kWeb = 1;
+    kWap = 2;
+  }
+  optional WirelessUrlType wireless_target_url_type = 10 [default = kWeb];
+  enum CreativeType {
+    kText = 0;
+    kPicture = 1;
+    kFlash = 2;
+    kTitle = 3;
+    kDoublePicture = 4;
+  }
+  optional CreativeType creative_type = 11;
+  optional bytes material_url = 12;
+}
+
+message Creative {
+  optional CreativeImpression creative_impression = 1;
+  optional uint64 domain_id = 2;
+  optional uint32 dimensions_width = 3;
+  optional uint32 dimensions_height = 4;
+  enum CreativeDevice {
+    kWeb = 1;
+    kWap = 2;
+  }
+  optional CreativeDevice creative_device = 5 [default = kWeb];
+
+  repeated uint64 title_seg_signature = 16;
+  repeated uint64 description_1_seg_signature = 17;
+  repeated uint64 description_2_seg_signature = 18;
+
+  optional TextFeature title_text_feature = 19;
+  optional TextFeature description_1_text_feature = 20;
+  optional TextFeature description_2_text_feature = 21;
+  optional TextFeature title_and_description_1_text_feature = 22;
+}
+
+message Header {
+}
+
+message UpdaterRecord {
+  optional OpType op_type = 1;
+  optional RecordType record_type = 2;
+  optional Header header = 3;
+  optional Advertiser advertiser = 4;
+  optional Campaign campaign = 5;
+  optional AdGroup adgroup = 6;
+  optional InvalidInfo invalid_info = 7;
+}
+
+message InvalidInfo {
+  enum InvalidType {
+    kAdUpdater = 1;
+    kBudgetKeeper = 2;
+  }
+  message InvalidRecord {
+    optional uint64 id = 1;
+    optional InvalidType invalid_type = 2;
+  }
+  repeated InvalidRecord invalid_advertiser = 1;
+  repeated InvalidRecord valid_advertiser = 2;
+  repeated InvalidRecord invalid_campaign = 3;
+  repeated InvalidRecord valid_campaign = 4;
+  repeated InvalidRecord invalid_adgroup = 5;
+  repeated InvalidRecord valid_adgroup = 6;
+}
+
+//
+// End of proto from ad, for regression test.
+//

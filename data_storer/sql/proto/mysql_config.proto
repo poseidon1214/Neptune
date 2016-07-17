@@ -1,0 +1,14 @@
+message MysqlConfig {
+  // ip
+  optional string ip = 1;
+  // 用户名
+  optional string user = 2;
+  // 端口号
+  optional uint32 port = 3;
+  // 密码
+  optional string password = 4;
+  // 数据库名
+  optional string database_name = 5;
+  // 编码方式
+  optional string charset = 6;
+}

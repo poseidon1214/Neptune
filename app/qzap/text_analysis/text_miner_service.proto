@@ -1,0 +1,18 @@
+// Copyright (c) 2014 Tencent Inc.
+// Author: Lifeng Wang (fandywang@tencent.com)
+//
+// TextMinerService 定义
+
+package qzap.text_analysis;
+
+import "app/qzap/common/rpc/qzone_rpc_service.proto";
+option cc_generic_services = true;
+import "app/qzap/text_analysis/text_miner.proto";
+
+service TextMinerService {
+    option (qzone_protocol_version) = 1;
+    rpc Analyze(TextMinerRequest) returns (TextMinerResponse) {
+        option (qzone_protocol_cmd) = 10;
+    }
+}
+

@@ -1,0 +1,123 @@
+global_config(
+    duplicated_source_action = 'error'
+)
+
+cc_test_config(
+    # dynamic_link=True,
+    dynamic_link=False,
+    heap_check='strict',
+    gtest_libs=['thirdparty/gtest:gtest', '#pthread'],
+    gtest_main_libs='thirdparty/gtest:gtest_main'
+)
+
+cc_config(
+    cppflags=['-DQZONE_PROJECT_ROOT=\\\"/data/release/snsad/\\\"',],
+    warnings = [
+        #'-Werror',
+        #'-Wall',
+        #'-Wextra',
+        # disable some warnings enabled by Wextra
+        # '-Wno-unused-but-set-variable',
+        '-Wno-unused-parameter',
+        # '-Wno-unused-local-typedefs',  // unknown in gcc 4.4.6
+        '-Wno-missing-field-initializers',
+        # other useful warnings
+        '-Wformat=1',
+        # '-Wframe-larger-than=69632', # A 64k buffer and other small vars
+        '-Wpointer-arith',
+        # error flags
+        '-Wchar-subscripts',
+        '-Wendif-labels',
+        '-Wmissing-include-dirs',
+        '-Wmultichar',
+        '-Wparentheses',
+        '-Wreturn-type',
+        '-Wsequence-point',
+        '-Wswitch',
+        '-Wunused-function',
+        '-Wunused-label',
+        '-Wunused-result',
+        '-Wunused-value',
+        '-Warray-bounds',
+        '-Wcomment',
+        '-Wwrite-strings',
+        # comment out for gcc 4.4.6
+        # '-Wconversion-null',
+        '-fpermissive',
+        # Add to clean up all warnings.
+        '-Wno-float-equal',
+        '-Wno-sign-compare',
+        '-Wno-strict-aliasing',
+        '-Wno-deprecated-declarations',
+        '-Wno-uninitialized',
+        # '-Wno-incompatible-pointer-types',
+
+    ],
+    # C++ only warning flags
+    cxx_warnings = [
+        '-Wno-invalid-offsetof',
+        '-Woverloaded-virtual',
+        '-Wnon-virtual-dtor',
+        '-std=c++11',
+        '-fpermissive',
+        # Add to clean up all warnings.
+        '-Wno-deprecated',
+    ],
+    extra_incs=[
+        # for all thirdparty packages
+        'thirdparty/',
+        # for jce generated header
+        'thirdparty/pdu_header/include/',
+        # for <jni.h>
+        'thirdparty/java/default/include/',
+        'thirdparty/java/default/include/linux/',
+    ],
+    linkflags = ['-Lthirdparty/jdk/lib'],
+    cpplint = 'app/qzap/tools/cpplint.py',
+)
+
+cc_binary_config(
+    run_lib_paths = ['//thirdparty/jdk/lib'],
+)
+
+cc_test_config(
+)
+
+cc_library_config(
+    generate_dynamic = True
+)
+
+proto_library_config(
+    protoc='thirdparty/protobuf/bin/protoc',
+    protobuf_libs=['#protobuf'],
+    protobuf_java_libs=['//thirdparty/buck/deps:protobuf'],
+    protobuf_path='thirdparty',
+    protobuf_incs = 'thirdparty',
+    protobuf_php_path='thirdparty/Protobuf-PHP/library',
+    protoc_php_plugin='thirdparty/Protobuf-PHP/protoc-gen-php.php'
+)
+
+java_config(
+    maven = './mvn',
+    source_encoding = 'utf-8',
+    java_home = 'thirdparty/java/default',
+    warnings = [],
+)
+
+java_binary_config(
+    one_jar_boot_jar = 'thirdparty/blade/one-jar-boot-0.97.jar'
+)
+
+java_test_config(
+    jacoco_home = 'thirdparty/jacoco',
+    coverage_reporter = 'thirdparty/blade/java_report_generator.jar',
+)
+
+scala_config(
+    scala_home = 'thirdparty/scala/scala-2.10.6',
+    source_encoding = 'UTF8',
+)
+
+scala_test_config(
+    scalatest_libs = ['//thirdparty/scala/scalatest:scalatest'],
+)

@@ -1,0 +1,1 @@
+Fcpd(fcp) generate from `http://tc-svn.tencent.com/setech/setech_infrastructure_rep/Infra_proj/trunk/src/common_services/file_service/BUILD'. It is a file transfer service(client). `-m32' have been used when built.

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<proxy>
+    <acceptor type="socket" maxconn="100000" timeout="60">
+        <entry type="tcp" if="eth1" port="12345"/>
+        <entry type="udp" if="eth1" port="12345"/>
+    </acceptor>
+	<connector type="shm" maxconn="100000" timeout="60">
+		<entry type="shm" send_size="16" recv_size="16" groupid="1"/>
+    </connector>
+	<log level="3" type="0" path="./log" prefix="proxy" maxfilesize="10240000" maxfilenum="10"/>
+	<stat mapfile="./spp_proxy_stat.dat" intervial="100"/>
+	<moni intervial="15"/>
+    <module bin="../../../../../../blade-bin/app/qzap/common/utility/libspp_proto_send_and_recv_test_svr.so" etc=""/>
+</proxy>

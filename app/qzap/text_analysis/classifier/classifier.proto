@@ -1,0 +1,6 @@
+package qzap.text_analysis;
+
+message Label {
+  optional int32 id = 1;
+  optional double probability = 2;
+}

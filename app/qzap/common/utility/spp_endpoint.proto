@@ -1,0 +1,10 @@
+message SppEndpoint
+{
+  optional string host = 1;
+  optional int32  port =2;
+  optional int32  l5_mod_id = 3;
+  optional int32  l5_cmd_id = 4;
+  optional int32  conn_timeout = 5 [ default = 50 ];
+  optional int32  send_timeout = 6 [ default = 100 ];
+  optional int32  recv_timeout = 7 [ default = 200 ];
+}

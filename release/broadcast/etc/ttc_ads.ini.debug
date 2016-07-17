@@ -1,0 +1,12 @@
+[cpx]
+ttc_ip=172.25.32.55
+ttc_port=20001
+[stat]
+order_ttc_ip=172.25.32.55
+order_ttc_port=20002
+placement_ttc_ip=172.25.32.55
+placement_ttc_port=20003
+[ads]
+clickcount_ttc_num=1
+clickcount_ttc_0_ip=172.27.5.61
+clickcount_ttc_0_port=20004

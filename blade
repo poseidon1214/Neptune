@@ -1,0 +1,39 @@
+#!/bin/bash
+# Copyright (C), 1998-2013, Tencent
+# Author: jefftang@tencent.com
+# Date: 2013-1-29
+pushd `dirname $0` > /dev/null
+export PROJECT_DIR=`pwd`
+popd > /dev/null
+export BLADE_BOOST_DIR=~/.blade_boost
+export PYTHON_BIN=$BLADE_BOOST_DIR/bin/python2.7
+
+if [ -f $PYTHON_BIN ]
+then
+  PATH=$BLADE_BOOST_DIR/bin:$PATH $PYTHON_BIN $PROJECT_DIR/thirdparty/blade/blade.zip $*
+  exit $?
+fi
+
+mkdir $BLADE_BOOST_DIR
+cd $BLADE_BOOST_DIR
+if [ ! -d Python-2.7.3 ]
+then
+    cp $PROJECT_DIR/thirdparty/blade/Python-2.7.3.tgz .
+    tar -xf Python-2.7.3.tgz
+fi
+if [ ! -d scons-2.2.0 ]
+then
+    cp $PROJECT_DIR/thirdparty/blade/scons-2.2.0.tar.gz .
+    tar -xf scons-2.2.0.tar.gz
+fi
+cd Python-2.7.3
+echo 'Boosting Python-2.7.3, please wait...'
+./configure --prefix=$BLADE_BOOST_DIR > $BLADE_BOOST_DIR/boosting.log
+make  >> $BLADE_BOOST_DIR/boosting.log
+make install >> $BLADE_BOOST_DIR/boosting.log
+cd -
+echo 'Boosting scons, please wait...'
+cd scons-2.2.0
+$PYTHON_BIN setup.py install >> $BLADE_BOOST_DIR/boosting.log
+cd $PROJECT_DIR
+PATH=$BLADE_BOOST_DIR/bin:$PATH $PYTHON_BIN $PROJECT_DIR/thirdparty/blade/blade.zip $*

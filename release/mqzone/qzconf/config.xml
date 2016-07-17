@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="GB2312" ?>
+
+<SYSTEM LogDir="../log"             LogName="container"     
+        LogLevel="0"                MaxFdCount="1096" 
+        CoreDump="enable"          MsgID="2015004001" 
+        Interface="eth1"            GlobalProcNum="2048"
+        ReportInterval="10"         AlarmTimes = "1"
+        WebTimeout="100"             HelperTimeout="40"
+	MaxListenCount="1024"       BindAddr="0.0.0.0"
+	MaxReqHeadLen="100000"
+        BindPort="80"               AcceptLoopCount="256" 
+        AccessLog="0"               CleanCycle="600"
+        Dynamic_GZip="enable"       Dynamic_GZip_Inf="0" 
+        AccessLimit="disable"        LimitConfig="../conf/limit.xml"
+        UseChunk="1" SmsPath="/home/user_00/script/sendsms.sh"
+		GZipThreadCount="2"         GZipLevel="best_compression"
+        KeepAlive="disable"
+        KeepAliveMax="-1"         KeepAliveCycle="-1"
+		Dye_Plugin="../lib/cookie_dye_log.so"	StatusLog="1"
+	    Proxy_Defense_Module="./firewall.so" Proxy_Defense_Conf="I hate this "
+        Cgi_Defense_Module="./firewall.so" Cgi_Defense_Conf="I love this "
+		FIFOPath="/tmp/qzhttp_status_log"
+	    UUID="0"
+	    PHP_PATH="/usr/local/php-5.2.14/bin/php"
+		XFF_DETECT="enable" Monitor_Center="abcd"
+		>
+<AsyncParam CGITimeout="5"			CGINetIOTimeout="3"
+			MaxPollerSize="10240"		EpollWaitTime="3000">
+</AsyncParam>
+		
+<ModuleCommon DllFile="../lib/libcgihost.so" ConfigFile=""
+              DocRoot="htdocs"   IndexFile="index.html" 
+              CgiHome="cgihome"         InitProcNum="8" 
+              MaxProcNum="16"           RunType="fastcgi" 
+              ReportCycle="30"          ProcTimeout="4"
+              UsedMinPercent="0.01"     UsedMaxPercent="0.9"
+              ExceptionPercent="0.8"    MaxExceptionTimes = "10"
+              AdjustProcNum="1"         UseGzip="1" 
+              MaxMem="4"                MaxHandle="512" 
+              HandleCheckTimes="1000"   CacheAge="7200" 
+              RunTimes="-1"              UserName="root">
+</ModuleCommon>
+
+<ModuleList>
+
+<!--Section DocRoot="htdocs" >
+<Module ModName="proxy_module" DllFile="../lib/proxy.so" Monitor="disable"  />
+</Section/-->
+
+<Section DocRoot="./htdocs" IndexFile="index1.html" CgiHome="./cgihome" VirtuelHost="10.6.207.128" DefaultCGI="" ServerPath="" Publish="" RspFile="error.html">
+<!--Module ModName="cgi-bin/hello_async.fcg" InitProcNum="1" MaxProcNum="1" RunType="async_fcgi" />
+<Module ModName="cgi-bin/async0.fcg" InitProcNum="1" MaxProcNum="1" RunType="async_fcgi" />
+<Module ModName="cgi-bin/async1.fcg" InitProcNum="1" MaxProcNum="1" RunType="async_fcgi" />
+<Module ModName="cgi-bin/async2.fcg" InitProcNum="1" MaxProcNum="1" RunType="async_fcgi" />
+<Module ModName="cgi-bin/async3.fcg" InitProcNum="1" MaxProcNum="1" RunType="async_fcgi" />
+<Module ModName="a.php" InitProcNum="3" MaxProcNum="5" RunType="php" /-->
+<Module ModName="static_module" InitProcNum="1"   MaxProcNum="1" IndexFile="mmp.html"  RunType="static"/>
+<!--Module ModName="cgi-bin/echo.fcg" InitProcNum="1" MaxProcNum="1" RunType="fastcgi" /-->
+<Module ModName="proxy_module" DllFile="../lib/proxy.so" Monitor="disable"  />
+<Module ModName="static_module1" Location="~ .*\.(txt)?$" DocRoot="/usr/local/PHP_SRC" InitProcNum="1" MaxProcNum="1" RunType="static"
+	Access="deny 172.23.128.134/25"/>
+<!--Module ModName="cgi-bin/test.cgi" Location="/cgi-bin/"  InitProcNum="1" MaxProcNum="1" RunType="fastcgi"/-->
+<Module Location="~ .*\.php?$" Pass="127.0.0.1:9000" ParaInc="../conf/fcgi_param.xml" CgiHome="/usr/local/PHP_SRC" RunType="fcgiproto"
+	Access="deny 172.23.128.133/25;allow all"/>	
+</Section>
+
+<Section DocRoot="/data/release/snsad/mqzone/htdocs" IndexFile="index.html" Location="" CgiHome="/data/release/snsad/mqzone" VirtuelHost="" ServerPath="">
+        <Module ModName="cgi-bin/mpage/mpage_recommend.cgi"/>
+        <Module ModName="cgi-bin/mpage/mpage_uin_info.cgi"/>
+        <Module ModName="cgi-bin/mpage/mpage_class_info.cgi"/>
+        <Module ModName="cgi-bin/mpage/mpage_class_members.cgi"/>
+        <Module ModName="cgi-bin/mpage/mpage_top_list.cgi"/>
+	<Module ModName="cgi-bin/mpage/mvote_del_researchuser.cgi"/>
+        <Module ModName="cgi-bin/qzap/ac.fcg"/>
+	<Module ModName="cgi-bin/qbs/qbs_get_ad.fcg" />
+</Section>
+
+</ModuleList>
+
+<Switch Index="-1" cginame="" prefix_mach="0">
+<!--Item Condition="2.html" Index="2" cginame="" />
+<Item Condition="1.html" Index="-1" cginame="cgi-bin/sample2.cgi" />
+<Item Condition="test" Index="-1" cginame="cgi-bin/sample2.fcg" />
+<Item Condition="default" Index="1" cginame="" /-->
+</Switch>
+
+</SYSTEM>
+            

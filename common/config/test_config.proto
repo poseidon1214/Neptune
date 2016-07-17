@@ -1,0 +1,10 @@
+// Copyright (c) 2014 Tencent Inc.
+// Author: Li Meng (elvisli@tencent.com)
+
+package gdt;
+
+message TestConfig {
+    optional int32 key = 1;
+    optional string value = 2;
+}
+

@@ -1,0 +1,23 @@
+syntax = "proto3";
+package common.base.string.concat.test;
+
+message TestEmbeddedMessage
+{
+     string s1 = 1;
+     string s2 = 2;
+    repeated int32 n3 = 3;
+}
+
+message TestMessage
+{
+     string s1 = 1;
+     string s2 = 2;
+     string s3 = 3;
+     int32 n4 = 4;
+     int32 n5 = 5;
+     int32 n6 = 6;
+     int32 n7 = 7;
+     int32 n8 = 8;
+     bytes f9 = 9;
+     TestEmbeddedMessage m10 = 10;
+};

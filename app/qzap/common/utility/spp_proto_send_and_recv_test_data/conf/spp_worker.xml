@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<worker groupid="1">
+	<acceptor type="shm" maxconn="100000" timeout="60">
+        <entry type="shm" send_size="16" recv_size="16"/>
+    </acceptor>
+	<log level="3" type="0" path="../log" prefix="worker" maxfilesize="10240000" maxfilenum="10"/>
+	<stat mapfile="./spp_worker_stat.dat" intervial="100"/>
+	<moni intervial="15"/>
+    <module bin="../../../../../../blade-bin/app/qzap/common/utility/libspp_proto_send_and_recv_test_svr.so" etc=""/>
+</worker>

@@ -1,0 +1,126 @@
+###############################################################################
+#	Common Makefile for Qzone
+#
+# 两个重要的定义要特别指出：
+#PATH_QZONE_PRJ:跟编译相关，源代码工程的根目录，初始化时要加入.profile设置环境变量
+#QZONE_PROJECT_ROOT:源代码里使用，涉及日志目录log 资源etc，data目录定位,相对运营目录PATH_SNSAD_RELEASE定位,
+#		    PATH_SNSAD_RELEASE默认是我们的运营目录/data/release/snsad/，在开发环境时可加入.profile设置以便于开发自测
+#
+#
+#
+###############################################################################
+
+###  Tools  define
+CC   = gcc
+CXX  = g++
+AR   = ar
+
+INC_ROOT=-I$(PATH_QZONE_PRJ)
+C_FLAGS= -DQZONE_PROJECT_ROOT=\"$(PATH_SNSAD_RELEASE)\" -W -Wpointer-arith  -g -pipe -D_REENTRANT -DACE_HAS_AIO_CALLS -D_GNU_SOURCE -DACE_HAS_EXCEPTIONS  -D__ACE_INLINE__ -fPIC
+LD_FLAGS=-z defs
+
+##外网正式营运的目录
+ifndef PATH_SNSAD_RELEASE
+PATH_SNSAD_RELEASE=/data/release/snsad/
+endif
+
+#一级目录的定义,其它子makefile采用这里的定义
+
+
+ifdef BIGQQ_FLAGS
+###支持21亿号码的工程
+
+###  Project macro define
+
+PATH_QZONE_PRJ_LOG    = $(PATH_QZONE_PRJ)/log
+PATH_QZONE_EXTERN_LIB = $(PATH_QZONE_PRJ)/base_class/extern_libs
+PATH_QZONE_BASE_CLASS_PRJ = $(PATH_QZONE_PRJ)/base_class
+PATH_QZONEPLATFORM_PRJ = $(PATH_QZONE_PRJ)
+
+include $(PATH_QZONEPLATFORM_PRJ)/plib/makefile.plib
+
+###根据编译机器位数来加载相关的exter_libs库配置
+MACHINE_BIT:=$(shell uname -m|grep -c "x86_64")
+ifeq ($(MACHINE_BIT),1)
+C_FLAGS+=-m64
+LD_FLAGS+=-Wl,-rpath,/usr/local/qzone_v3.0/lib64
+include $(PATH_QZONE_PRJ)/makeinclude/make_macro.extern_libs.suse64
+else
+C_FLAGS+=-m32
+LD_FLAGS+=-Wl,-rpath,/usr/local/qzone_v3.0/lib
+include $(PATH_QZONE_PRJ)/makeinclude/make_macro.extern_libs.suse32
+endif
+########################
+
+
+##########################
+
+###  Qzone platform macro define
+
+INC_SNS_BASECLASS   = -I$(PATH_QZONE_BASE_CLASS_PRJ)/include
+LIB_SNS_BASECLASS   = -L$(PATH_QZONE_BASE_CLASS_PRJ)/lib -lsnsplatform -lbasecomm  -lpthread
+
+
+INC= $(INC_MGW) $(INC_QZOIDB) $(INC_TSSD) $(INC_TMEM) $(INC_C4A) $(INC_QQMAIL) $(INC_FRIENDCLIENT) $(INC_TTC4X) $(INC_JSON) $(INC_L5) $(INC_FASTCGI) $(INC_TNMAPI) $(INC_OIGATEWAYCLIENT) $(INC_SNSAREAENCODE) $(INC_BDB) $(INC_ZLIB) $(INC_MEMCACHE) $(INC_DIRTYCHECK) $(INC_NOTIFY_INVOICE_API) $(INC_SAC) $(INC_TINYXML) $(INC_GD) $(INC_SNSAD_ENCODE) $(INC_SHARE_IC) $(INC_HS_SHARE) $(INC_PANEL_AUTH) $(INC_SHAREAPI) $(INC_QZONE_VERIFY_API) $(INC_QZDATA) $(INC_QQ_ACCT) $(INC_COOKIE) $(INC_SNS_BASECLASS) $(INC_API_BASE) $(INC_PROTOBUF) $(INC_DC_API) $(INC_RECOMMEND_API) $(INC_FRIENDS_INVOLVED) $(INC_PDU) $(INC_GTEST_HEADER)  $(INC_GMOCK_HEADER) -I$(PATH_QZONE_PRJ)
+
+LIB= $(LIB_MGW) $(LIB_QZOIDB) $(LIB_TSSD) $(LIB_TMEM) $(LIB_C4A) $(LIB_QQMAIL) $(LIB_FRIENDCLIENT) $(LIB_TTC4X) $(LIB_JSON) $(LIB_L5) $(LIB_FASTCGI) $(LIB_TNMAPI) $(LIB_OIGATEWAYCLIENT) $(LIB_SNSAREAENCODE) $(LIB_BDB) $(LIB_ZLIB) $(LIB_MEMCACHE) $(LIB_DIRTYCHECK) $(LIB_NOTIFY_INVOICE_API) $(LIB_SAC) $(LIB_TINYXML) $(LIB_GD) $(LIB_SNSAD_ENCODE) $(LIB_SHARE_IC) $(LIB_HS_SHARE) $(LIB_PANEL_AUTH) $(LIB_SHAREAPI) $(LIB_QZONE_VERIFY_API) $(LIB_QZDATA) $(LIB_QQ_ACCT) $(LIB_COOKIE) $(LIB_SNS_BASECLASS) $(LIB_PROTOBUF) $(LIB_DC_API) $(LIB_RECOMMEND_API) $(LIB_FRIENDS_INVOLVED) $(LIB_PDU) $(LIB_GTEST_HEADER) -lz -lpthread
+
+
+else
+###原先的工程
+
+###  Project macro define
+PATH_QZONE_PRJ_LOG    = $(PATH_QZONE_PRJ)/log
+PATH_QZONE_BASE_CLASS_PRJ = $(PATH_QZONE_PRJ)/base_class_old
+PATH_QZONE_EXTERN_LIB = $(PATH_QZONE_BASE_CLASS_PRJ)/extern_libs
+
+
+
+###根据编译机器位数来加载相关的exter_libs库配置
+MACHINE_BIT:=$(shell uname -m|grep -c "x86_64")
+ifeq ($(MACHINE_BIT),1)
+C_FLAGS+=-m64
+LD_FLAGS+=-Wl,-rpath,/usr/local/qzone_v3.0/lib64
+include $(PATH_QZONE_PRJ)/makeinclude/make_macro.extern_libs.suse64.old
+else
+C_FLAGS+=-m32
+LD_FLAGS+=-Wl,-rpath,/usr/local/qzone_v3.0/lib
+include $(PATH_QZONE_PRJ)/makeinclude/make_macro.extern_libs.suse32.old
+endif
+########################
+
+
+##########################
+
+###  Qzone platform macro define
+
+INC_BASECLASS   = -I$(PATH_QZONE_BASE_CLASS_PRJ)/include
+LIB_BASECLASS   = -L$(PATH_QZONE_BASE_CLASS_PRJ)/lib -lqzoneplatform -lbasecomm  -lpthread
+
+
+INC= $(INC_MGW) $(INC_C4A) $(INC_QQMAIL) $(INC_BITMAPNEW) $(INC_RELATION) $(INC_AS_OISERVER) $(INC_FRIENDCLIENT) $(INC_QZOIDB)  $(INC_TSSD) $(INC_TMEM) $(INC_BASECLASS) $(INC_TLIB) $(INC_TBASE) $(INC_FASTCGI) $(INC_MYSQL) $(INC_TNMAPI) $(INC_SHAREAPI) $(INC_TTCAPI) $(INC_LOGAPI) $(INC_OIGATEWAYCLIENT) $(INC_COOKIE) $(INC_SNSAREAENCODE) $(INC_JSON) $(INC_BDB) $(INC_ZLIB) $(INC_QOSCLIENT) $(INC_MEMCACHE) $(INC_DIRTYCHECK) $(INC_NOTIFY_INVOICE_API) $(INC_SAC) $(INC_TINYXML) $(INC_STRINGS) $(INC_GD) $(INC_QQ_ACCT) $(INC_SNSAD_ENCODE) $(INC_PDU) $(INC_API_BASE) $(INC_PROTOBUF) $(INC_DC_API) $(INC_RECOMMEND_API) $(INC_FRIENDS_INVOLVED) $(INC_GTEST_HEADER) $(INC_GMOCK_HEADER) -I$(PATH_QZONE_PRJ)
+
+LIB= $(LIB_MGW) $(LIB_C4A) $(LIB_QQMAIL) $(LIB_BITMAPNEW) $(LIB_RELATION) $(LIB_AS_OISERVER) $(LIB_FRIENDCLIENT) $(LIB_QZOIDB)  $(LIB_TSSD) $(LIB_TMEM) $(LIB_BASECLASS) $(LIB_TLIB) $(LIB_TBASE) $(LIB_FASTCGI) $(LIB_MYSQL) $(LIB_TNMAPI) $(LIB_SHAREAPI) $(LIB_TTCAPI) $(LIB_LOGAPI) $(LIB_OIGATEWAYCLIENT) $(LIB_COOKIE) $(LIB_SNSAREAENCODE) $(LIB_JSON) $(LIB_BDB) $(LIB_ZLIB) $(LIB_QOSCLIENT) $(LIB_MEMCACHE) $(LIB_DIRTYCHECK) $(LIB_NOTIFY_INVOICE_API) $(LIB_SAC) $(LIB_TINYXML) $(LIB_STRINGS) $(LIB_GD) $(LIB_QQ_ACCT) $(LIB_SNSAD_ENCODE) $(LIB_FRIENDS_INVOLVED) $(LIB_PDU) $(LIB_PROTOBUF) $(LIB_DC_API) $(LIB_RECOMMEND_API) $(LIB_GTEST_HEADER) -lz -lpthread
+
+endif
+
+###sns业务的自己组件
+PATH_QZONE_SNS_LIB=$(PATH_QZONE_PRJ)/components
+
+###QZONE 整体公共库
+PATH_QZONE_LIB=$(PATH_QZONE_PRJ)/plib
+
+###sns编译发布目录
+PATH_SNSAD_MAKE_RELEASE=$(PATH_QZONE_PRJ)/release
+###sns编译资源目录
+PATH_SNSAD_MAKE_RESOURCE=$(PATH_QZONE_PRJ)/resource
+###sns gtest目录
+PATH_SNSAD_GTEST=$(PATH_QZONE_PRJ)/gtest
+
+
+
+### display color when compile err
+include $(PATH_QZONE_PRJ)/makeinclude/make_color.mk
+
+
+

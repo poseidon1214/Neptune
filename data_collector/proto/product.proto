@@ -1,0 +1,67 @@
+syntax = "proto2";
+
+// 属性
+message Attribute {
+  // 数据类型
+  enum DataType {
+    NONE = 0;
+    BOOL = 1;
+    INT32 = 2;
+    UINT32 = 3;
+    INT64 = 4;
+    UINT64 = 5;
+    FLOAT = 6;
+    DOUBLE = 7;
+    STRING = 8;
+  };
+  optional DataType data_type     = 1;
+  optional bool bool_value        = 2;
+  optional int32 int32_value      = 3;
+  optional uint32 uint32_value    = 4;
+  optional int64 int64_value      = 5;
+  optional uint64 uint64_value    = 6;
+  optional float float_value      = 7;
+  optional double double_value    = 8;
+  optional string string_value    = 9;
+}
+
+message FeederFile {
+  // 链接
+  optional string url = 1;
+  // 上次修改时间
+  optional uint64 last_modify_time = 2;
+  // 文件名称
+  optional string filename = 3;
+  // 来源名称
+  optional string source = 4;
+  // 是否已下载
+  optional bool downloaded = 5 [default = false];
+  // 来源ID
+  optional uint64 source_id = 6;
+}
+
+message ProductExt {
+  // 属性
+  repeated Attribute attribute = 1;
+}
+
+// 商品
+message Product {
+  // ID
+  optional uint64 id = 1;
+  // 商品
+  optional string title = 2;
+  // 图片url
+  optional string image_url = 3;
+  // 落地页
+  optional string dest_url = 4;
+  // 外部ID
+  optional string outer_id = 5;
+  // 价格
+  optional double price = 6;
+  // 来源ID
+  optional uint64 source_id = 7;
+  // 扩展信息
+  optional ProductExt product_ext = 8;
+}
+
