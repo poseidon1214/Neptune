@@ -6,6 +6,7 @@ cc_library(
     deps = [
         '//common/base/string:string',
         '//common/base/string:utility',
+        '//common/encoding:encoding',
         '//thirdparty/jsoncpp:jsoncpp',
         '//thirdparty/protobuf:protobuf',
         '//thirdparty/mysql:mysqlclient',

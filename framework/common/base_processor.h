@@ -100,8 +100,6 @@ class BaseProcessor {
   std::vector<BaseFunctor<ConfigType, DataMessageType>* > base_functor_list_;
 };
 
-typedef BaseProcessor<FeederConfig, DataMessage> FeederBaseProcessor;
-
 #define INIT_FUNCTOR(functor_name, functor_type) \
   auto* functor_name(new functor_type()); \
   CHECK_NOTNULL(functor_name); \
@@ -111,6 +109,8 @@ typedef BaseProcessor<FeederConfig, DataMessage> FeederBaseProcessor;
   } else {  \
     LOG(ERROR) << "AddFunctor " << #functor_type << " suceess" ; \ 
   }
+
+
 
 }  // namespace gdt
 #endif  // FRAMEWORK_BASE_PROCESSOR_H_

@@ -1,0 +1,56 @@
+syntax = "proto2";
+
+// 比特图
+message BitMap {
+  repeated uint64 bitset = 1;
+}
+
+// 函数子
+message Functor {
+  // 名称
+  optional string name = 1;
+}
+
+// 任务
+message Task {
+  // 任务ID
+  optional uint64 task_id = 1;
+  // 名称
+  optional string name = 2;
+  // 函数, 之间是串行的关系
+  repeated Functor functor = 3;
+}
+
+// 过程
+message Process {
+  // 名称
+  optional string name = 1;
+  // 任务，之间是并行的关系
+  repeated Task task = 2;
+  // 超时时间
+  optional uint64 timeout = 3;
+}
+
+// 转换关系
+message Transition {
+  // 结果
+  optional BitMap status = 1;
+  // 结果对应的下个状态ID
+  optional uint64 next_state_id = 2;
+}
+
+// 状态
+message State {
+  // 状态ID
+  optional uint64 state_id = 1;
+  // 状态名称
+  optional string state_name = 2;
+  // 过程
+  optional Process process = 3;
+  // 转换关系
+  repeated Transition transition = 4;
+  // 默认对应的下一个状态
+  optional uint64 default_next_state_id = 5;
+}
+
+

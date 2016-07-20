@@ -1,3 +1,4 @@
+syntax = "proto2";
 message MysqlConfig {
   // ip
   optional string ip = 1;
@@ -12,3 +13,28 @@ message MysqlConfig {
   // 编码方式
   optional string charset = 6;
 }
+
+enum LogicalOperator {
+  LOGICAL_OPERATOR_AND = 1;
+  LOGICAL_OPERATOR_OR = 2;
+};
+
+enum MathOperator {
+  MATH_OPERATOR_EQUAL = 1;
+  MATH_OPERATOR_LESS_THAN = 2;
+  MATH_OPERATOR_BIGGER_THAN = 3;
+};
+
+message Expression {
+  optional MathOperator math_operator = 1;
+  optional string left_field = 2;
+  optional string right_field = 3;
+};
+
+message Lambda {
+  optional bool not_operator = 1 [default = false];
+  optional LogicalOperator logical_operator = 2;
+  repeated Expression expression = 3;
+  repeated Lambda lambda = 4;
+};
+

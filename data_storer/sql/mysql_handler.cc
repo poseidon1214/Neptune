@@ -14,6 +14,7 @@
 #include "app/qzap/common/base/string_utility.h"
 #include "common/base/string/string_number.h"
 #include "common/encoding/percent.h"
+#include "common/encoding/pb_to_map.h"
 #include "thirdparty/jsoncpp/reader.h"
 #include "thirdparty/jsoncpp/value.h"
 #include "thirdparty/jsoncpp/writer.h"
@@ -24,20 +25,6 @@ using namespace std;  // NOLINT(build/namespaces)
 using namespace google::protobuf;  // NOLINT(build/namespaces)
 
 namespace gdt {
-template <class T>
-static std::string ConvertToString(const T& t) {
-  std::stringstream ss;
-  ss << t;
-  return ss.str();
-}
-
-static std::string ConvertBoolToString(const bool& a) {
-  return a?"true":"false";
-}
-
-static std::string ConvertFloatToString(const float& a) {
-  return ConvertToString(double(a));
-}
 
 bool MysqlHandler::BuildTable(const google::protobuf::Message& record) {
   std::map<std::string, std::string> parameters;
@@ -56,7 +43,7 @@ bool MysqlHandler::BuildTable(const google::protobuf::Message& record) {
 bool MysqlHandler::Insert(const google::protobuf::Message& record) {
   std::string error_msg;
   std::map<std::string, std::string> parameters;
-  if (!ProtoMessageToMap(record, &parameters, &error_msg)) {
+  if (!ProtoMessageToMap(record, &parameters)) {
     LOG(ERROR) << "Error:" << error_msg ;
     return false;
   }
@@ -180,147 +167,6 @@ bool MysqlHandler::Exec(const std::string& sql, std::vector<std::map<std::string
   return ret;
 }
 
-bool MysqlHandler::ProtoMessageToMap(
-  const google::protobuf::Message& message,
-  std::map<std::string, std::string>* parameters,
-  std::string* error) {
-
-  if (!message.IsInitialized()) {
-  *error = message.InitializationErrorString();
-  return false;
-  }
-
-  const Reflection* reflection = message.GetReflection();
-  vector<const FieldDescriptor*> fields;
-  reflection->ListFields(message, &fields);
-
-  for (size_t i = 0; i < fields.size(); i++) {
-  const FieldDescriptor* field = fields[i];
-  switch (field->cpp_type()) {
-#define CASE_FIELD_TYPE(cpptype, method) \
-    case FieldDescriptor::CPPTYPE_##cpptype: { \
-    if (field->is_repeated()) { \
-      int field_size = reflection->FieldSize(message, field); \
-      for (int index = 0; index < field_size; index++) { \
-      (*parameters)[field->name()] += \
-                ConvertToString( \
-                  reflection->GetRepeated##method( \
-                    message, field, index)) + ";"; \
-      } \
-    }  else { \
-      (*parameters)[field->name()] = ConvertToString( \
-              reflection->Get##method( \
-                message, field)); \
-    } \
-    break; \
-    }
-
-    CASE_FIELD_TYPE(INT32,  Int32);
-    CASE_FIELD_TYPE(UINT32, UInt32);
-    CASE_FIELD_TYPE(DOUBLE, Double);
-    CASE_FIELD_TYPE(INT64,  Int64);
-    CASE_FIELD_TYPE(UINT64, UInt64);
-#undef CASE_FIELD_TYPE
-
-#define CASE_BOOL_FIELD_TYPE(cpptype, method) \
-    case FieldDescriptor::CPPTYPE_##cpptype: { \
-    if (field->is_repeated()) { \
-      int field_size = reflection->FieldSize(message, field); \
-      for (int index = 0; index < field_size; index++) { \
-      (*parameters)[field->name()] += \
-                ConvertBoolToString( \
-                  reflection->GetRepeated##method( \
-                    message, field, index)) + ";"; \
-      } \
-    }  else { \
-      (*parameters)[field->name()] = ConvertBoolToString( \
-              reflection->Get##method( \
-                message, field)); \
-    } \
-    break; \
-    }
-
-    CASE_BOOL_FIELD_TYPE(BOOL, Bool);
-#undef CASE_BOOL_FIELD_TYPE
-
-#define CASE_FLOAT_FIELD_TYPE(cpptype, method) \
-    case FieldDescriptor::CPPTYPE_##cpptype: { \
-    if (field->is_repeated()) { \
-      int field_size = reflection->FieldSize(message, field); \
-      for (int index = 0; index < field_size; index++) { \
-      (*parameters)[field->name()] += \
-                ConvertFloatToString( \
-                  reflection->GetRepeated##method( \
-                    message, field, index)) + ";"; \
-      } \
-    }  else { \
-      (*parameters)[field->name()] = ConvertFloatToString( \
-              reflection->Get##method( \
-                message, field)); \
-    } \
-    break; \
-    }
-
-    CASE_FLOAT_FIELD_TYPE(FLOAT,  Float);
-#undef CASE_FLOAT_FIELD_TYPE
-
-    case FieldDescriptor::CPPTYPE_STRING: {
-    string field_value;
-    if (field->is_repeated()) {
-      int field_size = reflection->FieldSize(message, field);
-      for (int index = 0; index < field_size; index++) {
-      const string& value = reflection->GetRepeatedStringReference(
-        message, field, index, &field_value);
-      const string* value_ptr = &value;
-      (*parameters)[field->name()] += (*value_ptr);
-      }
-    } else {
-      const string& value = reflection->GetStringReference(
-        message, field, &field_value);
-      const string* value_ptr = &value;
-      (*parameters)[field->name()] = *value_ptr;
-    }
-    break;
-    }
-    case FieldDescriptor::CPPTYPE_ENUM: {
-    if (field->is_repeated()) {
-      int field_size = reflection->FieldSize(message, field);
-      for (int index = 0; index < field_size; index++) {
-      (*parameters)[field->name()] += ConvertToString(
-        reflection->GetRepeatedEnum(message, field, index)->number()) + ";";
-      }
-    } else {
-      (*parameters)[field->name()] = reflection->GetEnum(
-        message, field)->number();
-    }
-    break;
-    }
-    case FieldDescriptor::CPPTYPE_MESSAGE: {
-    if (field->is_repeated()) {
-      int field_size = reflection->FieldSize(message, field);
-      for (int index = 0; index < field_size; index++) {
-      std::string text;
-      if (!google::protobuf::TextFormat::PrintToString(
-        reflection->GetRepeatedMessage(message, field, index), &text)) {
-        return false;
-      }
-      (*parameters)[field->name()] += text;
-      }
-    } else {
-      std::string text;
-      if (!google::protobuf::TextFormat::PrintToString(
-        reflection->GetMessage(message, field), &text)) {
-      return false;
-      }
-      (*parameters)[field->name()] = text;
-    }
-    break;
-    }
-  }
-  }
-  return true;
-}
-
 bool MysqlHandler::ProtoMessageToTypeMap(
   const google::protobuf::Message& message,
   std::map<std::string, std::string>* parameters,
@@ -402,5 +248,62 @@ std::string MysqlHandler::GenerateBuildSql(const std::string& table,
   sql += ") ENGINE=InnoDB  DEFAULT CHARSET=utf8;" ;
   return sql;
 }
+
+std::string MysqlHandler::GenerateConditionSql(const Lambda& lambda) {
+  if (lambda.expression_size() + lambda.lambda_size() == 0) {
+    return "";
+  } else if (lambda.expression_size() + lambda.lambda_size() == 1) {
+    if (lambda.expression_size() == 1) {
+      return " WHERE " + GenerateConditionSql(lambda.expression(0));
+    } else {
+      return " WHERE " + GenerateConditionSql(lambda.lambda(0));   
+    }
+  } else {
+    std::string sql;
+    string op;
+    switch (lambda.logical_operator()) {
+      case LOGICAL_OPERATOR_AND:
+        op = "and";
+      case LOGICAL_OPERATOR_OR:
+        op = "or";
+    }
+    bool first = true;
+    for (auto express : lambda.expression()) {
+      if (!first) {
+        sql += op;
+      } else {
+        first = false;
+      }
+      sql += "(" + GenerateConditionSql(express) + ")" ;
+    }
+    for (auto lamb : lambda.lambda()) {
+      if (!first) {
+        sql += op;
+      } else {
+        first = false;
+      }
+      sql += "(" + GenerateConditionSql(lamb) + ")" ;
+    }
+    return " WHERE " + sql;
+  }
+}
+
+std::string MysqlHandler::GenerateConditionSql(const Expression& expression) {
+  string op;
+  switch (expression.math_operator()) {
+    case MATH_OPERATOR_EQUAL:
+      op = "=";
+    case MATH_OPERATOR_LESS_THAN:
+      op = "<";
+    case MATH_OPERATOR_BIGGER_THAN:
+      op = ">";
+  }
+  return expression.left_field() + op + expression.right_field();
+}
+
+std::string GenerateSelectSql(const google::protobuf::Message& record) {
+  return "SELECT * FROM " + record.GetDescriptor()->name();
+}
+
 
 }  // namespace gdt

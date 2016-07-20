@@ -37,17 +37,29 @@ class MysqlHandler {
   //
   template <typename Record>
   bool Update(const Record& record);
+  //
+  template <typename Record>
+  bool Select(const Lambda& lambda, std::vector<Record>* records) {
+    std::string sql = GenerateSelectSql(Record()) + GenerateSelectSql(lambda);
+    LOG(ERROR) << sql;
+    std::vector<std::map<std::string, std::string> > results;
+    if (!Exec(sql, &results)) {
+      return false;
+    }
+    for (auto result : results) {
+      Record record;
+      if (MapToProtoMessage(result, &record)) {
+        records->push_back(record);
+      }
+    }
+    return true;
+  }
 
  public:
   //
   bool FetchRows(MYSQL* db, std::vector< std::map<std::string, std::string> >* rows);
   //
   bool Exec(const std::string& sql, std::vector<std::map<std::string, std::string> >* results);
-  //
-  bool ProtoMessageToMap(
-      const google::protobuf::Message& message,
-      std::map<std::string, std::string>* paramenters,
-      std::string* error);
   //
   bool ProtoMessageToTypeMap(
       const google::protobuf::Message& message,
@@ -63,6 +75,12 @@ class MysqlHandler {
   std::string GenerateBuildSql(const std::string& table, 
       const std::map<std::string, std::string>& parameters,
       const std::vector<std::string>& primary_key_list);
+  //
+  std::string GenerateConditionSql(const Lambda& lambda);
+  //
+  std::string GenerateConditionSql(const Expression& expression);
+  //
+  std::string GenerateSelectSql(const google::protobuf::Message& record);
 
  private:
   // 数据库句柄

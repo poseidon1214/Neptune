@@ -27,10 +27,11 @@ namespace gdt {
 
 bool MapToProtoMessage(
     const std::map<std::string, std::string>& parameters,
-    google::protobuf::Message* message,
-    std::string* error = NULL,
-    bool urlencoded = false);
+    google::protobuf::Message* message);
 
+bool ProtoMessageToMap(
+  const google::protobuf::Message& message,
+  std::map<std::string, std::string>* parameters);
 
 }  // namespace gdt
 
