@@ -18,29 +18,29 @@ class MysqlHandler {
  public:
   //
   MysqlHandler(): mysql(NULL) {}
-  //
+  // 打开数据库
   bool Open(const MysqlConfig& mysql_config);
-  //
+  // 关闭数据库
   void Close();
-  // 
+  // 建表
   template <class T>
   bool BuildTable() {
     return BuildTable(T());
   }
-  // 
+  // 建表
   bool BuildTable(const google::protobuf::Message& record);
-  // 
+  // 插入一条记录
   bool Insert(const google::protobuf::Message& record);
-  // 
+  // 删除记录
   template <typename Record>
   bool Delete(const Record& record);
-  //
+  // 更新记录
   template <typename Record>
   bool Update(const Record& record);
-  //
+  // select记录
   template <typename Record>
   bool Select(const Lambda& lambda, std::vector<Record>* records) {
-    std::string sql = GenerateSelectSql(Record()) + GenerateSelectSql(lambda);
+    std::string sql = GenerateSelectSql(Record()) + GenerateConditionSql(lambda);
     LOG(ERROR) << sql;
     std::vector<std::map<std::string, std::string> > results;
     if (!Exec(sql, &results)) {
@@ -58,7 +58,7 @@ class MysqlHandler {
  public:
   //
   bool FetchRows(MYSQL* db, std::vector< std::map<std::string, std::string> >* rows);
-  //
+  // 执行SQL
   bool Exec(const std::string& sql, std::vector<std::map<std::string, std::string> >* results);
   //
   bool ProtoMessageToTypeMap(

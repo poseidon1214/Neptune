@@ -1,0 +1,25 @@
+
+enum FieldType {
+  // 数字
+  TYPE_NUM = 1;
+  // ID
+  TYPE_ID = 2;
+}
+
+message Field {
+  // 字段类型
+  optional FieldType field_type = 1;
+  // ID
+  repeated uint64 id = 2;
+  // 数字
+  optional double num = 3;
+}
+
+message Document {
+  // 索引
+  optional uint64 index = 1;
+  // 文件ID
+  optional uint64 document_id = 2;
+  // 字段
+  repeated Field field = 3;
+}

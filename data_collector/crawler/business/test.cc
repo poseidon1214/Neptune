@@ -1,7 +1,7 @@
 // Copyright (c) 2011, Tencent Inc.
 // All rights reserved.
 //
-// Author: DongPing HUANG <dphuang@tencent.com>
+// Author: Wang Qian <cernwang@tencent.com>
 // Created: 11/05/11
 // Description:
 

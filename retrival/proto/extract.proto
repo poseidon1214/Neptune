@@ -1,0 +1,11 @@
+
+
+message FieldConfig {
+
+}
+
+message ExtractorConfig {
+  // 文件ID
+  optional string message_name = 1;
+}
+

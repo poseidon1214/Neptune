@@ -35,16 +35,13 @@ bool MysqlHandler::BuildTable(const google::protobuf::Message& record) {
 
   std::string table = record.GetDescriptor()->name();
   std::string sql = GenerateBuildSql(table, parameters, primary_key_list);
-  LOG(ERROR) << sql;
   std::vector<std::map<std::string, std::string> > results;
   return Exec(sql, &results);
 }
 // 
 bool MysqlHandler::Insert(const google::protobuf::Message& record) {
-  std::string error_msg;
   std::map<std::string, std::string> parameters;
   if (!ProtoMessageToMap(record, &parameters)) {
-    LOG(ERROR) << "Error:" << error_msg ;
     return false;
   }
   std::string table = record.GetDescriptor()->name();
@@ -154,15 +151,15 @@ bool MysqlHandler::Exec(const std::string& sql, std::vector<std::map<std::string
   bool ret = true;
   MYSQL* db = mysql;
   if (db == NULL) {
-  LOG(ERROR) << " No available connection!";
-  return false;
+    LOG(ERROR) << " No available connection!";
+    return false;
   }
   if (mysql_real_query(db, sql.c_str(), sql.length()) > 0 && mysql_errno(db)) {
-  LOG(ERROR) << "Mysql Query Failed:" << mysql_error(db);
-  LOG(ERROR) << "Sql:" << sql;
-  ret = false;
+    LOG(ERROR) << "Mysql Query Failed:" << mysql_error(db);
+    LOG(ERROR) << "Sql:" << sql;
+    ret = false;
   } else {
-  ret = FetchRows(db, results);
+    ret = FetchRows(db, results);
   }
   return ret;
 }
@@ -171,9 +168,6 @@ bool MysqlHandler::ProtoMessageToTypeMap(
   const google::protobuf::Message& message,
   std::map<std::string, std::string>* parameters,
   std::vector<std::string>* primary_key_list) {
-
-  using namespace std;  // NOLINT(build/namespaces)
-  using namespace google::protobuf;  // NOLINT(build/namespaces)
 
   const Reflection* reflection = message.GetReflection();
   const Descriptor* descriptor = message.GetDescriptor();
@@ -263,9 +257,9 @@ std::string MysqlHandler::GenerateConditionSql(const Lambda& lambda) {
     string op;
     switch (lambda.logical_operator()) {
       case LOGICAL_OPERATOR_AND:
-        op = "and";
+        op = " AND ";
       case LOGICAL_OPERATOR_OR:
-        op = "or";
+        op = " OR ";
     }
     bool first = true;
     for (auto express : lambda.expression()) {

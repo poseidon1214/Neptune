@@ -1,5 +1,5 @@
 // Copyright (c) 2014, Tencent Inc.
-// Author: <cernwang@tencent.com>
+// Author: Wang Qian<cernwang@tencent.com>
 
 #ifndef DATA_COLLECTOR_COMMON_CURL_DOWNLOADER_H_
 #define DATA_COLLECTOR_COMMON_CURL_DOWNLOADER_H_
