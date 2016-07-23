@@ -10,8 +10,7 @@
 #include <fstream>
 #include "thirdparty/glog/logging.h"
 #include "thirdparty/gflags/gflags.h"
-#include "data_collector/proto/feeder_config.pb.h"
-#include "data_collector/feeder/framework/data_message.h"
+
 
 #define PASS_OR_RETURN(result)  \
   if (!(result)) { \
@@ -63,13 +62,13 @@ class BaseFunctor {
   const ConfigType* config_;
 };
 
-#define REGISTER_CONTEXT_SERVER_FUNCTOR(functor_name) \
+#define REGISTER_FUNCTOR(functor_name, functor_type) \
   CLASS_REGISTER_OBJECT_CREATOR( \
-    ContextServerFunctor_register, FunctorBase, \
+    functor_type##_register, functor_type, \
       #functor_name, functor_name)
 
-#define CREATE_CONTEXT_SERVER_FUNCTOR(functor_name_as_string) \
-  CLASS_REGISTER_CREATE_OBJECT(ContextServerFunctor_register, \
+#define CREATE_FUNCTOR(functor_name_as_string, functor_type) \
+  CLASS_REGISTER_CREATE_OBJECT(functor_type##_register, \
     functor_name_as_string)
 
 }  // namespace gdt

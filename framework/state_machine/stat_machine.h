@@ -27,6 +27,8 @@ namespace common {
 //                               StateMachine::kStateEnd);
 //   state_machine.Start(1, NewCallback(xxxxx);
 // 以上过程需在同一线程中进行，或者调用者自行加锁保证线程安全。
+
+template <class DataMessageType>
 class StateMachine {
  public:
   typedef Callback<BaseTask*()> TaskCreator;

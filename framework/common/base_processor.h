@@ -9,8 +9,7 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
-#include "data_collector/feeder/framework/base_functor.h"
-#include "data_collector/feeder/framework/data_message.h"
+#include "framework/common/base_functor.h"
 
 namespace gdt {
 

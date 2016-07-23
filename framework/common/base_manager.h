@@ -7,8 +7,8 @@
 
 #include <iostream>
 #include <fstream>
-#include "data_collector/feeder/framework/base_processor.h"
-#include "data_collector/feeder/framework/data_message.h"
+#include "framework/common/base_processor.h"
+#include "framework/common/data_message.h"
 
 namespace gdt {
 
