@@ -46,6 +46,7 @@ class MysqlHandler {
     if (!Exec(sql, &results)) {
       return false;
     }
+    LOG(ERROR) << records;
     for (auto result : results) {
       Record record;
       if (MapToProtoMessage(result, &record)) {

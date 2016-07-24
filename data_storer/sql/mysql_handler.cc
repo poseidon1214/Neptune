@@ -295,7 +295,7 @@ std::string MysqlHandler::GenerateConditionSql(const Expression& expression) {
   return expression.left_field() + op + expression.right_field();
 }
 
-std::string GenerateSelectSql(const google::protobuf::Message& record) {
+std::string MysqlHandler::GenerateSelectSql(const google::protobuf::Message& record) {
   return "SELECT * FROM " + record.GetDescriptor()->name();
 }
 

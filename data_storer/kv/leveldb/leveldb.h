@@ -14,7 +14,6 @@
 #include "app/qzap/common/utility/file_utility.h"
 
 namespace gdt {
-namespace dynamic_creative {
 
 // 对leveldb的一个封装
 class NaiveComparator : public ::leveldb::Comparator {
@@ -274,7 +273,6 @@ class Table {
   std::string file_;
 };
 
-}  // namespace dynamic_creative
 }  // namespace gdt
 
 #endif  // CREATIVE_DYNAMIC_CREATIVE_COMMON_LEVELDB_H_
