@@ -40,14 +40,18 @@ class ExtractFunctor: public ExtractorBaseFunctor {
     	            [=](const Product& product) {
     	          	  Document document;
     	          	  Convert(product, &document);
+                    document.set_index(data_message->documents.size());
                     data_message->documents.push_back(document);
     	            });
+    LOG(ERROR) << "data_message->documents.size()"
+               << data_message->documents.size();
     return kSuccess;
   }
  private:
   // 讲消息转换成文档
   bool Convert(const Product& product, Document* document) {
     std::map<std::string, std::string> parameters;
+    document->set_id(product.id());
     ProtoMessageToMap(product, &parameters);
     for (auto field_config : config_->field_config()) {
       auto iter = parameters.find(field_config.field_name());
@@ -65,15 +69,17 @@ class ExtractFunctor: public ExtractorBaseFunctor {
     switch (field_config.extract_method()) {
       case SEGMENT_WORD:
         field->set_field_type(TYPE_ID);
-        return ExtractSegmentWordField(value, field);
+        CHECK_LOG(ExtractSegmentWordField(value, field), value);
+        break;
       case STRING_TO_NUMERIC:
         double num;
         field->set_field_type(TYPE_NUM);
-        CHECK(StringToNumeric(value, &num));
+        CHECK_LOG(StringToNumeric(value, &num), value);
         field->set_num(num);
+        break;
       case STRING_TO_ID:
         uint64_t id;
-        CHECK(StringToNumeric(value, &id));
+        CHECK_LOG(StringToNumeric(value, &id), value);
         field->set_field_type(TYPE_ID);
         field->add_id(id);
         break;
@@ -89,9 +95,8 @@ class ExtractFunctor: public ExtractorBaseFunctor {
   bool ExtractSegmentWordField(const std::string& value,
                                Field* field) {
     std::vector<std::string> words;
-    CHECK(!segmenter.Segment(value, &words));
+    CHECK(segmenter.Segment(value, &words));
     for (auto word : words) {
-      uint64_t id;
       field->add_id(gdt::rules::MD5(word));
     }
     return true; 

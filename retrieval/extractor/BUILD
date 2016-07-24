@@ -6,6 +6,7 @@ cc_binary(
   deps = [
            '//app/qzap/text_analysis:text_miner',
            '//common/config:config',
+           '//common/base/string:string',
            '//common/writer:writer',
            '//common/reader:reader',
            '//data_collector/proto:feeder_config_pb',

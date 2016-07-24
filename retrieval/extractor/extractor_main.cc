@@ -19,10 +19,10 @@ int main(int argc, char** argv) {
   ::google::ParseCommandLineFlags(&argc, &argv, true);
   ::google::InitGoogleLogging(argv[0]);
   StateMachine<ExtractorConfig, ExtratorDataMessage> state_machine;
-  CHECK(BaseConfigManager<StateMachineConfig>::Instance().Load(FLAGS_framework_conf), FLAGS_framework_conf);
-  CHECK(BaseConfigManager<ExtractorConfig>::Instance().Load(FLAGS_extractor_conf), FLAGS_extractor_conf);
+  CHECK_LOG(BaseConfigManager<StateMachineConfig>::Instance().Load(FLAGS_framework_conf), FLAGS_framework_conf);
+  CHECK_LOG(BaseConfigManager<ExtractorConfig>::Instance().Load(FLAGS_extractor_conf), FLAGS_extractor_conf);
   ExtratorDataMessage data_message;
   state_machine.Sync(&data_message, &BaseConfigManager<ExtractorConfig>::Instance().Get());
-  CHECK(state_machine.Init(BaseConfigManager<StateMachineConfig>::Instance().Get()), FLAGS_framework_conf);
+  CHECK_LOG(state_machine.Init(BaseConfigManager<StateMachineConfig>::Instance().Get()), FLAGS_framework_conf);
   return state_machine.Run();
 }
