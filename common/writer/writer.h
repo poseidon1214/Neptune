@@ -15,6 +15,7 @@
 #include "app/qzap/common/base/string_utility.h"
 #include "app/qzap/common/utility/file_utility.h"
 #include "common/proto/config.pb.h"
+#include "data_storer/kv/leveldb/proto_kv.h"
 #include "data_storer/sql/mysql_handler.h"
 
 namespace gdt {
@@ -39,6 +40,7 @@ namespace Writer {
                  const std::vector<T>& data) {
     switch (config.store_method()) {
       case LevelDb:
+        return WriteToLeveldb(config, data);
         break;
       case SSTable:
         break;
@@ -64,6 +66,21 @@ namespace Writer {
         std::bind(&MysqlHandler::Insert, mysql_handler, std::placeholders::_1));
     return true;
   }
+  // 从文件里读取
+  template <class T>
+  bool WriteToLeveldb(const IOConfig& config,
+                      const std::vector<T>& datas) {
+    ProtoKV<T, &T::id> proto_kv;
+    proto_kv.Open(config.leveldb_config().db_name());
+    LOG(ERROR) << "datas:" << datas.size();
+    uint64_t success = 0;
+    for (auto data : datas) {
+      success += proto_kv.Insert(data);
+    }
+    LOG(ERROR) << "success:" << success;
+    return true;
+  }
+
 
 
 

@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
-
+#include <sstream>
 #include <string>
 #include <tr1/type_traits>
 
@@ -111,8 +111,17 @@ inline bool IsNaN(double value) {
   return !(value > value) && !(value <= value);
 }
 
+template <class T>
+static std::string ConvertToString(const T& t) {
+  std::stringstream ss;
+  ss << t;
+  return ss.str();
+}
+/*
 template <typename T>
 const std::string ConvertToString(const T &val);
+
+
 
 template<> const std::string ConvertToString(const int32_t &val);
 template<> const std::string ConvertToString(const int64_t &val);
@@ -125,6 +134,7 @@ template<> inline const std::string ConvertToString(const std::string &val) {
 inline const std::string ConvertToString(const char *val) {
   return std::string(val);
 }
+*/
 
 /// @brief write number to buffer as string
 /// @return end of result

@@ -4,9 +4,12 @@ cc_library(
            'writer.cc',
          ],
   deps = [
+          '//app/qzap/common/utility:utility',
+          '//common/base/string:string',
           '//common/proto:config_pb',
           '//thirdparty/glog:glog',
           '//thirdparty/protobuf:protobuf',
+          '//thirdparty/leveldb:leveldb',
           '//data_storer/sql:mysql_handler',
          ],
   allow_undefined = True,

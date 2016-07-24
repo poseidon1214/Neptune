@@ -732,7 +732,7 @@ class CountOutputIterator {
 size_t IntegerStringLength(int n) {
   return OutputIntegerAsString(n, CountOutputIterator<char>()).Count();
 }
-
+/*
 template<>
 const std::string ConvertToString(const int32_t &val) {
   std::string tmp_str;
@@ -765,6 +765,7 @@ const std::string ConvertToString(const uint64_t &value) {
   OutputUInt64AsString(value, std::back_inserter(tmp_str));
   return tmp_str;
 }
+*/
 
 /// output n to buffer as string
 /// @return end position

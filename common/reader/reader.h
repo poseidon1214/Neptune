@@ -16,6 +16,8 @@
 #include "common/encoding/proto_converter.h"
 #include "common/file/file_tools.h"
 #include "common/proto/config.pb.h"
+#include "data_storer/kv/leveldb/proto_kv.h"
+#include "data_storer/sql/mysql_handler.h"
 
 namespace gdt {
 namespace Reader {
@@ -104,14 +106,26 @@ namespace Reader {
   }
   // 从文件里读取
   template <class T>
+  bool ReadFromMysql(const IOConfig& config,
+                     std::vector<T>* data) {
+    MysqlHandler mysql_handler;
+    mysql_handler.Open(config.mysql_config());
+    Lambda lambda;
+    return mysql_handler.Select(lambda, data);;
+  }
+  // 从文件里读取
+  template <class T>
   bool ReadFromIO(const IOConfig& config,
                   std::vector<T>* data) {
     std::string filename = GetFormatFilename(config.file_pattern(),
                                              config.seconds_ago());
     LOG(INFO) << "Read From File:" << filename;
+    LOG(ERROR) << "data:" << data;
     switch (config.store_method()) {
       case LevelDb:
         break;
+      case Mysql:
+        return ReadFromMysql(config, data);
       case SSTable:
         break;
       case File:

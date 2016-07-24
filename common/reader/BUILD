@@ -6,7 +6,9 @@ cc_library(
   deps = [
           '//common/proto:config_pb',
           '//common/encoding:encoding',
+          '//data_storer/sql:mysql_handler',
           '//thirdparty/protobuf:protobuf',
+          '//thirdparty/leveldb:leveldb',
          ],
   allow_undefined = True,
 )
