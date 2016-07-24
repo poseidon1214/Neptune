@@ -17,13 +17,6 @@
 namespace gdt {
 namespace common {
 
-#define CHECK(result, info)  \
-  if (!(result)) { \
-    LOG(ERROR) << #result << " == false  " \
-               << #info << " == " << info; \
-    return false; \
-  }
-
 typedef BitMap FinalStatus;
 
 
@@ -47,7 +40,7 @@ class StateMachine {
   bool Run() {
     while (current_state_ > kEndStateId) {
       auto iter = states_.find(current_state_);
-      CHECK(iter != states_.end(), current_state_);
+      CHECK_LOG(iter != states_.end(), current_state_);
       FinalStatus status = iter->second.Run();
       history_.push_back(std::make_pair(current_state_, status));
       current_state_ = iter->second.NextState(status);
@@ -61,7 +54,7 @@ class StateMachine {
   }
   // 同步数据地址和业务配置
   void Sync(DataMessageType* data_message, ConfigType* config) {
-    data_message_ = data_message_;
+    data_message_ = data_message;
     config_ = config;
   }
 

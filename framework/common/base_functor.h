@@ -12,9 +12,26 @@
 #include "thirdparty/gflags/gflags.h"
 
 
+#define CHECK(result)  \
+  if (!(result)) { \
+    return false; \
+  }
+
 #define PASS_OR_RETURN(result)  \
   if (!(result)) { \
     LOG(ERROR) << #result << " == false"; \
+    return false; \
+  }
+
+#define CHECK_CONTINUE(result)  \
+  if (!(result)) { \
+    continue; \
+  }
+
+#define CHECK_LOG(result, info)  \
+  if (!(result)) { \
+    LOG(ERROR) << #result << " == false  " \
+               << #info << " == " << info; \
     return false; \
   }
 

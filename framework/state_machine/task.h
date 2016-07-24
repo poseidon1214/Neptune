@@ -23,11 +23,6 @@
 namespace gdt {
 namespace common {
 
-#define CHECK(result)  \
-  if (!(result)) { \
-    return false; \
-  }
-
 typedef BitMap FinalStatus;
 
 template <class ConfigType, class DataMessageType>
@@ -52,7 +47,7 @@ class Task: public BaseProcessor<ConfigType, DataMessageType> {
   }
   // 同步数据地址和配置
   void Sync(DataMessageType* data_message, ConfigType* config) {
-    data_message_ = data_message_;
+    data_message_ = data_message;
     this->config_ = config;
   }
   // 执行
