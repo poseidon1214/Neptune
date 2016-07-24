@@ -4,10 +4,12 @@ cc_binary(
            'extractor_main.cc',
          ],
   deps = [
+           '//app/qzap/text_analysis:text_miner',
            '//common/config:config',
            '//common/writer:writer',
            '//common/reader:reader',
            '//data_collector/proto:feeder_config_pb',
+           '//data_collector/feeder/common:rules_common',
            '//framework/proto:framework_pb',
            '//retrieval/proto:extract_pb',
            '//retrieval/proto:document_pb',
