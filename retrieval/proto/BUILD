@@ -5,4 +5,7 @@ proto_library(
 proto_library(
   name = 'extract_pb',
   srcs = ['extract.proto'],
+  deps = [
+    '//common/proto:config_pb',
+  ]
 )
