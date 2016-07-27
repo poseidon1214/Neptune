@@ -17,11 +17,11 @@
  *      software without specific prior written permission.
  */
 
-#include "data_collector/feeder/candidate/similarity/wat_array.h"
 
 #include <queue>
 #include <algorithm>
 #include <stack>
+#include "retrieval/fuzzy/wavelet/wat_array.h"
 
 using namespace std;
 

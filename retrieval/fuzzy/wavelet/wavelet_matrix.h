@@ -22,14 +22,15 @@
  */
 
 
-#ifndef CREATIVE_DYNAMIC_CREATIVE_CANDIDATE_SIMILARITY_WAVELET_MATRIX_H_
-#define CREATIVE_DYNAMIC_CREATIVE_CANDIDATE_SIMILARITY_WAVELET_MATRIX_H_
-#include "data_collector/feeder/candidate/similarity/bit_array.h"
+#ifndef CREATIVE_wavelet_CANDIDATE_SIMILARITY_WAVELET_MATRIX_H_
+#define CREATIVE_wavelet_CANDIDATE_SIMILARITY_WAVELET_MATRIX_H_
+ 
 #include <vector>
 #include <queue>
 #include <stdint.h>
 #include <iostream>
 #include <cassert>
+#include "retrieval/fuzzy/wavelet/bit_array.h"
 
 using namespace std;
 using namespace wat_array;
@@ -244,4 +245,4 @@ class WaveletMatrix {
 }
 
 
-#endif // CREATIVE_DYNAMIC_CREATIVE_CANDIDATE_SIMILARITY_WAVELET_MATRIX_H_
+#endif // CREATIVE_wavelet_CANDIDATE_SIMILARITY_WAVELET_MATRIX_H_

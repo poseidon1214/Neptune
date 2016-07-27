@@ -17,8 +17,8 @@
  *      software without specific prior written permission.
  */
 
-#ifndef CREATIVE_DYNAMIC_CREATIVE_CANDIDATE_SIMILARITY_BIT_ARRAY_H_
-#define CREATIVE_DYNAMIC_CREATIVE_CANDIDATE_SIMILARITY_BIT_ARRAY_H_
+#ifndef CREATIVE_wavelet_CANDIDATE_SIMILARITY_BIT_ARRAY_H_
+#define CREATIVE_wavelet_CANDIDATE_SIMILARITY_BIT_ARRAY_H_
 
 #include <stdint.h>
 #include <vector>

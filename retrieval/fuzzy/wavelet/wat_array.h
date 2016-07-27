@@ -17,15 +17,16 @@
  *      software without specific prior written permission.
  */
 
-#ifndef CREATIVE_DYNAMIC_CREATIVE_CANDIDATE_SIMILARITY_WAT_ARRAY_HPP_
-#define CREATIVE_DYNAMIC_CREATIVE_CANDIDATE_SIMILARITY_WAT_ARRAY_HPP_
+#ifndef CREATIVE_wavelet_CANDIDATE_SIMILARITY_WAT_ARRAY_HPP_
+#define CREATIVE_wavelet_CANDIDATE_SIMILARITY_WAT_ARRAY_HPP_
 
-#include "data_collector/feeder/candidate/similarity/bit_array.h"
 #include <vector>
 #include <queue>
 #include <stdint.h>
 #include <iostream>
 #include <cassert>
+#include "retrieval/fuzzy/wavelet/bit_array.h"
+
 using namespace std;
 namespace wat_array {
 

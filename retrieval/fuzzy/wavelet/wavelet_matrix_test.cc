@@ -11,7 +11,7 @@
 
 #include "thirdparty/gtest/gtest.h"
 #include "thirdparty/glog/logging.h"
-#include "data_collector/feeder/candidate/similarity/wavelet_matrix.h"
+#include "retrieval/fuzzy/wavelet/wavelet_matrix.h"
 
 using std::string;
 using namespace wat_array;

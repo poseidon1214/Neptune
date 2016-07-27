@@ -1,0 +1,102 @@
+// Copyright (c) 2014, Tencent Inc.
+// Author: Wang Qian<cernwang@tencent.com>
+
+#include <math.h>
+#include <map>
+#include <vector>
+#include <algorithm>
+#include <utility>
+#include <string>
+#include <sys/stat.h>
+#include "thirdparty/gflags/gflags.h"
+#include "thirdparty/glog/logging.h"
+#include "app/qzap/common/base/scoped_ptr.h"
+#include "app/qzap/common/base/string_utility.h"
+#include "app/qzap/common/base/callback.h"
+#include "app/qzap/common/base/scoped_ptr.h"
+#include "app/qzap/common/base/sysinfo.h"
+#include "app/qzap/common/base/walltime.h"
+#include "app/qzap/common/base/string_utility.h"
+#include "app/qzap/common/thread/threadpool.h"
+#include "app/qzap/common/thread/mutex.h"
+#include "app/qzap/common/sstable/sstable.h"
+#include "app/qzap/common/utility/file_utility.h"
+#include "app/qzap/common/utility/time_utility.h"
+#include "retrieval/fuzzy/wavelet/similarity_retrievaler.h"
+
+DECLARE_int32(top_k_num);
+DECLARE_double(thres);
+DEFINE_int32(retrieval_thread_num, System_NumCPUs() - 1 , "检索线程数");
+
+namespace gdt {
+namespace wavelet {
+
+bool SimilarityRetrievaler::Build(const std::vector<Document>& documents) {
+  // InvertIndex invert_index;
+  // BuildWavletTree(invert_index);
+}
+
+
+bool SimilarityRetrievaler::Retrieval(
+    const Query& query, std::vector<Result>* results) {
+  // FieldPattern patterns;
+  // wavelet_tree.Retrieval(patterns, thres , results);
+}
+
+bool SimilarityRetrievaler::BuildFieldPattern(
+    const FieldOffsetMap& field_offset,
+    const FieldQuery& field_query,
+    FieldPattern* Field_attern) {
+  switch (field_query.field_query_type()) {
+
+  }
+}
+
+bool SimilarityRetrievaler::BuildIdFieldPattern(
+    const FieldOffset& field_offset,
+    const IdQuery& id_query,
+    FieldPattern* patterns) {
+  for (auto& token: id_query.token()) {
+    auto iter = field_offset.find(token.id()); 
+    CHECK_CONTINUE(iter != field_offset.end());
+    pattern->push_back(std::make_tuple(iter->second.first, iter->second.second, token.weight()));
+  }
+  return true;
+}
+
+bool SimilarityRetrievaler::BuildRangeFieldPattern(
+    const FieldOffset& field_offset,
+    const RangeQuery& range_query,
+    FieldPattern* patterns) {
+  auto& field_offset_map = field_offset.field_offset_map;
+  auto lower_iter = field_offset_map.lower_bound(range_query.lower_bound());
+  auto upper_iter = field_offset_map.upper_bound(range_query.upper_bound());
+  uint64_t begin = (lower_iter != field_offset_map.begin() && range_query.has_lower_bound()) ?
+      lower_iter->second.first : field_offset.begin;
+  uint64_t end = (upper_iter != field_offset_map.end() && range_query.has_upper_bound()) ?
+      upper_iter->second.second : field_offset.end;
+  pattern->push_back(std::make_tuple(begin, end, 1));
+  return true;
+}
+
+void SimilarityRetrievaler::BuildWavletTree(const InvertIndex& invert_index) {
+  std::vector<uint64_t> posting;
+/*
+  for (InvertIndex::const_iterator it = invert_index.begin();
+       it != invert_index.end(); it++) {
+    feature_offset[it -> first].first = posting.size();
+
+    for (std::vector<std::pair<uint64_t, double> >::const_iterator iter =
+           (it -> second).begin(); iter != (it -> second).end(); iter++) {
+      posting.push_back(iter -> first);
+    }
+    feature_offset[it -> first].second = posting.size();
+  }
+  wavelet_tree.Init(posting);
+*/
+}
+
+
+
+}  // namespace wavelet
+}  // namespace gdt

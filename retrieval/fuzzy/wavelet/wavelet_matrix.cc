@@ -23,7 +23,7 @@
 
 #include <queue>
 #include <algorithm>
-#include "data_collector/feeder/candidate/similarity/wavelet_matrix.h"
+#include "retrieval/fuzzy/wavelet/wavelet_matrix.h"
 
 using namespace std;
 

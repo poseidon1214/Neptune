@@ -17,7 +17,7 @@
  *      software without specific prior written permission.
  */
 
-#include "data_collector/feeder/candidate/similarity/bit_array.h"
+#include "retrieval/fuzzy/wavelet/bit_array.h"
 
 #include <cassert>
 

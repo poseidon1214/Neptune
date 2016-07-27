@@ -1,8 +1,8 @@
 // Copyright (c) 2014, Tencent Inc.
 // Author: Wang Qian<cernwang@tencent.com>
 
-#ifndef CREATIVE_DYNAMIC_CREATIVE_CANDIDATE_SIMILARITY_SIMILARITY_RETRIEVALER_H_
-#define CREATIVE_DYNAMIC_CREATIVE_CANDIDATE_SIMILARITY_SIMILARITY_RETRIEVALER_H_
+#ifndef CREATIVE_wavelet_CANDIDATE_SIMILARITY_SIMILARITY_RETRIEVALER_H_
+#define CREATIVE_wavelet_CANDIDATE_SIMILARITY_SIMILARITY_RETRIEVALER_H_
 
 #include <string>
 #include <iostream>
@@ -10,91 +10,73 @@
 #include <map>
 #include <vector>
 #include <utility>
-#include "data_collector/feeder/candidate/similarity/wavelet_tree.h"
+#include <tuple>
+#include "retrieval/fuzzy/wavelet/wavelet_tree.h"
+#include "retrieval/proto/document.pb.h"
+#include "retrieval/proto/query.pb.h"
 
 namespace gdt {
-namespace dynamic_creative {
+namespace wavelet {
 
-typedef std::pair<uint64_t, double> IdWeightPair;
-typedef std::vector<IdWeightPair> WeightedVecotr;
-typedef std::vector<std::pair<int64_t, double> > SimilarDocments;
-typedef std::map<uint64_t, WeightedVecotr> InvertIndex;
-typedef std::map<uint64_t, WeightedVecotr> ForwardIndex;
-typedef std::map<uint64_t, std::pair<uint64_t, uint64_t> > OffsetMap;
-typedef std::map<uint64_t, std::vector<uint64_t> > LabelInvertIndex;
-typedef std::map<uint64_t, std::vector<uint64_t> > LabelForwardIndex;
+typedef std::map<uint64_t, std::pair<uint64_t, uint64_t> > FieldOffsetMap;
 
-struct Document {
-  uint64_t id;
-  WeightedVecotr contents;
-  std::vector<uint64_t> labels;
+struct FieldOffset {
+  uint64_t begin;
+  uint64_t end;
+  FieldOffsetMap field_offset_map;
 };
+
+// TODO(cernwang) 这边设计的有问题， 都用typedef后续有新需求变化会有很大改动
+typedef std::map<uint64_t, FieldOffset> OffsetMap;
+typedef std::vector<std::tuple<size_t, size_t, double> > FieldPattern;
+typedef std::vector<std::pair<FieldPattern, double> > QueryPattern;
+typedef std::map<uint64_t, std::vector<uint64_t> > FieldInvertIndex;
+typedef std::map<uint64_t, FieldInvertIndex> InvertIndex;
 
 // 类余弦检索
 class SimilarityRetrievaler {
  public:
-  void Build(const std::string& filename);
-  void BuildWithLabels(const std::string& filename);
-  void DocmentsToTopKList(const std::string& input,
-                          const std::string& output,
-                          double filter_thres = 0.1);
-  void DocmentsToTopKListWithLabels(const std::string& input,
-                                    const std::string& output,
-                                    double filter_thres = 0.1);
-  void Retrieval(const WeightedVecotr& document, double thres,
-                 std::vector<int64_t>* results);
-  void RetrievalWithReranking(WeightedVecotr* document, double thres,
-                              std::vector<std::pair<int64_t, double> >* filter_results,
-                              int64_t* retrieval_time  = NULL,
-                              int64_t* reanking_time = NULL);
-  void RetrievalWithReranking(
-    const WeightedVecotr& document,
-    double thres, int64_t docid,
-    std::vector<std::pair<int64_t, double> >* filter_results);
-  void RetrievalWithLabelFilter(const WeightedVecotr& document,
-                                const std::vector<uint64_t>& labels,
-                                double thres,
-                                std::vector<int64_t>* results);
-
-  void Intersect(const vector<uint64_t>& termids, size_t thres,
-                 std::vector<int64_t>* results);
-
-  void RetrievalWithInputFile(
-    const std::string& input,
-    const std::string& output);
-
-  void SplitDocuments(
-    const std::vector<Document>& docs,
-    uint32_t split_num,
-    std::vector<std::vector<Document> >* docs_shards);
-  void MultiThreadRetrieval(
-    const std::vector<Document>& docs,
-    std::vector<std::pair<uint64_t, SimilarDocments> >* results);
-  void SingleThreadRetrieval(
-    const std::vector<Document>& docs,
-    std::vector<std::pair<uint64_t, SimilarDocments> >* results);
-  void RetrievalWithLabelFilterAndReranking(
-    const Document& doc,
-    SimilarDocments* result);
+  bool Build(const std::vector<Document>& documents);
+  bool Retrieval(const Query& query, std::vector<Result>* results);
 
  private:
-  void ForwardIndexToInvertedIndex(const ForwardIndex& forward_index,
-                                   InvertIndex* invert_index);
-  void BuildWavletTree(const InvertIndex& invert_index);
-  void BuildWavletTreeWithLabels(const InvertIndex& invert_index,
-                                 const LabelInvertIndex label_invert_index);
-  double CosineSimilarity(std::vector<IdWeightPair>* left,
-                          std::vector<IdWeightPair>* right);
+  bool BuildDocument(const Document& document);
+
+  bool BuildFiled(const Field& field, uint64_t docid);
+
+  bool BuildIdFiled(const Field& field, uint64_t docid);
+  
+  bool BuildNumFiled(const Field& field, uint64_t docid);
+
+  bool BuildFieldPattern(
+      const FieldOffset& field_offset,
+      const FieldQuery& field_query,
+      std::pair<FieldPattern, double>* field_pattern_thres);  
+
+  bool BuildIdFieldPattern(
+      const FieldOffset& field_offset,
+      const IdQuery& id_query,
+      FieldPattern* patterns);
+
+  bool BuildRangeFieldPattern(
+      const FieldOffset& field_offset,
+      const RangeQuery& range_query,
+      FieldPattern* patterns);
+
+  bool BuildWavletTree(const InvertIndex& invert_index);
+
+  bool BuildFieldOffset(
+      const FieldInvertIndex& field_invert_index,
+      FieldOffsetMap& field_offset_map,
+      std::vector<uint64_t>& posting);
 
  private:
   WaveletTree wavelet_tree;
   OffsetMap feature_offset;
-  OffsetMap label_offset;
-  ForwardIndex forward_index;
-  LabelForwardIndex label_forward_index;
+  InvertIndex invert_index;
 };
 
-}  // namespace dynamic_creative
+}  // namespace wavelet
 }  // namespace gdt
 
-#endif  // CREATIVE_DYNAMIC_CREATIVE_CANDIDATE_SIMILARITY_SIMILARITY_RETRIEVALER_H_
+#endif  // CREATIVE_wavelet_CANDIDATE_SIMILARITY_SIMILARITY_RETRIEVALER_H_
