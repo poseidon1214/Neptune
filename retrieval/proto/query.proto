@@ -1,0 +1,49 @@
+syntax = "proto2";
+
+enum FieldQueryType {
+  // ID
+  FIELD_QUERY_ID = 1;
+  // 范围
+  FIELD_QUERY_RANGE = 2;
+}
+
+message Token {
+  // ID
+  optional uint64 id = 1;
+  // 权重，可以是负值
+  optional double weight = 2;
+}
+
+message IdQuery {
+  // 标签
+  repeated Token token = 1;
+  // 阈值
+  optional double thres = 2;
+}
+
+message RangeQuery {
+  // 下界
+  optional double lower_bound = 1; 
+  // 上界
+  optional double upper_bound = 2; 
+}
+
+message FieldQuery {
+  // query类型
+  optional FieldQueryType field_query_type = 1;
+  // ID检索
+  optional IdQuery id_query = 2;
+  // 范围
+  optional RangeQuery range_query = 3;
+  // 字段ID 
+  optional uint64 field_id = 4;
+}
+
+message Query {
+  // 字段query
+  repeated FieldQuery field_query = 1;
+}
+
+message Result {
+
+}

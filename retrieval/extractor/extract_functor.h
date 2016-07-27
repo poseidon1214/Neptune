@@ -30,23 +30,22 @@ class ExtractFunctor: public ExtractorBaseFunctor {
       text_miner_.reset(new qzap::text_analysis::TextMiner(text_miner_resource_.get()));    
     }
     CHECK(segmenter.Init());
-    return true;  
+    return true;
   }
 
   // 从文件里解析商品数据
   FunctorResult DoWork(ExtratorDataMessage* data_message) {
     std::for_each(data_message->products.begin(),
-    	            data_message->products.end(),
-    	            [=](const Product& product) {
-    	          	  Document document;
-    	          	  Convert(product, &document);
+                  data_message->products.end(),
+                  [=](const Product& product) {
+                    Document document;
+                    Convert(product, &document);
                     document.set_index(data_message->documents.size());
                     data_message->documents.push_back(document);
-    	            });
-    LOG(ERROR) << "data_message->documents.size()"
-               << data_message->documents.size();
+                  });
     return kSuccess;
   }
+
  private:
   // 讲消息转换成文档
   bool Convert(const Product& product, Document* document) {
@@ -57,6 +56,7 @@ class ExtractFunctor: public ExtractorBaseFunctor {
       auto iter = parameters.find(field_config.field_name());
       CHECK_CONTINUE(iter != parameters.end());
       auto field = document->add_field();
+      field->set_field_id(field_config.field_id());
       CHECK_CONTINUE(ExtractField(iter->second, field_config, field));
     }
     return true;

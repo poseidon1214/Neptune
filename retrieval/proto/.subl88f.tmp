@@ -1,0 +1,21 @@
+syntax = "proto2";
+
+enum FieldQueryType {
+	
+}
+
+message FieldQuery {
+  //
+  FieldQueryType 
+
+	
+}
+
+message Query {
+  //
+  repeated FieldQuery field_query
+}
+
+message Result {
+
+}

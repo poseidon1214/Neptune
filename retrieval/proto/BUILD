@@ -9,3 +9,7 @@ proto_library(
     '//common/proto:config_pb',
   ]
 )
+proto_library(
+  name = 'query_pb',
+  srcs = ['query.proto'],
+)
