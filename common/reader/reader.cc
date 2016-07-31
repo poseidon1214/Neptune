@@ -11,9 +11,9 @@
 namespace gdt {
 namespace Reader {
 
-xmlNodePtr GetBeginNode(xmlNodePtr xml_node,
-                        const ParseConfig& config,
-                        uint32_t index = 0) {
+xmlNodePtr XmlReaderIterator::GetBeginNode(xmlNodePtr xml_node,
+                                           const ParseConfig& config,
+                                           uint32_t index = 0) {
   if (xml_node == NULL) {
     return NULL;
   }
