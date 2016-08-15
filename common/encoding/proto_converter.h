@@ -172,6 +172,9 @@ bool ConvertToProto(
   return true;
 }
 
+bool GetFieldValue(const google::protobuf::Message* message,
+    const google::protobuf::RepeatedPtrField<std::string> &source_fields,
+    FieldValue *filed_value);
 
 }  // namespace gdt
 

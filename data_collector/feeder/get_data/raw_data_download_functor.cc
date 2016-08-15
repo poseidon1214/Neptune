@@ -8,7 +8,7 @@
 
 
 namespace gdt {
-namespace dynamic_creative {
+namespace wavelet {
 
 bool RawDataDownloadFunctor::Init() {
   downloader_.Init();
@@ -35,8 +35,8 @@ FunctorResult RawDataDownloadFunctor::DoWork(DataMessage* data_message) {
 
 // TODO(cernwang) 现在是全量更新
 bool RawDataDownloadFunctor::NeedDownload(const FeederFile& feeder_file) {
-  return false;
+  return true;
 }
 
-}  // namespace dynamic_creative
+}  // namespace wavelet
 }  // namespace gdt

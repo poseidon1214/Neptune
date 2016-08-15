@@ -16,7 +16,7 @@ bool WriteDataFunctor::Init() {
 
 FunctorResult WriteDataFunctor::DoWork(DataMessage* data_message) {
   if (!Writer::WriteToIO(config_->product_writer_config(), data_message->products)) {
-  	return kFailedNotContinued;
+    return kFailedNotContinued;
   }
   return kSuccess;
 }

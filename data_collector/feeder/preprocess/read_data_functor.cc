@@ -10,7 +10,7 @@
 
 
 namespace gdt {
-namespace dynamic_creative {
+namespace wavelet {
 
 bool ReadDataFunctor::Init() {
   for (auto website_config : config_->website_config()) {
@@ -59,5 +59,5 @@ bool ReadDataFunctor::GetProductFromFeedFile(
   return true;
 }
   
-}  // namespace dynamic_creative
+}  // namespace wavelet
 }  // namespace gdt

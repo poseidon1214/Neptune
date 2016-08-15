@@ -51,4 +51,73 @@ bool GetRawFieldValue(const google::protobuf::Message&,
   return true;
 }
 
+bool GetFieldValue(const google::protobuf::Message* message,
+    const google::protobuf::RepeatedPtrField<std::string> &source_fields,
+    FieldValue *filed_value) {
+  if (message == NULL || filed_value == NULL) {
+    return false;
+  }
+  using namespace std;  // NOLINT(build/namespaces)
+  using namespace google::protobuf;  // NOLINT(build/namespaces)
+  for (int i = 0; i < source_fields.size() - 1; i++) {
+    const string& field_name = source_fields.Get(i);
+    const Reflection *reflection = message->GetReflection();
+    const Descriptor *descriptor = message->GetDescriptor();
+    const FieldDescriptor *field = descriptor->FindFieldByName(field_name);
+    if (field->cpp_type() != FieldDescriptor::CPPTYPE_MESSAGE) {
+      return false;
+    }
+    message = &(reflection->GetMessage(*message, field));
+  }
+
+  const Reflection *reflection = message->GetReflection();
+  const Descriptor *descriptor = message->GetDescriptor();
+  const FieldDescriptor *field = descriptor->FindFieldByName(
+    source_fields.Get(source_fields.size() - 1));
+  if (field == NULL) {
+    return false;
+  }
+  if (field->is_repeated()) {
+    LOG(ERROR) << "feature is repeated , feature name = "
+      << source_fields.Get(source_fields.size() - 1);
+    return false;
+  }
+  if (field->cpp_type() == FieldDescriptor::CPPTYPE_MESSAGE) {
+    return false;
+  }
+  if (field->cpp_type() == FieldDescriptor::CPPTYPE_INT32) {
+    filed_value->set_data_type(FieldValue::INT32);
+    filed_value->set_int32_value(reflection->GetInt32(*message, field));
+  } else if (field->cpp_type() == FieldDescriptor::CPPTYPE_INT64) {
+    filed_value->set_data_type(FieldValue::INT64);
+    filed_value->set_int64_value(reflection->GetInt64(*message, field));
+  } else if (field->cpp_type() == FieldDescriptor::CPPTYPE_UINT32) {
+    filed_value->set_data_type(FieldValue::UINT32);
+    filed_value->set_uint32_value(reflection->GetUInt32(*message, field));
+  } else if (field->cpp_type() == FieldDescriptor::CPPTYPE_UINT64) {
+    filed_value->set_data_type(FieldValue::UINT64);
+    filed_value->set_uint64_value(reflection->GetUInt64(*message, field));
+  } else if (field->cpp_type() == FieldDescriptor::CPPTYPE_DOUBLE) {
+    filed_value->set_data_type(FieldValue::DOUBLE);
+    filed_value->set_double_value(reflection->GetDouble(*message, field));
+  } else if (field->cpp_type() == FieldDescriptor::CPPTYPE_FLOAT) {
+    filed_value->set_data_type(FieldValue::FLOAT);
+    filed_value->set_float_value(reflection->GetFloat(*message, field));
+  } else if (field->cpp_type() == FieldDescriptor::CPPTYPE_BOOL) {
+    filed_value->set_data_type(FieldValue::BOOL);
+    filed_value->set_bool_value(reflection->GetBool(*message, field));
+  } else if (field->cpp_type() == FieldDescriptor::CPPTYPE_ENUM) {
+    // 使用枚举的值进行处理
+    filed_value->set_data_type(FieldValue::UINT32);
+    filed_value->set_uint32_value(
+      reflection->GetEnum(*message, field)->number());
+  } else if (field->cpp_type() == FieldDescriptor::CPPTYPE_STRING) {
+    filed_value->set_data_type(FieldValue::STRING);
+    filed_value->set_string_value(reflection->GetString(*message, field));
+  } else {
+    return false;
+  }
+  return true;
+}
+
 }  // namespace gdt

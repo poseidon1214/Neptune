@@ -31,7 +31,7 @@ namespace wavelet {
 bool SimilarityRetrievaler::Build(const std::vector<Document>& documents) {
   std::for_each(documents.begin(), documents.end(),
                 std::bind(&SimilarityRetrievaler::BuildDocument, this, std::placeholders::_1));
-  return BuildWavletTree(invert_index);
+  return BuildWavletTree(invert_index_);
 }
 
 bool SimilarityRetrievaler::BuildDocument(const Document& document) {
@@ -55,7 +55,7 @@ bool SimilarityRetrievaler::BuildFiled(const Field& field, uint64_t docid) {
 bool SimilarityRetrievaler::BuildIdFiled(const Field& field, uint64_t docid) {
   std::for_each(field.id().begin(), field.id().end(), 
                 [&] (uint64_t id) {
-                  invert_index[field.field_id()][id].push_back(docid);
+                  invert_index_[field.field_id()][id].push_back(docid);
                 });
   return true;
 }
@@ -63,7 +63,7 @@ bool SimilarityRetrievaler::BuildIdFiled(const Field& field, uint64_t docid) {
 bool SimilarityRetrievaler::BuildNumFiled(const Field& field, uint64_t docid) {
   // TODO(cernwang) 间隔改成可配置的
   uint64_t id = uint64_t(field.num());
-  invert_index[field.field_id()][id].push_back(docid);
+  invert_index_[field.field_id()][id].push_back(docid);
   return true;
 }
 
@@ -71,14 +71,20 @@ bool SimilarityRetrievaler::Retrieval(
     const Query& query, std::vector<Result>* results) {
   QueryPattern query_pattern;
   for (auto field_query : query.field_query()) {
-    auto iter = feature_offset.find(field_query.field_id());
-    CHECK(iter != feature_offset.end());
+    auto iter = feature_offset_.find(field_query.field_id());
+    CHECK(iter != feature_offset_.end());
     std::pair<FieldPattern, double> field_pattern_thres;
     CHECK(BuildFieldPattern(iter->second, field_query, &field_pattern_thres));
     query_pattern.push_back(field_pattern_thres);
   }
   std::vector<uint64_t> doc_index;
-  CHECK(wavelet_tree.Retrieval(query_pattern, &doc_index));
+  CHECK(wavelet_tree_.Retrieval(query_pattern, &doc_index));
+  std::for_each(doc_index.begin(), doc_index.end(),
+                [&](uint64_t index) {
+                  Result result;
+                  result.set_index(index);
+                  results->push_back(std::move(result));
+                });
   return true;
 }
 
@@ -133,9 +139,9 @@ bool SimilarityRetrievaler::BuildWavletTree(const InvertIndex& invert_index) {
     field_offset.begin = posting.size();
     BuildFieldOffset(field_invert_index.second, field_offset.field_offset_map, posting);
     field_offset.end = posting.size();
-    feature_offset[field_invert_index.first] = std::move(field_offset);
+    feature_offset_[field_invert_index.first] = std::move(field_offset);
   }
-  wavelet_tree.Init(posting);
+  wavelet_tree_.Init(posting);
   return true;
 }
 

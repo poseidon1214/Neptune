@@ -11,6 +11,7 @@
 #include <vector>
 #include <utility>
 #include <tuple>
+#include "retrieval/base/retrievaler.h"
 #include "retrieval/fuzzy/wavelet/wavelet_tree.h"
 #include "retrieval/proto/document.pb.h"
 #include "retrieval/proto/query.pb.h"
@@ -34,7 +35,7 @@ typedef std::map<uint64_t, std::vector<uint64_t> > FieldInvertIndex;
 typedef std::map<uint64_t, FieldInvertIndex> InvertIndex;
 
 // 类余弦检索
-class SimilarityRetrievaler {
+class SimilarityRetrievaler : public Retrievaler {
  public:
   bool Build(const std::vector<Document>& documents);
   bool Retrieval(const Query& query, std::vector<Result>* results);
@@ -71,10 +72,13 @@ class SimilarityRetrievaler {
       std::vector<uint64_t>& posting);
 
  private:
-  WaveletTree wavelet_tree;
-  OffsetMap feature_offset;
-  InvertIndex invert_index;
+  WaveletTree wavelet_tree_;
+  OffsetMap feature_offset_;
+  InvertIndex invert_index_;
 };
+
+REGISTER_RETRIEVALER(SimilarityRetrievaler);
+
 
 }  // namespace wavelet
 }  // namespace gdt

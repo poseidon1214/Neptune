@@ -1,0 +1,16 @@
+syntax = "proto2";
+
+message ParameterConfig {
+  // 字段名
+  optional string field_name = 1;
+  // FiledType
+  optional FiledType field_type = 2;
+}
+
+// 调参器配置
+message TunnerConfig {
+  //  参数配置
+  repeated ParameterConfig parameter_config = 1;
+  //  实验结果存储配置
+  optional IOConfig experiment_config = 2;
+}

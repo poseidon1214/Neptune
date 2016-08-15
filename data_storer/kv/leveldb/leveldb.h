@@ -1,8 +1,8 @@
 // Copyright (c) 2014, Tencent Inc.
 // Author: Wang Qian<cernwang@tencent.com>
 
-#ifndef CREATIVE_DYNAMIC_CREATIVE_COMMON_LEVELDB_H_
-#define CREATIVE_DYNAMIC_CREATIVE_COMMON_LEVELDB_H_
+#ifndef CREATIVE_wavelet_COMMON_LEVELDB_H_
+#define CREATIVE_wavelet_COMMON_LEVELDB_H_
 
 
 #include <string>
@@ -275,5 +275,5 @@ class Table {
 
 }  // namespace gdt
 
-#endif  // CREATIVE_DYNAMIC_CREATIVE_COMMON_LEVELDB_H_
+#endif  // CREATIVE_wavelet_COMMON_LEVELDB_H_
 

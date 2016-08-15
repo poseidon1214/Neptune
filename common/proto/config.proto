@@ -121,3 +121,26 @@ message User {
   // 用户QQ号
   optional uint64 qq = 1;
 }
+
+message FieldValue {
+  enum DataType {
+    NONE = 0;
+    BOOL = 1;
+    INT32 = 2;
+    UINT32 = 3;
+    INT64 = 4;
+    UINT64 = 5;
+    FLOAT = 6;
+    DOUBLE = 7;
+    STRING = 8;
+  };
+  optional DataType data_type     = 1;
+  optional bool bool_value        = 2;
+  optional int32 int32_value      = 3;
+  optional uint32 uint32_value    = 4;
+  optional int64 int64_value      = 5;
+  optional uint64 uint64_value    = 6;
+  optional float float_value      = 7;
+  optional double double_value    = 8;
+  optional string string_value    = 9;
+}

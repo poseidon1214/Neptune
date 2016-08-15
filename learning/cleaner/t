@@ -1,0 +1,1053 @@
+Blade: Entering directory `/root/trunk'
+Blade(info): loading BUILDs...
+Blade(info): loading done.
+Blade(info): analyzing dependency graph...
+Blade(info): analyzing done.
+Blade(info): generating build rules...
+Blade(info): CPP=cpp
+Blade(info): CC=gcc
+Blade(info): CXX=g++
+Blade(info): LD=g++
+Blade(info): Downloading com.google.protobuf:protobuf-java:2.6.1 from central repository...
+/bin/sh: 1: ./mvn: not found
+Blade(warning): Error occurred when downloading com.google.protobuf:protobuf-java:2.6.1 from central repository. Check build64_release/protobuf-java__download.log for more details.
+/bin/sh: 1: ./mvn: not found
+Blade(warning): Download com.google.protobuf:protobuf-java:2.6.1 failed
+Blade(info): generating done.
+Blade(info): tunes the parallel jobs number(-j N) to be 2
+scons: Reading SConscript files ...
+scons: done reading SConscript files.
+scons: Building targets ...
+scons: building associated VariantDir targets: build64_release
+Updating version information
+Compiling learning/cleaner/lambda_parser_test.cc
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./framework/common/base_functor.h:15:0: warning: "CHECK" redefined [enabled by default]
+ #define CHECK(result)  \
+ ^
+In file included from ./thirdparty/glog/logging.h:1:0,
+                 from learning/cleaner/lambda_parser_test.cc:8:
+./thirdparty/glog-0.3.2/src/glog/logging.h:556:0: note: this is the location of the previous definition
+ #define CHECK(condition)  \
+ ^
+In file included from learning/cleaner/lambda_parser_test.cc:9:0:
+./learning/cleaner/lambda_parser.h: In function 'bool gdt::learning::operator==(const FieldValue&, const FieldValue&)':
+./learning/cleaner/lambda_parser.h:25:10: warning: enumeration value 'FieldValue_DataType_NONE' not handled in switch [-Wswitch]
+   switch (left_field.data_type()) {
+          ^
+./learning/cleaner/lambda_parser.h: In function 'bool gdt::learning::operator<(const FieldValue&, const FieldValue&)':
+./learning/cleaner/lambda_parser.h:45:10: warning: enumeration value 'FieldValue_DataType_NONE' not handled in switch [-Wswitch]
+   switch (left_field.data_type()) {
+          ^
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h: In function 'bool gdt::learning::SatisfyExpression(const T&, const gdt::learning::Expression&)':
+./framework/common/base_functor.h:34:35: error: no match for 'operator<<' (operand types are 'std::basic_ostream<char>' and 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >')
+                << #info << " == " << info; \
+                                   ^
+./learning/cleaner/lambda_parser.h:71:5: note: in expansion of macro 'CHECK_LOG'
+     CHECK_LOG(GetFieldValue(&t, expression.left_field().field_name(), &left_field),
+     ^
+./framework/common/base_functor.h:34:35: note: candidates are:
+                << #info << " == " << info; \
+                                   ^
+./learning/cleaner/lambda_parser.h:71:5: note: in expansion of macro 'CHECK_LOG'
+     CHECK_LOG(GetFieldValue(&t, expression.left_field().field_name(), &left_field),
+     ^
+In file included from /usr/include/c++/4.8/iostream:39:0,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/ostream:108:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ostream<_CharT, _Traits>::__ostream_type& (*)(std::basic_ostream<_CharT, _Traits>::__ostream_type&)) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(__ostream_type& (*__pf)(__ostream_type&))
+       ^
+/usr/include/c++/4.8/ostream:108:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'std::basic_ostream<char>::__ostream_type& (*)(std::basic_ostream<char>::__ostream_type&) {aka std::basic_ostream<char>& (*)(std::basic_ostream<char>&)}'
+/usr/include/c++/4.8/ostream:117:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ostream<_CharT, _Traits>::__ios_type& (*)(std::basic_ostream<_CharT, _Traits>::__ios_type&)) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>; std::basic_ostream<_CharT, _Traits>::__ios_type = std::basic_ios<char>]
+       operator<<(__ios_type& (*__pf)(__ios_type&))
+       ^
+/usr/include/c++/4.8/ostream:117:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'std::basic_ostream<char>::__ios_type& (*)(std::basic_ostream<char>::__ios_type&) {aka std::basic_ios<char>& (*)(std::basic_ios<char>&)}'
+/usr/include/c++/4.8/ostream:127:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(std::ios_base& (*)(std::ios_base&)) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(ios_base& (*__pf) (ios_base&))
+       ^
+/usr/include/c++/4.8/ostream:127:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'std::ios_base& (*)(std::ios_base&)'
+/usr/include/c++/4.8/ostream:166:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(long __n)
+       ^
+/usr/include/c++/4.8/ostream:166:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'long int'
+/usr/include/c++/4.8/ostream:170:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(unsigned long __n)
+       ^
+/usr/include/c++/4.8/ostream:170:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'long unsigned int'
+/usr/include/c++/4.8/ostream:174:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(bool) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(bool __n)
+       ^
+/usr/include/c++/4.8/ostream:174:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'bool'
+In file included from /usr/include/c++/4.8/ostream:609:0,
+                 from /usr/include/c++/4.8/iostream:39,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/bits/ostream.tcc:91:5: note: std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(short int) [with _CharT = char; _Traits = std::char_traits<char>]
+     basic_ostream<_CharT, _Traits>::
+     ^
+/usr/include/c++/4.8/bits/ostream.tcc:91:5: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'short int'
+In file included from /usr/include/c++/4.8/iostream:39:0,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/ostream:181:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(short unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(unsigned short __n)
+       ^
+/usr/include/c++/4.8/ostream:181:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'short unsigned int'
+In file included from /usr/include/c++/4.8/ostream:609:0,
+                 from /usr/include/c++/4.8/iostream:39,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/bits/ostream.tcc:105:5: note: std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(int) [with _CharT = char; _Traits = std::char_traits<char>]
+     basic_ostream<_CharT, _Traits>::
+     ^
+/usr/include/c++/4.8/bits/ostream.tcc:105:5: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'int'
+In file included from /usr/include/c++/4.8/iostream:39:0,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/ostream:192:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(unsigned int __n)
+       ^
+/usr/include/c++/4.8/ostream:192:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'unsigned int'
+/usr/include/c++/4.8/ostream:201:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long long int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(long long __n)
+       ^
+/usr/include/c++/4.8/ostream:201:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'long long int'
+/usr/include/c++/4.8/ostream:205:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long long unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(unsigned long long __n)
+       ^
+/usr/include/c++/4.8/ostream:205:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'long long unsigned int'
+/usr/include/c++/4.8/ostream:220:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(double) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(double __f)
+       ^
+/usr/include/c++/4.8/ostream:220:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'double'
+/usr/include/c++/4.8/ostream:224:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(float) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(float __f)
+       ^
+/usr/include/c++/4.8/ostream:224:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'float'
+/usr/include/c++/4.8/ostream:232:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long double) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(long double __f)
+       ^
+/usr/include/c++/4.8/ostream:232:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'long double'
+/usr/include/c++/4.8/ostream:245:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(const void*) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(const void* __p)
+       ^
+/usr/include/c++/4.8/ostream:245:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'const void*'
+In file included from /usr/include/c++/4.8/ostream:609:0,
+                 from /usr/include/c++/4.8/iostream:39,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/bits/ostream.tcc:119:5: note: std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ostream<_CharT, _Traits>::__streambuf_type*) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__streambuf_type = std::basic_streambuf<char>]
+     basic_ostream<_CharT, _Traits>::
+     ^
+/usr/include/c++/4.8/bits/ostream.tcc:119:5: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'std::basic_ostream<char>::__streambuf_type* {aka std::basic_streambuf<char>*}'
+In file included from ./thirdparty/glog/logging.h:1:0,
+                 from learning/cleaner/lambda_parser_test.cc:8:
+./thirdparty/glog-0.3.2/src/glog/logging.h:599:22: note: std::ostream& operator<<(std::ostream&, const google::DummyClassToDefineOperator&)
+ inline std::ostream& operator<<(
+                      ^
+./thirdparty/glog-0.3.2/src/glog/logging.h:599:22: note:   no known conversion for argument 2 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'const google::DummyClassToDefineOperator&'
+In file included from ./common/base/string/algorithm.h:19:0,
+                 from ./app/qzap/common/base/string_utility.h:8,
+                 from ./common/encoding/proto_converter.h:15,
+                 from ./learning/cleaner/lambda_parser.h:15,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./common/base/string/string_piece.h:283:22: note: std::ostream& operator<<(std::ostream&, const StringPiece&)
+ inline std::ostream& operator<<(std::ostream& o, const StringPiece& piece) {
+                      ^
+./common/base/string/string_piece.h:283:22: note:   no known conversion for argument 2 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'const StringPiece&'
+In file included from /usr/include/c++/4.8/memory:82:0,
+                 from /usr/local/include/google/protobuf/descriptor.h:57,
+                 from /usr/local/include/google/protobuf/message.h:122,
+                 from build64_release/common/proto/config.pb.h:26,
+                 from ./learning/cleaner/lambda_parser.h:14,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+/usr/include/c++/4.8/bits/shared_ptr.h:66:5: note: template<class _Ch, class _Tr, class _Tp, __gnu_cxx::_Lock_policy _Lp> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const std::__shared_ptr<_Tp, _Lp>&)
+     operator<<(std::basic_ostream<_Ch, _Tr>& __os,
+     ^
+/usr/include/c++/4.8/bits/shared_ptr.h:66:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:72:50: note:   'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' is not derived from 'const std::__shared_ptr<_Tp, _Lp>'
+               expression.left_field().field_name());
+                                                  ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:51:0,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/iomanip:308:5: note: template<class _CharT, class _Traits, class _MoneyT> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, std::_Put_money<_MoneyT>)
+     operator<<(basic_ostream<_CharT, _Traits>& __os, _Put_money<_MoneyT> __f)
+     ^
+/usr/include/c++/4.8/iomanip:308:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:72:50: note:   'google::protobuf::RepeatedPtrField<std::basic_string<char> >' is not derived from 'std::_Put_money<_MoneyT>'
+               expression.left_field().field_name());
+                                                  ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:51:0,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/iomanip:235:5: note: template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, std::_Setw)
+     operator<<(basic_ostream<_CharT, _Traits>& __os, _Setw __f)
+     ^
+/usr/include/c++/4.8/iomanip:235:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:72:50: note:   cannot convert 'expression.gdt::learning::Expression::left_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'std::_Setw'
+               expression.left_field().field_name());
+                                                  ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:51:0,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/iomanip:205:5: note: template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, std::_Setprecision)
+     operator<<(basic_ostream<_CharT, _Traits>& __os, _Setprecision __f)
+     ^
+/usr/include/c++/4.8/iomanip:205:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:72:50: note:   cannot convert 'expression.gdt::learning::Expression::left_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'std::_Setprecision'
+               expression.left_field().field_name());
+                                                  ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:51:0,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/iomanip:175:5: note: template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, std::_Setfill<_CharT>)
+     operator<<(basic_ostream<_CharT, _Traits>& __os, _Setfill<_CharT> __f)
+     ^
+/usr/include/c++/4.8/iomanip:175:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:72:50: note:   'google::protobuf::RepeatedPtrField<std::basic_string<char> >' is not derived from 'std::_Setfill<_CharT>'
+               expression.left_field().field_name());
+                                                  ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:51:0,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/iomanip:140:5: note: template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, std::_Setbase)
+     operator<<(basic_ostream<_CharT, _Traits>& __os, _Setbase __f)
+     ^
+/usr/include/c++/4.8/iomanip:140:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:72:50: note:   cannot convert 'expression.gdt::learning::Expression::left_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'std::_Setbase'
+               expression.left_field().field_name());
+                                                  ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:51:0,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/iomanip:106:5: note: template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, std::_Setiosflags)
+     operator<<(basic_ostream<_CharT, _Traits>& __os, _Setiosflags __f)
+     ^
+/usr/include/c++/4.8/iomanip:106:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:72:50: note:   cannot convert 'expression.gdt::learning::Expression::left_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'std::_Setiosflags'
+               expression.left_field().field_name());
+                                                  ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:51:0,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/iomanip:76:5: note: template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, std::_Resetiosflags)
+     operator<<(basic_ostream<_CharT, _Traits>& __os, _Resetiosflags __f)
+     ^
+/usr/include/c++/4.8/iomanip:76:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:72:50: note:   cannot convert 'expression.gdt::learning::Expression::left_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'std::_Resetiosflags'
+               expression.left_field().field_name());
+                                                  ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from /usr/include/c++/4.8/iostream:39:0,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/ostream:602:5: note: std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&&, const _Tp&) [with _CharT = char; _Traits = std::char_traits<char>; _Tp = google::protobuf::RepeatedPtrField<std::basic_string<char> >] <near match>
+     operator<<(basic_ostream<_CharT, _Traits>&& __os, const _Tp& __x)
+     ^
+/usr/include/c++/4.8/ostream:602:5: note:   no known conversion for argument 1 from 'std::basic_ostream<char>' to 'std::basic_ostream<char>&&'
+/usr/include/c++/4.8/ostream:548:5: note: template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const unsigned char*)
+     operator<<(basic_ostream<char, _Traits>& __out, const unsigned char* __s)
+     ^
+/usr/include/c++/4.8/ostream:548:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:72:50: note:   cannot convert 'expression.gdt::learning::Expression::left_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'const unsigned char*'
+               expression.left_field().field_name());
+                                                  ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from /usr/include/c++/4.8/iostream:39:0,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/ostream:543:5: note: template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const signed char*)
+     operator<<(basic_ostream<char, _Traits>& __out, const signed char* __s)
+     ^
+/usr/include/c++/4.8/ostream:543:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:72:50: note:   cannot convert 'expression.gdt::learning::Expression::left_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'const signed char*'
+               expression.left_field().field_name());
+                                                  ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from /usr/include/c++/4.8/iostream:39:0,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/ostream:530:5: note: template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const char*)
+     operator<<(basic_ostream<char, _Traits>& __out, const char* __s)
+     ^
+/usr/include/c++/4.8/ostream:530:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:72:50: note:   cannot convert 'expression.gdt::learning::Expression::left_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'const char*'
+               expression.left_field().field_name());
+                                                  ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from /usr/include/c++/4.8/ostream:609:0,
+                 from /usr/include/c++/4.8/iostream:39,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/bits/ostream.tcc:321:5: note: template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const char*)
+     operator<<(basic_ostream<_CharT, _Traits>& __out, const char* __s)
+     ^
+/usr/include/c++/4.8/bits/ostream.tcc:321:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:72:50: note:   cannot convert 'expression.gdt::learning::Expression::left_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'const char*'
+               expression.left_field().field_name());
+                                                  ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from /usr/include/c++/4.8/iostream:39:0,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/ostream:513:5: note: template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const _CharT*)
+     operator<<(basic_ostream<_CharT, _Traits>& __out, const _CharT* __s)
+     ^
+/usr/include/c++/4.8/ostream:513:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:72:50: note:   mismatched types 'const _CharT*' and 'google::protobuf::RepeatedPtrField<std::basic_string<char> >'
+               expression.left_field().field_name());
+                                                  ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from /usr/include/c++/4.8/iostream:39:0,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/ostream:493:5: note: template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, unsigned char)
+     operator<<(basic_ostream<char, _Traits>& __out, unsigned char __c)
+     ^
+/usr/include/c++/4.8/ostream:493:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:72:50: note:   cannot convert 'expression.gdt::learning::Expression::left_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'unsigned char'
+               expression.left_field().field_name());
+                                                  ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from /usr/include/c++/4.8/iostream:39:0,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/ostream:488:5: note: template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, signed char)
+     operator<<(basic_ostream<char, _Traits>& __out, signed char __c)
+     ^
+/usr/include/c++/4.8/ostream:488:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:72:50: note:   cannot convert 'expression.gdt::learning::Expression::left_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'signed char'
+               expression.left_field().field_name());
+                                                  ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from /usr/include/c++/4.8/iostream:39:0,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/ostream:482:5: note: template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, char)
+     operator<<(basic_ostream<char, _Traits>& __out, char __c)
+     ^
+/usr/include/c++/4.8/ostream:482:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:72:50: note:   cannot convert 'expression.gdt::learning::Expression::left_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'char'
+               expression.left_field().field_name());
+                                                  ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from /usr/include/c++/4.8/iostream:39:0,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/ostream:476:5: note: template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, char)
+     operator<<(basic_ostream<_CharT, _Traits>& __out, char __c)
+     ^
+/usr/include/c++/4.8/ostream:476:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:72:50: note:   cannot convert 'expression.gdt::learning::Expression::left_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'char'
+               expression.left_field().field_name());
+                                                  ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from /usr/include/c++/4.8/iostream:39:0,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/ostream:471:5: note: template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, _CharT)
+     operator<<(basic_ostream<_CharT, _Traits>& __out, _CharT __c)
+     ^
+/usr/include/c++/4.8/ostream:471:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:72:50: note:   deduced conflicting types for parameter '_CharT' ('char' and 'google::protobuf::RepeatedPtrField<std::basic_string<char> >')
+               expression.left_field().field_name());
+                                                  ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from /usr/include/c++/4.8/string:52:0,
+                 from learning/cleaner/lambda_parser_test.cc:5:
+/usr/include/c++/4.8/bits/basic_string.h:2753:5: note: template<class _CharT, class _Traits, class _Alloc> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const std::basic_string<_CharT, _Traits, _Alloc>&)
+     operator<<(basic_ostream<_CharT, _Traits>& __os,
+     ^
+/usr/include/c++/4.8/bits/basic_string.h:2753:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:72:50: note:   'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' is not derived from 'const std::basic_string<_CharT, _Traits, _Alloc>'
+               expression.left_field().field_name());
+                                                  ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+./framework/common/base_functor.h:34:35: error: no match for 'operator<<' (operand types are 'std::basic_ostream<char>' and 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >')
+                << #info << " == " << info; \
+                                   ^
+./learning/cleaner/lambda_parser.h:77:5: note: in expansion of macro 'CHECK_LOG'
+     CHECK_LOG(GetFieldValue(&t, expression.right_field().field_name(), &right_field),
+     ^
+./framework/common/base_functor.h:34:35: note: candidates are:
+                << #info << " == " << info; \
+                                   ^
+./learning/cleaner/lambda_parser.h:77:5: note: in expansion of macro 'CHECK_LOG'
+     CHECK_LOG(GetFieldValue(&t, expression.right_field().field_name(), &right_field),
+     ^
+In file included from /usr/include/c++/4.8/iostream:39:0,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/ostream:108:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ostream<_CharT, _Traits>::__ostream_type& (*)(std::basic_ostream<_CharT, _Traits>::__ostream_type&)) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(__ostream_type& (*__pf)(__ostream_type&))
+       ^
+/usr/include/c++/4.8/ostream:108:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'std::basic_ostream<char>::__ostream_type& (*)(std::basic_ostream<char>::__ostream_type&) {aka std::basic_ostream<char>& (*)(std::basic_ostream<char>&)}'
+/usr/include/c++/4.8/ostream:117:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ostream<_CharT, _Traits>::__ios_type& (*)(std::basic_ostream<_CharT, _Traits>::__ios_type&)) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>; std::basic_ostream<_CharT, _Traits>::__ios_type = std::basic_ios<char>]
+       operator<<(__ios_type& (*__pf)(__ios_type&))
+       ^
+/usr/include/c++/4.8/ostream:117:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'std::basic_ostream<char>::__ios_type& (*)(std::basic_ostream<char>::__ios_type&) {aka std::basic_ios<char>& (*)(std::basic_ios<char>&)}'
+/usr/include/c++/4.8/ostream:127:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(std::ios_base& (*)(std::ios_base&)) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(ios_base& (*__pf) (ios_base&))
+       ^
+/usr/include/c++/4.8/ostream:127:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'std::ios_base& (*)(std::ios_base&)'
+/usr/include/c++/4.8/ostream:166:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(long __n)
+       ^
+/usr/include/c++/4.8/ostream:166:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'long int'
+/usr/include/c++/4.8/ostream:170:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(unsigned long __n)
+       ^
+/usr/include/c++/4.8/ostream:170:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'long unsigned int'
+/usr/include/c++/4.8/ostream:174:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(bool) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(bool __n)
+       ^
+/usr/include/c++/4.8/ostream:174:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'bool'
+In file included from /usr/include/c++/4.8/ostream:609:0,
+                 from /usr/include/c++/4.8/iostream:39,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/bits/ostream.tcc:91:5: note: std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(short int) [with _CharT = char; _Traits = std::char_traits<char>]
+     basic_ostream<_CharT, _Traits>::
+     ^
+/usr/include/c++/4.8/bits/ostream.tcc:91:5: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'short int'
+In file included from /usr/include/c++/4.8/iostream:39:0,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/ostream:181:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(short unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(unsigned short __n)
+       ^
+/usr/include/c++/4.8/ostream:181:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'short unsigned int'
+In file included from /usr/include/c++/4.8/ostream:609:0,
+                 from /usr/include/c++/4.8/iostream:39,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/bits/ostream.tcc:105:5: note: std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(int) [with _CharT = char; _Traits = std::char_traits<char>]
+     basic_ostream<_CharT, _Traits>::
+     ^
+/usr/include/c++/4.8/bits/ostream.tcc:105:5: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'int'
+In file included from /usr/include/c++/4.8/iostream:39:0,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/ostream:192:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(unsigned int __n)
+       ^
+/usr/include/c++/4.8/ostream:192:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'unsigned int'
+/usr/include/c++/4.8/ostream:201:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long long int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(long long __n)
+       ^
+/usr/include/c++/4.8/ostream:201:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'long long int'
+/usr/include/c++/4.8/ostream:205:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long long unsigned int) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(unsigned long long __n)
+       ^
+/usr/include/c++/4.8/ostream:205:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'long long unsigned int'
+/usr/include/c++/4.8/ostream:220:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(double) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(double __f)
+       ^
+/usr/include/c++/4.8/ostream:220:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'double'
+/usr/include/c++/4.8/ostream:224:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(float) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(float __f)
+       ^
+/usr/include/c++/4.8/ostream:224:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'float'
+/usr/include/c++/4.8/ostream:232:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(long double) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(long double __f)
+       ^
+/usr/include/c++/4.8/ostream:232:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'long double'
+/usr/include/c++/4.8/ostream:245:7: note: std::basic_ostream<_CharT, _Traits>::__ostream_type& std::basic_ostream<_CharT, _Traits>::operator<<(const void*) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__ostream_type = std::basic_ostream<char>]
+       operator<<(const void* __p)
+       ^
+/usr/include/c++/4.8/ostream:245:7: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'const void*'
+In file included from /usr/include/c++/4.8/ostream:609:0,
+                 from /usr/include/c++/4.8/iostream:39,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/bits/ostream.tcc:119:5: note: std::basic_ostream<_CharT, _Traits>& std::basic_ostream<_CharT, _Traits>::operator<<(std::basic_ostream<_CharT, _Traits>::__streambuf_type*) [with _CharT = char; _Traits = std::char_traits<char>; std::basic_ostream<_CharT, _Traits>::__streambuf_type = std::basic_streambuf<char>]
+     basic_ostream<_CharT, _Traits>::
+     ^
+/usr/include/c++/4.8/bits/ostream.tcc:119:5: note:   no known conversion for argument 1 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'std::basic_ostream<char>::__streambuf_type* {aka std::basic_streambuf<char>*}'
+In file included from ./thirdparty/glog/logging.h:1:0,
+                 from learning/cleaner/lambda_parser_test.cc:8:
+./thirdparty/glog-0.3.2/src/glog/logging.h:599:22: note: std::ostream& operator<<(std::ostream&, const google::DummyClassToDefineOperator&)
+ inline std::ostream& operator<<(
+                      ^
+./thirdparty/glog-0.3.2/src/glog/logging.h:599:22: note:   no known conversion for argument 2 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'const google::DummyClassToDefineOperator&'
+In file included from ./common/base/string/algorithm.h:19:0,
+                 from ./app/qzap/common/base/string_utility.h:8,
+                 from ./common/encoding/proto_converter.h:15,
+                 from ./learning/cleaner/lambda_parser.h:15,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./common/base/string/string_piece.h:283:22: note: std::ostream& operator<<(std::ostream&, const StringPiece&)
+ inline std::ostream& operator<<(std::ostream& o, const StringPiece& piece) {
+                      ^
+./common/base/string/string_piece.h:283:22: note:   no known conversion for argument 2 from 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' to 'const StringPiece&'
+In file included from /usr/include/c++/4.8/memory:82:0,
+                 from /usr/local/include/google/protobuf/descriptor.h:57,
+                 from /usr/local/include/google/protobuf/message.h:122,
+                 from build64_release/common/proto/config.pb.h:26,
+                 from ./learning/cleaner/lambda_parser.h:14,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+/usr/include/c++/4.8/bits/shared_ptr.h:66:5: note: template<class _Ch, class _Tr, class _Tp, __gnu_cxx::_Lock_policy _Lp> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const std::__shared_ptr<_Tp, _Lp>&)
+     operator<<(std::basic_ostream<_Ch, _Tr>& __os,
+     ^
+/usr/include/c++/4.8/bits/shared_ptr.h:66:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:78:51: note:   'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' is not derived from 'const std::__shared_ptr<_Tp, _Lp>'
+               expression.right_field().field_name());
+                                                   ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:51:0,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/iomanip:308:5: note: template<class _CharT, class _Traits, class _MoneyT> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, std::_Put_money<_MoneyT>)
+     operator<<(basic_ostream<_CharT, _Traits>& __os, _Put_money<_MoneyT> __f)
+     ^
+/usr/include/c++/4.8/iomanip:308:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:78:51: note:   'google::protobuf::RepeatedPtrField<std::basic_string<char> >' is not derived from 'std::_Put_money<_MoneyT>'
+               expression.right_field().field_name());
+                                                   ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:51:0,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/iomanip:235:5: note: template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, std::_Setw)
+     operator<<(basic_ostream<_CharT, _Traits>& __os, _Setw __f)
+     ^
+/usr/include/c++/4.8/iomanip:235:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:78:51: note:   cannot convert 'expression.gdt::learning::Expression::right_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'std::_Setw'
+               expression.right_field().field_name());
+                                                   ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:51:0,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/iomanip:205:5: note: template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, std::_Setprecision)
+     operator<<(basic_ostream<_CharT, _Traits>& __os, _Setprecision __f)
+     ^
+/usr/include/c++/4.8/iomanip:205:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:78:51: note:   cannot convert 'expression.gdt::learning::Expression::right_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'std::_Setprecision'
+               expression.right_field().field_name());
+                                                   ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:51:0,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/iomanip:175:5: note: template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, std::_Setfill<_CharT>)
+     operator<<(basic_ostream<_CharT, _Traits>& __os, _Setfill<_CharT> __f)
+     ^
+/usr/include/c++/4.8/iomanip:175:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:78:51: note:   'google::protobuf::RepeatedPtrField<std::basic_string<char> >' is not derived from 'std::_Setfill<_CharT>'
+               expression.right_field().field_name());
+                                                   ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:51:0,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/iomanip:140:5: note: template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, std::_Setbase)
+     operator<<(basic_ostream<_CharT, _Traits>& __os, _Setbase __f)
+     ^
+/usr/include/c++/4.8/iomanip:140:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:78:51: note:   cannot convert 'expression.gdt::learning::Expression::right_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'std::_Setbase'
+               expression.right_field().field_name());
+                                                   ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:51:0,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/iomanip:106:5: note: template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, std::_Setiosflags)
+     operator<<(basic_ostream<_CharT, _Traits>& __os, _Setiosflags __f)
+     ^
+/usr/include/c++/4.8/iomanip:106:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:78:51: note:   cannot convert 'expression.gdt::learning::Expression::right_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'std::_Setiosflags'
+               expression.right_field().field_name());
+                                                   ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:51:0,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/iomanip:76:5: note: template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, std::_Resetiosflags)
+     operator<<(basic_ostream<_CharT, _Traits>& __os, _Resetiosflags __f)
+     ^
+/usr/include/c++/4.8/iomanip:76:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:78:51: note:   cannot convert 'expression.gdt::learning::Expression::right_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'std::_Resetiosflags'
+               expression.right_field().field_name());
+                                                   ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from /usr/include/c++/4.8/iostream:39:0,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/ostream:602:5: note: std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&&, const _Tp&) [with _CharT = char; _Traits = std::char_traits<char>; _Tp = google::protobuf::RepeatedPtrField<std::basic_string<char> >] <near match>
+     operator<<(basic_ostream<_CharT, _Traits>&& __os, const _Tp& __x)
+     ^
+/usr/include/c++/4.8/ostream:602:5: note:   no known conversion for argument 1 from 'std::basic_ostream<char>' to 'std::basic_ostream<char>&&'
+/usr/include/c++/4.8/ostream:548:5: note: template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const unsigned char*)
+     operator<<(basic_ostream<char, _Traits>& __out, const unsigned char* __s)
+     ^
+/usr/include/c++/4.8/ostream:548:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:78:51: note:   cannot convert 'expression.gdt::learning::Expression::right_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'const unsigned char*'
+               expression.right_field().field_name());
+                                                   ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from /usr/include/c++/4.8/iostream:39:0,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/ostream:543:5: note: template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const signed char*)
+     operator<<(basic_ostream<char, _Traits>& __out, const signed char* __s)
+     ^
+/usr/include/c++/4.8/ostream:543:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:78:51: note:   cannot convert 'expression.gdt::learning::Expression::right_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'const signed char*'
+               expression.right_field().field_name());
+                                                   ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from /usr/include/c++/4.8/iostream:39:0,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/ostream:530:5: note: template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, const char*)
+     operator<<(basic_ostream<char, _Traits>& __out, const char* __s)
+     ^
+/usr/include/c++/4.8/ostream:530:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:78:51: note:   cannot convert 'expression.gdt::learning::Expression::right_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'const char*'
+               expression.right_field().field_name());
+                                                   ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from /usr/include/c++/4.8/ostream:609:0,
+                 from /usr/include/c++/4.8/iostream:39,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/bits/ostream.tcc:321:5: note: template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const char*)
+     operator<<(basic_ostream<_CharT, _Traits>& __out, const char* __s)
+     ^
+/usr/include/c++/4.8/bits/ostream.tcc:321:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:78:51: note:   cannot convert 'expression.gdt::learning::Expression::right_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'const char*'
+               expression.right_field().field_name());
+                                                   ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from /usr/include/c++/4.8/iostream:39:0,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/ostream:513:5: note: template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const _CharT*)
+     operator<<(basic_ostream<_CharT, _Traits>& __out, const _CharT* __s)
+     ^
+/usr/include/c++/4.8/ostream:513:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:78:51: note:   mismatched types 'const _CharT*' and 'google::protobuf::RepeatedPtrField<std::basic_string<char> >'
+               expression.right_field().field_name());
+                                                   ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from /usr/include/c++/4.8/iostream:39:0,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/ostream:493:5: note: template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, unsigned char)
+     operator<<(basic_ostream<char, _Traits>& __out, unsigned char __c)
+     ^
+/usr/include/c++/4.8/ostream:493:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:78:51: note:   cannot convert 'expression.gdt::learning::Expression::right_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'unsigned char'
+               expression.right_field().field_name());
+                                                   ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from /usr/include/c++/4.8/iostream:39:0,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/ostream:488:5: note: template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, signed char)
+     operator<<(basic_ostream<char, _Traits>& __out, signed char __c)
+     ^
+/usr/include/c++/4.8/ostream:488:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:78:51: note:   cannot convert 'expression.gdt::learning::Expression::right_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'signed char'
+               expression.right_field().field_name());
+                                                   ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from /usr/include/c++/4.8/iostream:39:0,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/ostream:482:5: note: template<class _Traits> std::basic_ostream<char, _Traits>& std::operator<<(std::basic_ostream<char, _Traits>&, char)
+     operator<<(basic_ostream<char, _Traits>& __out, char __c)
+     ^
+/usr/include/c++/4.8/ostream:482:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:78:51: note:   cannot convert 'expression.gdt::learning::Expression::right_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'char'
+               expression.right_field().field_name());
+                                                   ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from /usr/include/c++/4.8/iostream:39:0,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/ostream:476:5: note: template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, char)
+     operator<<(basic_ostream<_CharT, _Traits>& __out, char __c)
+     ^
+/usr/include/c++/4.8/ostream:476:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:78:51: note:   cannot convert 'expression.gdt::learning::Expression::right_field().gdt::learning::FieldValueConfig::field_name()' (type 'const google::protobuf::RepeatedPtrField<std::basic_string<char> >') to type 'char'
+               expression.right_field().field_name());
+                                                   ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from /usr/include/c++/4.8/iostream:39:0,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-port.h:196,
+                 from thirdparty/gtest/internal/gtest-port.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/internal/gtest-internal.h:40,
+                 from thirdparty/gtest/internal/gtest-internal.h:1,
+                 from ./thirdparty/gtest-1.6.0/include/gtest/gtest.h:57,
+                 from ./thirdparty/gtest/gtest.h:1,
+                 from learning/cleaner/lambda_parser_test.cc:7:
+/usr/include/c++/4.8/ostream:471:5: note: template<class _CharT, class _Traits> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, _CharT)
+     operator<<(basic_ostream<_CharT, _Traits>& __out, _CharT __c)
+     ^
+/usr/include/c++/4.8/ostream:471:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:78:51: note:   deduced conflicting types for parameter '_CharT' ('char' and 'google::protobuf::RepeatedPtrField<std::basic_string<char> >')
+               expression.right_field().field_name());
+                                                   ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+In file included from /usr/include/c++/4.8/string:52:0,
+                 from learning/cleaner/lambda_parser_test.cc:5:
+/usr/include/c++/4.8/bits/basic_string.h:2753:5: note: template<class _CharT, class _Traits, class _Alloc> std::basic_ostream<_CharT, _Traits>& std::operator<<(std::basic_ostream<_CharT, _Traits>&, const std::basic_string<_CharT, _Traits, _Alloc>&)
+     operator<<(basic_ostream<_CharT, _Traits>& __os,
+     ^
+/usr/include/c++/4.8/bits/basic_string.h:2753:5: note:   template argument deduction/substitution failed:
+In file included from ./learning/cleaner/lambda_parser.h:18:0,
+                 from learning/cleaner/lambda_parser_test.cc:9:
+./learning/cleaner/lambda_parser.h:78:51: note:   'const google::protobuf::RepeatedPtrField<std::basic_string<char> >' is not derived from 'const std::basic_string<_CharT, _Traits, _Alloc>'
+               expression.right_field().field_name());
+                                                   ^
+./framework/common/base_functor.h:34:38: note: in definition of macro 'CHECK_LOG'
+                << #info << " == " << info; \
+                                      ^
+scons: *** [build64_release/learning/cleaner/lambda_parser_test.objs/lambda_parser_test.cc.o] Error 1
+scons: building terminated because of errors.
+Blade(error): building failure
+Blade(info): cost time is 0:00:02s

@@ -20,7 +20,6 @@ namespace common {
 typedef BitMap FinalStatus;
 
 
-
 template <class ConfigType, class DataMessageType>
 class StateMachine {
  public:

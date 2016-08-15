@@ -39,7 +39,6 @@ class Task: public BaseProcessor<ConfigType, DataMessageType> {
       // 这边是一个不合理的地方，但是暂时没有想到好的办法处理
       Functor* functor = CREATE_FUNCTOR(functor_config.name(), Functor);
       LOG(ERROR) << functor_config.name();
-      LOG(ERROR) << functor;
       CHECK(AddFunctor(functor));
     }
     this->success_init_ = true;

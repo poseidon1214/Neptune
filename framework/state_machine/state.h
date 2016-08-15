@@ -62,6 +62,7 @@ class State {
   }
   // 获取下一个状态 TODO(cernwang)
   int64_t NextState(const FinalStatus& status) {
+    // 按照顺序第一个符合的直接跳转
     auto iter = std::find_if(transition_config_.begin(), transition_config_.end(), 
                              [=](const TransitionConfig& config)->bool {
                                return Include(status, config.status());
@@ -72,13 +73,11 @@ class State {
  private:
   // 是否准备好
   bool Ready(std::vector<std::future<bool> >& futures) {
-    LOG(ERROR) << "Ready ?";
     for (size_t i = 0; i < futures.size(); i++) {
       // 此处逻辑有问题 TODO（cernwang)
       CHECK(futures[i].wait_for(std::chrono::seconds(timeout_)) == std::future_status::ready);
-      LOG(ERROR) << "CHECK ?";
+      // 成功则设置状态
       SetBit(tasks[i].Id(), futures[i].get(), &status_);
-      LOG(ERROR) << "SetBit ?";
     }
     return true;
   }

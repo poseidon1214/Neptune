@@ -48,7 +48,7 @@ path_map = [
     ('/qzone_adsdev_proj/trunk/app/qzap/service/data_push_pipeline', '检索系统组'),
     ('/qzone_adsdev_proj/trunk/app/qzap/service/datainterface', '基础平台组'),
     ('/qzone_adsdev_proj/trunk/app/qzap/service/datamigration', '基础平台组'),
-    ('/qzone_adsdev_proj/trunk/app/qzap/service/dynamic_creative', '创意优化组'),
+    ('/qzone_adsdev_proj/trunk/app/qzap/service/wavelet', '创意优化组'),
     ('/qzone_adsdev_proj/trunk/app/qzap/service/feature_server_v3', '创意优化组'),
     ('/qzone_adsdev_proj/trunk/app/qzap/service/ldpub', '基础平台组'),
     ('/qzone_adsdev_proj/trunk/app/qzap/service/lite_ctr', '检索策略组'),

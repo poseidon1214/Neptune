@@ -45,5 +45,8 @@ message Query {
 }
 
 message Result {
-
+  // 索引
+  optional uint64 index = 1;
+  // 文档ID
+  optional uint64 document_id = 2;
 }

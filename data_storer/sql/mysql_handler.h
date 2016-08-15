@@ -3,13 +3,14 @@
 //
 // Author: Qian Wang <cernwang@tencent.com>
 
-#ifndef CREATIVE_DYNAMIC_CREATIVE_TOOL_GOLDENEYE_SRC_MYSQL_HANDLER_H_
-#define CREATIVE_DYNAMIC_CREATIVE_TOOL_GOLDENEYE_SRC_MYSQL_HANDLER_H_
+#ifndef CREATIVE_wavelet_TOOL_GOLDENEYE_SRC_MYSQL_HANDLER_H_
+#define CREATIVE_wavelet_TOOL_GOLDENEYE_SRC_MYSQL_HANDLER_H_
 
 #include <string>
 #include <list>
 #include "thirdparty/glog/logging.h"
 #include "thirdparty/mysql/mysql.h"
+#include "common/encoding/pb_to_map.h"
 #include "data_storer/sql/proto/mysql_config.pb.h"
 
 namespace gdt {
@@ -90,4 +91,4 @@ class MysqlHandler {
 
 }  // namespace gdt
 
-#endif  // CREATIVE_DYNAMIC_CREATIVE_TOOL_GOLDENEYE_SRC_MYSQL_HANDLER_H_
+#endif  // CREATIVE_wavelet_TOOL_GOLDENEYE_SRC_MYSQL_HANDLER_H_

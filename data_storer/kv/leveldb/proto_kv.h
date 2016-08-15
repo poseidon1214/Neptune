@@ -2,8 +2,8 @@
 // Author: Wang Qian<cernwang@tencent.com>
 
 // 对本地数据库的操作的类
-#ifndef CREATIVE_DYNAMIC_CREATIVE_DATABASE_LOCAL_DB_OPERATOR_H_
-#define CREATIVE_DYNAMIC_CREATIVE_DATABASE_LOCAL_DB_OPERATOR_H_
+#ifndef CREATIVE_wavelet_DATABASE_LOCAL_DB_OPERATOR_H_
+#define CREATIVE_wavelet_DATABASE_LOCAL_DB_OPERATOR_H_
 
 #include <stdio.h>
 #include <iostream>
@@ -143,4 +143,4 @@ class ProtoKV {
 
 }  //  namespace gdt
 
-#endif  // CREATIVE_DYNAMIC_CREATIVE_DATABASE_LOCAL_DB_OPERATOR_H_
+#endif  // CREATIVE_wavelet_DATABASE_LOCAL_DB_OPERATOR_H_

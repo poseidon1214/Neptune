@@ -1,0 +1,14 @@
+
+
+syntax = "proto2";
+
+message EvaluateResult {
+  // 字段名
+  optional double mic = 1;
+  optional double mas = 2;
+  optional double mev = 3;
+  // MCN (eps=0)
+  optional double mcn = 4;
+  // MCN (eps=1-MIC)
+  optional double mcn_general = 5;
+}

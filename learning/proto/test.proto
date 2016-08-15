@@ -1,0 +1,59 @@
+syntax = "proto2";
+
+
+message Exposure {
+  // 广告主ID
+  optional uint64 advertiser_id = 3;
+  // 素材规格
+  optional uint64 crtsize = 4;
+  // 曝光ID
+  optional string id = 6;
+  // 点击次数
+  optional uint32 click = 7;
+  // CPC计费
+  optional double cpc_real_cost = 8;
+  // 广告ID
+  optional uint32 ad_id = 9;
+  // 曝光时间
+  optional uint32 ping_time = 10;
+  // 预估点击率
+  optional double pctr = 11;
+  // 质量得分
+  optional double quality = 12;
+  // 广告位ID
+  optional uint32 pos_id = 13;
+  // 模板ID
+  optional uint32 template_id = 14;
+  // 日期
+  optional uint32 hour = 15;
+  // 物料数
+  optional uint32 material_num = 16;
+  // 物料触发的时间
+  optional uint32 past_time = 17;
+  // 出价
+  optional uint32 bid = 18;
+  // 修正pctr
+  optional double fix_pctr = 19;
+  // 站点
+  optional uint32 siteset = 20;
+}
+
+message Commodity
+{
+  // -----------------------------------与数据库对应的字段-----------------------------------
+  // 广告主ID  数据库:FUId
+  required uint64 advertiser_id = 1;
+  // 商品ID  数据库:FCommodityId
+  required uint64 commodity_id = 2;
+  // 商品名称  数据库:FCommodityName
+  required string commodity_name = 3;
+  // 商品页面url  数据库:FLandingPage
+  required string url = 4;
+  // 商品品牌 数据库:FBrand
+  optional string commodity_brand = 5;
+  // 商品描述 数据库:FDescription
+  optional string commodity_description = 6;
+  // 商品现价 数据库:FPrice (类型不一致)
+  optional double price = 7;
+  required uint64 source_id = 8;
+}

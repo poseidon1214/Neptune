@@ -1,0 +1,14 @@
+syntax = "proto2";
+message RetrievalRequest {
+  //
+  optional int64 error_code = 4;
+}
+
+message RetrievalResponse {
+  //
+  optional int64 error_code = 4;
+}
+
+service RetrievalService {
+  rpc Process (RetrievalRequest) returns (RetrievalResponse) {}
+}

@@ -14,7 +14,6 @@
 #include "app/qzap/common/base/string_utility.h"
 #include "common/base/string/string_number.h"
 #include "common/encoding/percent.h"
-#include "common/encoding/pb_to_map.h"
 #include "thirdparty/jsoncpp/reader.h"
 #include "thirdparty/jsoncpp/value.h"
 #include "thirdparty/jsoncpp/writer.h"
@@ -86,15 +85,15 @@ bool MysqlHandler::FetchRows(MYSQL* db, std::vector< std::map<std::string, std::
     }
     MYSQL_ROW row;
     while ((row = mysql_fetch_row(result))) {
-    std::map<std::string, std::string> map;
-    for (int i = 0; i < num_cols; i++) {
-      if(!row[i]) {
-      map.insert(std::make_pair(col_nums[i], "null"));
-      } else {
-      map.insert(std::make_pair(col_nums[i], row[i]));
+      std::map<std::string, std::string> map;
+      for (int i = 0; i < num_cols; i++) {
+        if(!row[i]) {
+          map.insert(std::make_pair(col_nums[i], "null"));
+        } else {
+          map.insert(std::make_pair(col_nums[i], row[i]));
+        }
       }
-    }
-    rows->push_back(map);
+      rows->push_back(map);
     }
     mysql_free_result(result);
   } else {
@@ -124,12 +123,12 @@ std::string MysqlHandler::GenerateUpdateSql(const std::string& table,
   bool first = true;
   for (std::map<std::string, std::string>::const_iterator iter = parameters.begin(); 
     iter != parameters.end(); iter++) {
-  if (!first) {
-    sql +=  ",";
-  } else {
-    first = false;
-  }
-  sql += iter->first;
+    if (!first) {
+      sql +=  ",";
+    } else {
+      first = false;
+    }
+    sql += iter->first;
   }
   sql += ") VALUES (";
   first = true;

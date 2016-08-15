@@ -37,35 +37,37 @@
 #include <grpc++/grpc++.h>
 #include "thirdparty/glog/logging.h" 
 #include "thirdparty/gflags/gflags.h" 
-#include "business/rtb5/api/rtb5_service.pb.h"
-#include "business/rtb5/api/rtb5_service.grpc.pb.h"
+#include "retrieval/proto/retrieval_service.pb.h"
+#include "retrieval/proto/retrieval_service.grpc.pb.h"
+#include "retrieval/fuzzy/wavelet/similarity_retrievaler.h"
 
+using namespace gdt;
 using grpc::Server;
 using grpc::ServerBuilder;
 using grpc::ServerContext;
 using grpc::Status;
 
 // Logic and data behind the server's behavior.
-class AdminServiceImpl final: public ::AdminService::Service {
+class RetrievalServiceImpl final: public ::RetrievalService::Service {
  public:
   //
   bool Init() {
-    return true;
+    return retrievaler->Init();
   }
   //
-  Status Process(ServerContext* context, const AdminRequest* request,
-                 AdminResponse* response) {
-
+  Status Process(ServerContext* context, const RetrievalRequest* request,
+                 RetrievalResponse* response) {
     return Status::CANCELLED;
   }
 
  private:
+  Retrievaler* retrievaler;
 
 };
 
 bool RunServer() {
   std::string server_address("0.0.0.0:50053");
-  AdminServiceImpl service;
+  RetrievalServiceImpl service;
   if (!service.Init()) {
     LOG(ERROR) << "Init Failed";
     return false;
