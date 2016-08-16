@@ -1,0 +1,45 @@
+syntax = "proto2";
+
+message FeatureConfig {
+  message DataTransformConfig {
+    // 交叉特征
+    message CrossFeatureConfig {
+      repeated string feature_name = 1;
+    }
+    // 取数据
+    message GetValueConfig {
+      repeated string filed_name = 1;
+      optional string miss_value = 2;
+    }
+    // 归一化
+    message NormalizationConfig {
+      enum NormalizationType {
+        HASH = 0;
+        ZSCORE = 1;
+      };
+      optional NormalizationType normalization_type = 1;
+    }
+    // 离散化
+    message DiscretizationConfig {
+      enum DiscretizationType {
+        Equidistance = 0;
+      };
+      optional DiscretizationType discretization_type = 1;
+    }
+    oneof process_config {
+      CrossFeatureConfig cross_feature_config = 1;
+      GetValueConfig get_value_config = 2;
+      NormalizationConfig normalization_config = 3;
+      DiscretizationConfig discretization_config = 4;
+    }
+  };
+
+  optional uint32 feature_name = 1;
+  optional uint32 group_id = 2;
+  repeated DataTransformConfig transform_config = 3; 
+  optional bool use_for_evalute = 6 [default = true];
+}
+
+message ExtractorConfig {
+  repeated FeatureConfig feature_config = 1;
+}
